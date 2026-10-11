@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fortnite Battle</title>
+<style>
+:root{--bg:#0a1020;--panel:#131d33;--panel2:#1a2945;--blue:#36c5ff;--purple:#a66bff;--text:#f3f7ff;--muted:#9db0d0;--gold:#ffd45c}
+*{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at top,#1c3158 0,#0a1020 48%,#070b15 100%);font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:var(--text)}
+button{font:inherit;cursor:pointer;border:0;color:white;font-weight:800;border-radius:12px;padding:12px 16px;background:linear-gradient(100deg,#287cff,#8b5cf6);box-shadow:0 7px 22px #0005}
+button:active{transform:scale(.98)} .app{max-width:560px;min-height:100vh;margin:auto;padding:18px 14px 96px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
+.logo{font-size:20px;font-weight:1000;letter-spacing:.6px}.logo span{color:var(--blue)}
+.balance{background:#18243a;border:1px solid #344667;padding:9px 12px;border-radius:12px;font-weight:900;color:var(--gold);white-space:nowrap}
+.hero{position:relative;overflow:hidden;border:1px solid #4962a0;border-radius:22px;padding:22px;background:linear-gradient(135deg,#164b83,#513c91 55%,#1a2448);box-shadow:0 16px 40px #0005}
+.hero:after{content:"";position:absolute;width:210px;height:210px;right:-50px;top:-50px;border-radius:50%;background:#8be9ff22;border:2px solid #c8f6ff22}
+.eyebrow{font-size:11px;font-weight:900;letter-spacing:2px;color:#c5eaff}.hero h1{font-size:32px;line-height:1.02;margin:10px 0}.hero p{color:#d7e6ff;max-width:290px;margin:0 0 18px;font-size:14px}.hero button{background:linear-gradient(100deg,#ffd84d,#ff8b39);color:#21132a}
+.sectionhead{display:flex;align-items:center;justify-content:space-between;margin:24px 2px 12px}.sectionhead h2{font-size:18px;margin:0}.sub{color:var(--muted);font-size:12px}
+.case{background:linear-gradient(150deg,#24385e,#121b30);border:1px solid #354a72;border-radius:18px;padding:15px;display:grid;grid-template-columns:100px 1fr;gap:14px;align-items:center}
+.case-art{height:112px;border-radius:14px;display:grid;place-items:center;font-size:50px;background:radial-gradient(circle,#ffdf8a55,#8c5cff55 55%,#10182b);border:1px solid #8b91e8}
+.case h3{margin:0 0 6px;font-size:17px}.case p{font-size:12px;color:var(--muted);margin:0 0 12px}.case .price{color:var(--gold);font-weight:900;font-size:13px;margin-bottom:10px}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.tile{background:#121d31;border:1px solid #283b5c;border-radius:16px;padding:14px;min-height:105px}.tile .emoji{font-size:28px}.tile h3{font-size:14px;margin:8px 0 3px}.tile p{font-size:11px;color:var(--muted);margin:0}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(560px,100%);display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:9px 10px calc(9px + env(safe-area-inset-bottom));background:#0a1020ee;border-top:1px solid #263958;backdrop-filter:blur(12px);z-index:4}
+.nav button{padding:9px 3px;background:transparent;box-shadow:none;color:var(--muted);font-size:11px;border-radius:10px}.nav button.active{background:#24395b;color:white}.nav .ico{display:block;font-size:19px;margin-bottom:3px}
+.screen{display:none}.screen.active{display:block}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.skin{padding:12px;border-radius:16px;border:1px solid #334768;background:linear-gradient(160deg,#22395e,#111a2b);text-align:center}.skin .avatar{height:100px;border-radius:12px;background:radial-gradient(circle,#4ac8ff44,#8c5cff22 65%,#0c1321);display:grid;place-items:center;font-size:43px}.skin h3{font-size:14px;margin:10px 0 4px}.rarity{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#c4a0ff}.empty{padding:28px 16px;text-align:center;border:1px dashed #3b4c6b;border-radius:16px;color:var(--muted);grid-column:1/-1}
+.result{margin-top:14px;padding:14px;border-radius:14px;background:#0b1425;border:1px solid #3b5680;text-align:center}.result strong{color:var(--gold)}.hidden{display:none!important}
+.smallbtn{padding:9px 12px;font-size:12px}.notice{margin-top:14px;font-size:11px;color:var(--muted);line-height:1.5}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top"><div class="logo">FORTNITE <span>BATTLE</span></div><div class="balance">🪙 <b id="coins">1000</b></div></div>
+  <section id="home" class="screen active">
+    <div class="hero"><div class="eyebrow">SEASON 01 · MINI APP</div><h1>Твоя битва<br>починається</h1><p>Відкривай кейси, збирай скіни та створюй власну колекцію.</p><button onclick="openCase()">🎁 Відкрити кейс</button></div>
+    <div class="sectionhead"><h2>Популярний кейс</h2><span class="sub">Шанс на рідкісний скін</span></div>
+    <div class="case"><div class="case-art">🎁</div><div><h3>Battle Case</h3><p>Випадковий скін у кожному кейсі.</p><div class="price">🪙 250 монет</div><button class="smallbtn" onclick="openCase()">Відкрити</button></div></div>
+    <div id="caseResult" class="result hidden"></div>
+    <div class="sectionhead"><h2>Твій прогрес</h2><span class="sub">Локальний деморежим</span></div>
+    <div class="tiles"><div class="tile"><div class="emoji">🧍</div><h3 id="skinCount">0 скінів</h3><p>У твоїй колекції</p></div><div class="tile"><div class="emoji">⚔️</div><h3>Битви</h3><p>Незабаром</p></div></div>
+  </section>
+  <section id="inventory" class="screen"><div class="sectionhead"><h2>Моя колекція</h2><span class="sub" id="inventoryCount">0 скінів</span></div><div id="skins" class="cards"><div class="empty">Тут з'являться твої скіни після відкриття кейсів 🎁</div></div></section>
+  <section id="shop" class="screen"><div class="sectionhead"><h2>Магазин</h2><span class="sub">Демо</span></div><div class="tiles"><div class="tile"><div class="emoji">🎁</div><h3>Battle Case</h3><p>250 монет</p><button class="smallbtn" onclick="openCase()">Купити</button></div><div class="tile"><div class="emoji">🪙</div><h3>Щоденний бонус</h3><p>Отримай монети</p><button class="smallbtn" onclick="daily()">Забрати +100</button></div></div><p class="notice">Це прототип: покупки та монети поки зберігаються тільки в цій відкритій сторінці. Далі підключимо їх до Telegram-бота й бази даних.</p></section>
+  <section id="tasks" class="screen"><div class="sectionhead"><h2>Завдання</h2><span class="sub">Щодня</span></div><div class="tile"><div class="emoji">🎁</div><h3>Зайди в гру</h3><p>Забери нагороду за вхід.</p><button onclick="daily()">Забрати 100 монет</button></div><div class="tile" style="margin-top:10px"><div class="emoji">📦</div><h3>Відкрий перший кейс</h3><p id="taskCase">Нагорода: +50 монет</p><button onclick="taskReward()">Забрати нагороду</button></div></section>
+  <nav class="nav"><button class="active" data-screen="home" onclick="showScreen('home',this)"><span class="ico">🏠</span>Головна</button><button data-screen="inventory" onclick="showScreen('inventory',this)"><span class="ico">🧍</span>Скіни</button><button data-screen="shop" onclick="showScreen('shop',this)"><span class="ico">🛒</span>Магазин</button><button data-screen="tasks" onclick="showScreen('tasks',this)"><span class="ico">🎯</span>Завдання</button></nav>
+</div>
+<script>
+let coins=1000, skins=[], opened=0, dailyTaken=false, taskTaken=false;
+const pool=[["Рейдер","🪖","Рідкісний"],["Крижаний боєць","❄️","Епічний"],["Неоновий ніндзя","🥷","Епічний"],["Космічний герой","🚀","Легендарний"],["Бойовий банан","🍌","Рідкісний"],["Тіньовий мисливець","🌑","Легендарний"]];
+function update(){document.getElementById('coins').textContent=coins;document.getElementById('skinCount').textContent=skins.length+' скінів';document.getElementById('inventoryCount').textContent=skins.length+' скінів';const box=document.getElementById('skins');box.innerHTML='';if(!skins.length){box.innerHTML='<div class="empty">Тут з\\'являться твої скіни після відкриття кейсів 🎁</div>';return;}skins.forEach(s=>{const el=document.createElement('div');el.className='skin';el.innerHTML='<div class="avatar">'+s[1]+'</div><h3>'+s[0]+'</h3><div class="rarity">'+s[2]+'</div>';box.appendChild(el);});}
+function openCase(){if(coins<250){alert('Не вистачає монет! Забери щоденний бонус у магазині.');return;}coins-=250;opened++;const s=pool[Math.floor(Math.random()*pool.length)];skins.push(s);const r=document.getElementById('caseResult');r.classList.remove('hidden');r.innerHTML='🎉 У кейсі випав скін<br><strong>'+s[1]+' '+s[0]+'</strong><br><span class="sub">'+s[2]+'</span>';document.getElementById('taskCase').textContent=opened>0?'Завдання виконано! Нагорода: +50 монет':'Нагорода: +50 монет';update();}
+function daily(){if(dailyTaken){alert('Щоденний бонус уже забрано!');return;}dailyTaken=true;coins+=100;update();alert('Отримано 100 монет!');}
+function taskReward(){if(!opened){alert('Спочатку відкрий хоча б один кейс.');return;}if(taskTaken){alert('Нагороду вже забрано!');return;}taskTaken=true;coins+=50;update();alert('Отримано 50 монет!');}
+function showScreen(id,btn){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+if(window.Telegram&&window.Telegram.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();}
+update();
+</script>
+</body>
+</html>
