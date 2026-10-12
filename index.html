@@ -1,154 +1,427 @@
-
 <!DOCTYPE html>
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>Fortnite Battle</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
+:root{--bg:#0b1020;--panel:#151e35;--blue:#28c7fa;--purple:#7957ff;--text:#f5f7ff}
 *{box-sizing:border-box}
-body{margin:0;background:#101323;color:white;font-family:Arial,sans-serif;text-align:center}
-header{background:#202747;padding:20px;font-size:25px;font-weight:bold;color:#68e1fd}
-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:12px}
-button{background:#5665ff;color:white;border:0;padding:12px 16px;border-radius:10px;font-weight:bold;margin:4px}
-button:active{transform:scale(.96)}
-section{display:none;padding:15px}
-section.active{display:block}
-.panel{background:#1d2340;border:1px solid #363e68;border-radius:15px;padding:18px;margin:12px auto;max-width:500px}
-.skin{display:inline-block;background:#292f50;padding:15px;margin:5px;border-radius:12px;min-width:105px}
-.big{font-size:65px}
-input{width:85%;margin:12px}
-#result{font-size:20px;font-weight:bold;margin:15px}
-#wheel{width:260px;max-width:85vw;height:260px;border-radius:50%;border:8px solid #68e1fd;margin:20px auto;background:conic-gradient(#ff4568 0 25%,#9b5cff 25% 50%,#ffc83d 50% 75%,#3bdfad 75%);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:bold;transition:transform 3s cubic-bezier(.15,.7,.15,1)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+button{border:0;border-radius:10px;padding:12px 15px;background:linear-gradient(110deg,#3579ff,#854dff);color:white;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.4}
+header{height:65px;background:#101a31;display:flex;align-items:center;gap:12px;padding:0 14px;position:sticky;top:0;z-index:5;border-bottom:1px solid #263655}
+.menuBtn{font-size:25px;background:transparent;padding:5px}
+.logo{font-size:18px;font-weight:900;color:var(--blue)}
+.balance{margin-left:auto;background:#202c48;border-radius:20px;padding:9px 12px;font-size:13px}
+#sidebar{position:fixed;top:0;bottom:0;left:0;width:270px;max-width:85vw;background:#111a30;z-index:20;padding:18px;transform:translateX(-110%);transition:.25s;box-shadow:8px 0 35px #0008}
+#sidebar.open{transform:translateX(0)}
+.sideTop{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.sideItem{display:block;width:100%;text-align:left;background:#1b2945;margin:7px 0;font-size:15px}
+#shade{display:none;position:fixed;inset:0;background:#0009;z-index:19}
+#shade.show{display:block}
+main{max-width:800px;margin:auto;padding:14px}
+.page{display:none}
+.page.active{display:block}
+.panel{background:linear-gradient(145deg,#182641,#12192d);border:1px solid #2b3c5d;border-radius:17px;padding:17px;margin:12px 0}
+h2{font-size:21px;margin:8px 0 14px}
+h3{margin:8px 0}
+.muted{color:#a7b6d2;font-size:13px;line-height:1.5}
+.hero{background:radial-gradient(ellipse at top right,#3a347c,#172747 55%,#11182a);text-align:left;padding:22px}
+.hero h1{font-size:28px;margin:8px 0}
+.hero p{color:#d4dcf1}
+.profileRow{display:flex;gap:12px;align-items:center}
+.avatar{width:54px;height:54px;display:grid;place-items:center;border-radius:50%;background:#34496f;font-size:28px}
+.caseGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.caseCard{background:#192641;border:1px solid #334666;border-radius:15px;padding:12px;min-width:0;text-align:center}
+.caseArt{height:115px;border-radius:12px;display:grid;place-items:center;font-size:62px;margin-bottom:10px;background:linear-gradient(140deg,#283d68,#28224e)}
+.caseCard p{font-size:12px;color:#bdcbe2;min-height:28px}
+.caseCard button{width:100%;padding:10px 5px}
+.price{color:#ffe17c;font-weight:bold}
+#rouletteBox{overflow:hidden;position:relative;margin:16px 0;border-radius:12px;border:2px solid #4e72a8;background:#0b1325}
+#pointer{position:absolute;top:0;bottom:0;left:50%;width:3px;background:#fff;z-index:2;box-shadow:0 0 10px #fff}
+#roulette{display:flex;gap:7px;padding:12px;width:max-content;transform:translateX(0)}
+.rouletteItem{width:105px;flex-shrink:0;border-radius:10px;background:#243653;padding:8px 4px;text-align:center;border:1px solid #50658a}
+.rouletteItem .person{font-size:37px}
+.rouletteItem small{display:block;font-size:11px;margin-top:6px}
+#rouletteResult{text-align:center;font-size:18px;font-weight:bold;min-height:26px;margin:12px}
+.field{width:100%;background:#0c1426;color:white;border:1px solid #384c70;padding:12px;border-radius:10px;margin:7px 0 13px}
+input[type=range]{width:100%}
+.skinGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.skinCard{background:#1b2944;border-radius:12px;padding:12px;border:1px solid #35496b}
+.skinIcon{font-size:40px}
+.skinCard small{display:block;color:#b8c6df;margin-top:6px}
+.notice{background:#263452;border-radius:10px;padding:12px;color:#dbe7ff;font-size:13px}
+.tag{display:inline-block;border-radius:6px;padding:4px 7px;background:#344568;font-size:11px;margin:3px}
+footer{text-align:center;color:#7183a6;font-size:11px;padding:20px}
+@media(min-width:600px){.caseGrid{grid-template-columns:repeat(3,minmax(0,1fr))}.skinGrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 </style>
 </head>
 <body>
-<header>🎮 FORTNITE BATTLE</header>
-<div class="panel">🪙 Монети: <span id="coins">1000</span></div>
-<nav>
-<button onclick="tab('home')">🏠 Головна</button>
-<button onclick="tab('case')">🎁 Кейс</button>
-<button onclick="tab('upgrade')">🎯 Апгрейд</button>
-<button onclick="tab('inventory')">🎒 Інвентар</button>
-</nav>
 
-<section id="home" class="active">
-<div class="panel">
-<h2>Вітаємо у Fortnite Battle!</h2>
-<p>Відкривай кейси, збирай скіни та пробуй їх покращувати.</p>
-<div class="big">🎮</div>
-<p>Щоденний подарунок доступний раз на 24 години.</p>
+<header>
+<button class="menuBtn" onclick="menuToggle()" aria-label="Меню">☰</button>
+<div class="logo">FORTNITE BATTLE</div>
+<div class="balance">🪙 <span id="coins">0</span></div>
+</header>
+
+<div id="shade" onclick="menuToggle()"></div>
+<aside id="sidebar">
+<div class="sideTop"><b class="logo">⚡ BATTLE MENU</b><button onclick="menuToggle()">✕</button></div>
+<div class="profileRow panel">
+<div class="avatar" id="sideAvatar">👤</div>
+<div><b id="sideName">Гість</b><div class="muted">Гравець Fortnite</div></div>
 </div>
-</section>
+<button class="sideItem" onclick="go('home')">🏠 Головна</button>
+<button class="sideItem" onclick="go('cases')">🎁 Усі кейси</button>
+<button class="sideItem" onclick="go('upgrade')">🎯 Апгрейдер</button>
+<button class="sideItem" onclick="go('inventory')">🎒 Інвентар</button>
+<button class="sideItem" onclick="go('profile')">👤 Профіль</button>
+<div class="muted" style="margin-top:20px">Fortnite Battle • демоверсія</div>
+</aside>
 
-<section id="case">
+<main>
+<section id="home" class="page active">
+<div class="panel hero">
+<span class="tag">SEASON BATTLE</span>
+<h1>Твоя битва починається!</h1>
+<p>Відкривай кейси, збирай персонажів і спробуй отримати рідкісні скіни.</p>
+<button onclick="go('cases')">ВИБРАТИ КЕЙС →</button>
+</div>
+
+<div class="panel">
+<div class="profileRow">
+<div class="avatar" id="homeAvatar">👤</div>
+<div><div class="muted">Твій профіль</div><b id="homeName">Гість</b><div class="muted" id="telegramStatus">Telegram не підключено</div></div>
+<button style="margin-left:auto" onclick="go('profile')">Профіль</button>
+</div>
+</div>
+
 <div class="panel">
 <h2>🎁 Щоденний кейс</h2>
-<div class="big">📦</div>
-<p id="timer">Кейс готовий!</p>
-<button onclick="openCase()">ВІДКРИТИ КЕЙС</button>
-<div id="caseResult"></div>
+<div class="caseArt">🎁</div>
+<p>Безкоштовна нагорода раз на 24 години. Крути рулетку та дивись, що випаде!</p>
+<div class="notice">🪙 Найчастіші нагороди: 2 або 3 монети. Іноді випадають інші нагороди.</div>
+<p id="dailyTimer" class="muted">Кейс готовий!</p>
+<button id="dailyButton" onclick="openCase('daily')" style="width:100%">КРУТИТИ ЩОДЕННИЙ КЕЙС</button>
+</div>
+
+<div class="panel">
+<h2>🔥 Популярні кейси</h2>
+<div class="caseGrid" id="homeCases"></div>
+<button onclick="go('cases')" style="width:100%;margin-top:12px">УСІ КЕЙСИ</button>
 </div>
 </section>
 
-<section id="upgrade">
+<section id="cases" class="page">
 <div class="panel">
-<h2>🎯 Апгрейд скіна</h2>
-<p>Вибери скін, який ризикуєш втратити:</p>
-<select id="stake"></select>
-<p>Вибери бажаний скін:</p>
-<select id="target">
-<option value="🌌 Galaxy">🌌 Galaxy</option>
-<option value="🦸 Супергерой">🦸 Супергерой</option>
-<option value="🐺 Вовк">🐺 Вовк</option>
-<option value="🔥 Вогняний">🔥 Вогняний</option>
-<option value="👑 Король">👑 Король</option>
-</select>
-<p>Шанс успіху: <span id="chanceText">50</span>%</p>
-<input id="chance" type="range" min="0.01" max="100" step="0.01" value="50" oninput="chanceText.textContent=this.value">
-<div id="wheel">FORTNITE</div>
-<button onclick="upgrade()">КРУТИТИ КОЛЕСО</button>
-<div id="result"></div>
+<h2>🎁 Магазин кейсів</h2>
+<p class="muted">Вибери кейс. У кожного свій набір персонажів і вартість.</p>
+<div class="notice">Твій баланс починається з 0 монет. Спочатку забери щоденну нагороду.</div>
+</div>
+<div class="caseGrid" id="allCases"></div>
+</section>
+
+<section id="spin" class="page">
+<div class="panel">
+<button onclick="go('cases')">← Назад до кейсів</button>
+<h2 id="spinTitle">Відкриття кейса</h2>
+<div id="spinArt" class="caseArt">🎁</div>
+<p id="spinInfo" class="muted"></p>
+<div id="rouletteBox"><div id="pointer"></div><div id="roulette"></div></div>
+<div id="rouletteResult">Готовий до відкриття!</div>
+<button id="spinButton" onclick="spinSelected()" style="width:100%">КРУТИТИ РУЛЕТКУ</button>
 </div>
 </section>
 
-<section id="inventory">
+<section id="upgrade" class="page">
 <div class="panel">
-<h2>🎒 Мої скіни</h2>
-<div id="skins"></div>
+<h2>🎯 Апгрейдер скінів</h2>
+<p class="muted">Вибери свій скін, ціль і шанс. У разі невдачі ставка втрачається.</p>
+<label>Скін для ставки</label>
+<select class="field" id="stake"></select>
+<label>Скін, який хочеш отримати</label>
+<select class="field" id="target"></select>
+<label>Шанс успіху: <b id="chanceLabel">50%</b></label>
+<input id="chance" type="range" min="0.01" max="75" step="0.01" value="50">
+<div class="notice">Максимальний шанс у цьому апгрейдері: 75%.</div>
+<div id="upgradeWheel" class="caseArt" style="border-radius:50%;width:180px;height:180px;margin:20px auto;font-size:24px;border:5px solid #657dff">🎯</div>
+<button id="upgradeButton" onclick="upgradeSkin()" style="width:100%">АПГРЕЙД</button>
+<div id="upgradeResult"></div>
 </div>
 </section>
+
+<section id="inventory" class="page">
+<div class="panel"><h2>🎒 Мій інвентар</h2><p class="muted">Усі отримані персонажі та їхня вартість.</p><div id="inventoryList" class="skinGrid"></div></div>
+</section>
+
+<section id="profile" class="page">
+<div class="panel">
+<h2>👤 Профіль гравця</h2>
+<div class="profileRow">
+<div class="avatar" id="profileAvatar">👤</div>
+<div><b id="profileName">Гість</b><div class="muted" id="profileHandle">Telegram не підключено</div></div>
+</div>
+<hr style="border-color:#33415d;margin:18px 0">
+<p>🪙 Баланс: <b id="profileCoins">0</b> монет</p>
+<p>🎒 Скінів: <b id="skinCount">0</b></p>
+<div class="notice" id="profileNotice">Відкрий цю гру через Telegram-бота, щоб отримати дані профілю Telegram.</div>
+</div>
+</section>
+<footer>Fan-made demo. Неофіційний проєкт, не пов'язаний з Epic Games.</footer>
+</main>
 
 <script>
-let coins=1000;
-let inventory=['🥷 Ніндзя','🦸 Супергерой'];
-let lastCase=Number(localStorage.getItem('lastCase')||0);
+const tg=window.Telegram&&window.Telegram.WebApp;
+if(tg){tg.ready();tg.expand();}
+
+const skins=[
+{name:'Ренегат',icon:'🏴‍☠️',value:1,rarity:'Звичайний'},
+{name:'Банан',icon:'🍌',value:2,rarity:'Звичайний'},
+{name:'Рейнджер',icon:'🪖',value:3,rarity:'Звичайний'},
+{name:'Ніндзя',icon:'🥷',value:5,rarity:'Рідкісний'},
+{name:'Вовк',icon:'🐺',value:8,rarity:'Рідкісний'},
+{name:'Супергерой',icon:'🦸',value:12,rarity:'Рідкісний'},
+{name:'Крижаний',icon:'🧊',value:20,rarity:'Епічний'},
+{name:'Вогняний',icon:'🔥',value:35,rarity:'Епічний'},
+{name:'Темний лицар',icon:'🦇',value:50,rarity:'Епічний'},
+{name:'Король',icon:'👑',value:80,rarity:'Легендарний'},
+{name:'Галактика',icon:'🌌',value:150,rarity:'Легендарний'},
+{name:'Золотий воїн',icon:'⚜️',value:250,rarity:'Легендарний'}
+];
+
+const cases=[
+{id:'daily',name:'Щоденний кейс',icon:'🎁',price:0,desc:'Безкоштовно раз на 24 години',items:[0,1,2,3]},
+{id:'starter',name:'Стартовий',icon:'📦',price:5,desc:'Прості персонажі',items:[0,1,2,3,4]},
+{id:'battle',name:'Battle Royale',icon:'🪂',price:12,desc:'Воїни острова',items:[1,2,3,4,5]},
+{id:'ice',name:'Крижаний',icon:'❄️',price:25,desc:'Холодні та рідкісні скіни',items:[3,4,5,6,7]},
+{id:'fire',name:'Вогняний',icon:'🔥',price:45,desc:'Гарячі персонажі',items:[4,5,6,7,8]},
+{id:'shadow',name:'Тінь',icon:'🌑',price:70,desc:'Темні персонажі',items:[5,6,8,9]},
+{id:'epic',name:'Епічний',icon:'💜',price:100,desc:'Епічні нагороди',items:[6,7,8,9,10]},
+{id:'gold',name:'Золотий',icon:'👑',price:180,desc:'Золоті нагороди',items:[7,8,9,10,11]},
+{id:'galaxy',name:'Галактика',icon:'🌌',price:300,desc:'Космічні скіни',items:[8,9,10,11]},
+{id:'legend',name:'Легендарний',icon:'💎',price:500,desc:'Найцінніші персонажі',items:[9,10,11]}
+];
+
+let coins=0;
+let inventory=[];
+let lastDaily=Number(localStorage.getItem('fb_daily')||0);
+let selectedCase='daily';
 let busy=false;
-const allSkins=['🥷 Ніндзя','🦸 Супергерой','🐺 Вовк','🔥 Вогняний','👑 Король','🌌 Galaxy'];
-function tab(id){
-document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-render();
+let user=null;
+
+try{
+let saved=JSON.parse(localStorage.getItem('fb_game')||'null');
+if(saved){coins=Number(saved.coins)||0;inventory=Array.isArray(saved.inventory)?saved.inventory:[];}
+}catch(e){}
+
+if(tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user){
+user=tg.initDataUnsafe.user;
 }
-function render(){
+
+function save(){
+localStorage.setItem('fb_game',JSON.stringify({coins,inventory}));
 document.getElementById('coins').textContent=coins;
-document.getElementById('skins').innerHTML=inventory.map(s=>'<div class="skin">'+s+'</div>').join('');
-let sel=document.getElementById('stake');
-let old=sel.value;
-sel.innerHTML=inventory.map((s,i)=>'<option value="'+i+'">'+s+'</option>').join('');
-if(inventory.length===0)sel.innerHTML='<option value="">Немає скінів</option>';
-if(old!==''&&inventory[old])sel.value=old;
+document.getElementById('profileCoins').textContent=coins;
+document.getElementById('skinCount').textContent=inventory.length;
 }
-function openCase(){
-if(Date.now()-lastCase<86400000){
-document.getElementById('caseResult').textContent='⏳ Кейс ще не готовий!';
-return;
+
+function showUser(){
+let name=user?(user.first_name||'Гравець')+(user.last_name?' '+user.last_name:''):'Гість';
+let handle=user&&user.username?'@'+user.username:'Telegram не підключено';
+['sideName','homeName','profileName'].forEach(id=>document.getElementById(id).textContent=name);
+['sideAvatar','homeAvatar','profileAvatar'].forEach(id=>document.getElementById(id).textContent=user?'👤':'🎮');
+document.getElementById('telegramStatus').textContent=user?'Підключено через Telegram':'Відкрий гру всередині Telegram';
+document.getElementById('profileHandle').textContent=handle;
+if(user)document.getElementById('profileNotice').textContent='Telegram-профіль розпізнано в Mini App. Для безпечного збереження прогресу потрібен сервер.';
 }
-let skin=allSkins[Math.floor(Math.random()*allSkins.length)];
-inventory.push(skin);
-lastCase=Date.now();
-localStorage.setItem('lastCase',lastCase);
-document.getElementById('caseResult').textContent='🎉 Ти отримав: '+skin;
-render();updateTimer();
+
+function menuToggle(){
+document.getElementById('sidebar').classList.toggle('open');
+document.getElementById('shade').classList.toggle('show');
 }
-function updateTimer(){
-let left=86400000-(Date.now()-lastCase);
-let el=document.getElementById('timer');
-if(left<=0){el.textContent='Кейс готовий!';return;}
-let h=Math.floor(left/3600000),m=Math.floor(left%3600000/60000),s=Math.floor(left%60000/1000);
-el.textContent='Наступний кейс через '+h+'г '+m+'хв '+s+'с';
+function go(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+document.getElementById('sidebar').classList.remove('open');
+document.getElementById('shade').classList.remove('show');
+renderInventory();
+if(id==='cases')renderCases('allCases');
+if(id==='home')renderCases('homeCases');
+if(id==='upgrade')renderUpgrade();
+window.scrollTo(0,0);
 }
-function upgrade(){
+function renderCases(target){
+let list=target==='homeCases'?cases.slice(1,4):cases;
+document.getElementById(target).innerHTML=list.map(c=>`
+<div class="caseCard">
+<div class="caseArt">${c.icon}</div>
+<h3>${c.name}</h3>
+<p>${c.desc}</p>
+<div class="price">${c.price===0?'БЕЗКОШТОВНО':'🪙 '+c.price+' монет'}</div>
+<button onclick="selectCase('${c.id}')">${c.price===0?'Відкрити':'Вибрати кейс'}</button>
+</div>`).join('');
+}
+function selectCase(id){
+selectedCase=id;
+let c=cases.find(x=>x.id===id);
+if(!c)return;
+document.getElementById('spinTitle').textContent=c.name;
+document.getElementById('spinArt').textContent=c.icon;
+document.getElementById('spinInfo').textContent=c.price===0?'Безкоштовний кейс: монети або скін.':'Вартість: '+c.price+' монет. Нагороди залежать від кейса.';
+document.getElementById('rouletteResult').textContent='Натисни кнопку, щоб запустити рулетку.';
+document.getElementById('roulette').innerHTML='';
+document.getElementById('roulette').style.transition='none';
+document.getElementById('roulette').style.transform='translateX(0)';
+go('spin');
+}
+function makeReward(c){
+if(c.id==='daily'){
+// 2 або 3 монети випадають найчастіше.
+let r=Math.random();
+if(r<0.42)return {type:'coins',amount:2};
+if(r<0.82)return {type:'coins',amount:3};
+if(r<0.92)return {type:'coins',amount:1};
+if(r<0.97)return {type:'coins',amount:5};
+let s=skins[c.items[Math.floor(Math.random()*c.items.length)]];
+return {type:'skin',skin:s};
+}
+let r=Math.random()*100;
+let itemIndex;
+if(r<60)itemIndex=c.items[0];
+else if(r<82)itemIndex=c.items[Math.min(1,c.items.length-1)];
+else if(r<94)itemIndex=c.items[Math.min(2,c.items.length-1)];
+else itemIndex=c.items[c.items.length-1];
+return {type:'skin',skin:skins[itemIndex]};
+}
+function getPossible(c){
+if(c.id==='daily')return [
+{type:'coins',amount:2},{type:'coins',amount:3},
+{type:'coins',amount:1},{type:'coins',amount:5},
+...c.items.map(i=>({type:'skin',skin:skins[i]}))
+];
+return c.items.map(i=>({type:'skin',skin:skins[i]}));
+}
+function rewardText(r){
+return r.type==='coins'?'🪙 '+r.amount+' монети':r.skin.icon+' '+r.skin.name;
+}
+function openCase(id){selectCase(id);}
+function spinSelected(){
 if(busy)return;
-let idx=Number(document.getElementById('stake').value);
-if(!inventory.length||!inventory[idx]){
-document.getElementById('result').textContent='Спочатку отримай скін у кейсі!';
+let c=cases.find(x=>x.id===selectedCase);
+if(!c)return;
+if(c.id==='daily'&&Date.now()-lastDaily<86400000){
+document.getElementById('rouletteResult').textContent='⏳ Щоденний кейс ще не готовий.';
 return;
 }
-let target=document.getElementById('target').value;
-if(inventory[idx]===target){
-document.getElementById('result').textContent='Вибери інший скін!';
+if(coins<c.price){
+document.getElementById('rouletteResult').textContent='❌ Не вистачає монет! Забери щоденний кейс.';
 return;
 }
+if(c.price>0)coins-=c.price;
+if(c.id==='daily'){lastDaily=Date.now();localStorage.setItem('fb_daily',String(lastDaily));}
 busy=true;
-document.getElementById('result').textContent='Колесо крутиться...';
-let wheel=document.getElementById('wheel');
-wheel.style.transform='rotate('+(1440+Math.random()*1440)+'deg)';
+document.getElementById('spinButton').disabled=true;
+document.getElementById('rouletteResult').textContent='🎰 Крутимо рулетку...';
+let roulette=document.getElementById('roulette');
+let possible=getPossible(c);
+let winning=makeReward(c);
+let items=[];
+for(let i=0;i<38;i++)items.push(possible[Math.floor(Math.random()*possible.length)]);
+items[31]=winning;
+roulette.innerHTML=items.map(r=>`<div class="rouletteItem"><div class="person">${r.type==='coins'?'🪙':r.skin.icon}</div><small>${r.type==='coins'?r.amount+' монети':r.skin.name}</small></div>`).join('');
+roulette.style.transition='none';
+roulette.style.transform='translateX(0)';
+requestAnimationFrame(()=>requestAnimationFrame(()=>{
+let box=document.getElementById('rouletteBox');
+let card=roulette.children[31];
+let x=card.offsetLeft+card.offsetWidth/2-box.clientWidth/2;
+roulette.style.transition='transform 5s cubic-bezier(.08,.72,.12,1)';
+roulette.style.transform='translateX(-'+Math.max(0,x)+'px)';
+}));
 setTimeout(()=>{
+if(winning.type==='coins'){
+coins+=winning.amount;
+document.getElementById('rouletteResult').textContent='🎉 ВИПАЛО '+winning.amount+' МОНЕТИ!';
+}else{
+inventory.push(winning.skin.name);
+document.getElementById('rouletteResult').textContent='🎉 ТИ ОТРИМАВ СКІН: '+winning.skin.icon+' '+winning.skin.name+' ('+winning.skin.value+' монет)';
+}
+save();renderInventory();updateDaily();
+busy=false;
+document.getElementById('spinButton').disabled=false;
+},5200);
+}
+function updateDaily(){
+let left=86400000-(Date.now()-lastDaily);
+let btn=document.getElementById('dailyButton');
+let timer=document.getElementById('dailyTimer');
+if(left<=0){
+timer.textContent='Кейс готовий!';
+btn.disabled=false;
+btn.textContent='КРУТИТИ ЩОДЕННИЙ КЕЙС';
+}else{
+let h=Math.floor(left/3600000);
+let m=Math.floor(left%3600000/60000);
+let s=Math.floor(left%60000/1000);
+timer.textContent='Наступний кейс через '+h+'г '+m+'хв '+s+'с';
+btn.disabled=true;
+btn.textContent='КЕЙС УЖЕ ВІДКРИТО';
+}
+}
+function renderInventory(){
+let el=document.getElementById('inventoryList');
+if(!inventory.length){el.innerHTML='<div class="notice">Інвентар порожній. Відкрий щоденний кейс!</div>';return;}
+el.innerHTML=inventory.map((name,i)=>{
+let s=skins.find(x=>x.name===name)||{icon:'🎭',name,value:1,rarity:'Невідомий'};
+return `<div class="skinCard"><div class="skinIcon">${s.icon}</div><b>${s.name}</b><small>${s.rarity}</small><small>Ціна: ${s.value} монет</small></div>`;
+}).join('');
+}
+function renderUpgrade(){
+let a=document.getElementById('stake'),b=document.getElementById('target');
+a.innerHTML=inventory.map((n,i)=>'<option value="'+i+'">'+n+'</option>').join('');
+b.innerHTML=skins.map(s=>'<option value="'+s.name+'">'+s.icon+' '+s.name+' ('+s.value+' монет)</option>').join('');
+document.getElementById('chanceLabel').textContent=document.getElementById('chance').value+'%';
+}
+document.getElementById('chance').addEventListener('input',e=>{
+document.getElementById('chanceLabel').textContent=e.target.value+'%';
+});
+function upgradeSkin(){
+if(busy)return;
+if(!inventory.length){document.getElementById('upgradeResult').textContent='Спочатку отримай скін із кейса!';return;}
+let idx=Number(document.getElementById('stake').value);
+let target=document.getElementById('target').value;
+if(!inventory[idx])return;
+if(inventory[idx]===target){document.getElementById('upgradeResult').textContent='Вибери інший скін.';return;}
 let chance=Number(document.getElementById('chance').value);
+busy=true;
+let wheel=document.getElementById('upgradeWheel');
+wheel.style.transition='transform 3s';
+wheel.style.transform='rotate(1080deg)';
+document.getElementById('upgradeButton').disabled=true;
+document.getElementById('upgradeResult').textContent='Колесо крутиться...';
+setTimeout(()=>{
 if(Math.random()*100<chance){
 inventory[idx]=target;
-document.getElementById('result').textContent='🎉 УСПІХ! Ти отримав '+target;
+document.getElementById('upgradeResult').textContent='🎉 УСПІХ! Тепер у тебе '+target+'!';
 }else{
 inventory.splice(idx,1);
-document.getElementById('result').textContent='❌ Не пощастило! Скін втрачено.';
+document.getElementById('upgradeResult').textContent='❌ Не пощастило. Скін втрачено.';
 }
+save();renderInventory();renderUpgrade();
 wheel.style.transform='rotate(0deg)';
-busy=false;render();
+busy=false;
+document.getElementById('upgradeButton').disabled=false;
 },3100);
 }
-setInterval(updateTimer,1000);
-render();updateTimer();
+showUser();
+renderCases('homeCases');
+renderCases('allCases');
+renderInventory();
+save();
+updateDaily();
+setInterval(updateDaily,1000);
 </script>
 </body>
 </html>
