@@ -1,427 +1,688 @@
+
 <!DOCTYPE html>
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070b16">
 <title>Fortnite Battle</title>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-:root{--bg:#0b1020;--panel:#151e35;--blue:#28c7fa;--purple:#7957ff;--text:#f5f7ff}
+:root {
+  --bg:#070b16;
+  --panel:#0d1426;
+  --panel2:#111c33;
+  --blue:#1677ff;
+  --cyan:#32c9ff;
+  --text:#f4f7ff;
+  --muted:#8290ad;
+  --line:#1d2b47;
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
-button{border:0;border-radius:10px;padding:12px 15px;background:linear-gradient(110deg,#3579ff,#854dff);color:white;font-weight:bold;cursor:pointer}
-button:disabled{opacity:.4}
-header{height:65px;background:#101a31;display:flex;align-items:center;gap:12px;padding:0 14px;position:sticky;top:0;z-index:5;border-bottom:1px solid #263655}
-.menuBtn{font-size:25px;background:transparent;padding:5px}
-.logo{font-size:18px;font-weight:900;color:var(--blue)}
-.balance{margin-left:auto;background:#202c48;border-radius:20px;padding:9px 12px;font-size:13px}
-#sidebar{position:fixed;top:0;bottom:0;left:0;width:270px;max-width:85vw;background:#111a30;z-index:20;padding:18px;transform:translateX(-110%);transition:.25s;box-shadow:8px 0 35px #0008}
-#sidebar.open{transform:translateX(0)}
-.sideTop{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
-.sideItem{display:block;width:100%;text-align:left;background:#1b2945;margin:7px 0;font-size:15px}
-#shade{display:none;position:fixed;inset:0;background:#0009;z-index:19}
-#shade.show{display:block}
-main{max-width:800px;margin:auto;padding:14px}
-.page{display:none}
-.page.active{display:block}
-.panel{background:linear-gradient(145deg,#182641,#12192d);border:1px solid #2b3c5d;border-radius:17px;padding:17px;margin:12px 0}
-h2{font-size:21px;margin:8px 0 14px}
-h3{margin:8px 0}
-.muted{color:#a7b6d2;font-size:13px;line-height:1.5}
-.hero{background:radial-gradient(ellipse at top right,#3a347c,#172747 55%,#11182a);text-align:left;padding:22px}
-.hero h1{font-size:28px;margin:8px 0}
-.hero p{color:#d4dcf1}
-.profileRow{display:flex;gap:12px;align-items:center}
-.avatar{width:54px;height:54px;display:grid;place-items:center;border-radius:50%;background:#34496f;font-size:28px}
-.caseGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.caseCard{background:#192641;border:1px solid #334666;border-radius:15px;padding:12px;min-width:0;text-align:center}
-.caseArt{height:115px;border-radius:12px;display:grid;place-items:center;font-size:62px;margin-bottom:10px;background:linear-gradient(140deg,#283d68,#28224e)}
-.caseCard p{font-size:12px;color:#bdcbe2;min-height:28px}
-.caseCard button{width:100%;padding:10px 5px}
-.price{color:#ffe17c;font-weight:bold}
-#rouletteBox{overflow:hidden;position:relative;margin:16px 0;border-radius:12px;border:2px solid #4e72a8;background:#0b1325}
-#pointer{position:absolute;top:0;bottom:0;left:50%;width:3px;background:#fff;z-index:2;box-shadow:0 0 10px #fff}
-#roulette{display:flex;gap:7px;padding:12px;width:max-content;transform:translateX(0)}
-.rouletteItem{width:105px;flex-shrink:0;border-radius:10px;background:#243653;padding:8px 4px;text-align:center;border:1px solid #50658a}
-.rouletteItem .person{font-size:37px}
-.rouletteItem small{display:block;font-size:11px;margin-top:6px}
-#rouletteResult{text-align:center;font-size:18px;font-weight:bold;min-height:26px;margin:12px}
-.field{width:100%;background:#0c1426;color:white;border:1px solid #384c70;padding:12px;border-radius:10px;margin:7px 0 13px}
-input[type=range]{width:100%}
-.skinGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.skinCard{background:#1b2944;border-radius:12px;padding:12px;border:1px solid #35496b}
-.skinIcon{font-size:40px}
-.skinCard small{display:block;color:#b8c6df;margin-top:6px}
-.notice{background:#263452;border-radius:10px;padding:12px;color:#dbe7ff;font-size:13px}
-.tag{display:inline-block;border-radius:6px;padding:4px 7px;background:#344568;font-size:11px;margin:3px}
-footer{text-align:center;color:#7183a6;font-size:11px;padding:20px}
-@media(min-width:600px){.caseGrid{grid-template-columns:repeat(3,minmax(0,1fr))}.skinGrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+body{
+  margin:0;background:radial-gradient(ellipse at 50% -20%,#102b59 0%,var(--bg) 48%);
+  color:var(--text);font-family:Arial,Helvetica,sans-serif;min-height:100vh
+}
+button,input{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.45;cursor:not-allowed}
+.layout{display:flex;min-height:100vh}
+.sidebar{
+  width:230px;flex-shrink:0;background:#080e1c;border-right:1px solid var(--line);
+  padding:25px 15px;display:flex;flex-direction:column;gap:25px
+}
+.logo{font-size:22px;font-weight:900;letter-spacing:1px;padding:8px}
+.logo span{color:var(--cyan)}
+.nav{display:grid;gap:9px}
+.nav button{
+  text-align:left;border:1px solid transparent;color:#9eacc8;background:transparent;
+  padding:14px;border-radius:12px;font-weight:700
+}
+.nav button.active,.nav button:hover{
+  color:white;background:linear-gradient(100deg,#123a78,#10203b);
+  border-color:#2056a3
+}
+.side-note{margin-top:auto;color:#53627e;font-size:12px;line-height:1.6;padding:8px}
+main{min-width:0;flex:1;padding:25px clamp(14px,3vw,38px);max-width:1600px;margin:0 auto;width:100%}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:25px}
+.topbar small{color:var(--muted)}
+.balance{
+  border:1px solid #244875;background:#0d1d37;border-radius:12px;
+  padding:12px 17px;font-weight:900;white-space:nowrap
+}
+.balance span{color:var(--cyan)}
+.mobile-menu{display:none}
+.page{display:none}.page.active{display:block}
+.hero{
+  position:relative;overflow:hidden;border:1px solid #214477;border-radius:22px;
+  padding:clamp(24px,4vw,48px);background:
+  radial-gradient(ellipse at 80% 40%,#1458a855,transparent 45%),
+  linear-gradient(115deg,#101c36,#080e1c 72%);
+  margin-bottom:25px;min-height:230px
+}
+.hero:after{
+  content:"";position:absolute;width:260px;height:260px;border-radius:50%;
+  border:35px solid #2589ff15;right:5%;top:-65px;box-shadow:0 0 90px #087bff25
+}
+.eyebrow{color:var(--cyan);font-size:12px;letter-spacing:3px;font-weight:900}
+h1{font-size:clamp(30px,4vw,50px);margin:12px 0;line-height:1.08}
+h1 span{color:var(--cyan)}
+p{color:var(--muted);line-height:1.6}
+.hero p{max-width:520px}
+.primary,.secondary{
+  padding:13px 18px;border-radius:10px;font-weight:800;border:1px solid transparent;
+  color:white;background:linear-gradient(100deg,#0879ff,#22b7ff);
+  box-shadow:0 5px 22px #0879ff25
+}
+.secondary{background:#121f36;border-color:#263b5e;box-shadow:none}
+.primary:hover{filter:brightness(1.13)}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:26px 0 15px}
+h2{font-size:21px;margin:0}
+.section-head small{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+.card{
+  min-width:0;overflow:hidden;border-radius:16px;background:linear-gradient(160deg,#121d33,#0b1120);
+  border:1px solid var(--line);transition:transform .2s,border-color .2s
+}
+.card:hover{transform:translateY(-3px);border-color:#2768b4}
+.skin-art{
+  height:175px;position:relative;display:flex;align-items:center;justify-content:center;
+  overflow:hidden;background:radial-gradient(ellipse at 50% 80%,var(--glow,#176dff66),transparent 60%),
+  linear-gradient(145deg,#172944,#080e1a)
+}
+.skin-art img{width:100%;height:100%;object-fit:contain;position:relative;z-index:1;padding:8px}
+.skin-art .fallback{
+  font-size:67px;filter:drop-shadow(0 0 22px var(--glow,#168bff));
+  text-shadow:0 0 30px var(--glow,#168bff)
+}
+.rarity{
+  position:absolute;z-index:2;left:10px;top:10px;font-size:10px;
+  font-weight:900;letter-spacing:1px;padding:6px 8px;border-radius:6px;
+  background:#080d19d9;border:1px solid #ffffff20
+}
+.card-info{padding:14px}
+.card-info h3{font-size:15px;margin:0 0 7px}
+.card-info p{font-size:12px;margin:0 0 12px}
+.card-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.price{font-size:13px;font-weight:900;color:#b9eaff}
+.price:before{content:"◈ ";color:var(--cyan)}
+.card-bottom button{padding:9px 10px;font-size:12px}
+.daily{
+  display:flex;align-items:center;gap:20px;padding:20px;border-radius:16px;
+  border:1px solid #244777;background:linear-gradient(110deg,#10274a,#0c1426);
+  margin-bottom:22px
+}
+.daily-icon{font-size:45px;width:75px;height:75px;display:grid;place-items:center;
+  background:#153663;border-radius:14px}
+.daily-text{flex:1}.daily-text h3{margin:0 0 7px}.daily-text p{margin:0;font-size:13px}
+.two-col{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}
+.panel{background:linear-gradient(160deg,#101a2e,#0a1020);border:1px solid var(--line);border-radius:17px;padding:22px;margin-bottom:18px}
+.panel h2{margin-bottom:18px}
+.wheel-window{overflow:hidden;border:1px solid #23538e;border-radius:13px;background:#080e1b;position:relative}
+.wheel-window:before{content:"";position:absolute;z-index:3;left:50%;top:0;bottom:0;width:3px;background:var(--cyan);box-shadow:0 0 15px var(--cyan)}
+.wheel{display:flex;gap:9px;padding:12px;transform:translateX(0);will-change:transform}
+.wheel-item{flex:0 0 120px;height:145px;background:#121f37;border:1px solid #263c60;border-radius:10px;text-align:center;overflow:hidden}
+.wheel-item .skin-art{height:105px}
+.wheel-item .skin-art .fallback{font-size:38px}
+.wheel-item b{font-size:10px;display:block;padding:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.result{margin:15px 0;padding:14px;border-radius:10px;background:#0b1b30;color:#c5eaff;display:none}
+label{display:block;color:#9cacc9;font-size:13px;margin:16px 0 8px}
+input[type=range]{width:100%;accent-color:var(--cyan)}
+select,input[type=number]{
+  width:100%;background:#080f1e;border:1px solid #273a5c;border-radius:9px;
+  padding:12px;color:white
+}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}
+.stat{padding:15px;border:1px solid var(--line);border-radius:12px;background:#0b1221}
+.stat small{color:var(--muted);display:block;margin-bottom:8px}
+.stat b{font-size:20px}
+.empty{padding:35px 15px;text-align:center;color:var(--muted);border:1px dashed #263956;border-radius:13px}
+.profile-top{display:flex;align-items:center;gap:16px}
+.avatar{width:70px;height:70px;border-radius:18px;background:linear-gradient(140deg,#167cff,#13234c);display:grid;place-items:center;font-size:32px}
+.inventory-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.inventory-grid .skin-art{height:140px}
+.inventory-grid .card-info{padding:11px}
+.inventory-grid .card-info h3{font-size:13px}
+.inventory-grid .card-bottom{align-items:flex-start;flex-direction:column}
+.inventory-grid .card-bottom button{width:100%}
+.toast{
+  position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);
+  background:#132442;border:1px solid #2d6bb1;padding:13px 18px;border-radius:12px;
+  opacity:0;pointer-events:none;transition:.2s;z-index:20;max-width:90%;text-align:center
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.modal-backdrop{display:none;position:fixed;inset:0;background:#02040bdc;z-index:30;align-items:center;justify-content:center;padding:18px}
+.modal-backdrop.show{display:flex}
+.modal{width:min(460px,100%);background:#0c1528;border:1px solid #28528a;border-radius:18px;padding:23px}
+.modal h2{margin-bottom:12px}
+.footer{color:#53627e;font-size:11px;text-align:center;margin:35px 0 10px}
+@media(max-width:1050px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sidebar{width:190px}.two-col{grid-template-columns:1fr}}
+@media(max-width:650px){
+ .layout{display:block}.sidebar{display:none;position:fixed;z-index:15;left:0;top:0;bottom:0;width:250px;box-shadow:20px 0 70px #0009}
+ .sidebar.open{display:flex}.mobile-menu{display:inline-block}
+ main{padding:16px 12px}.topbar{margin-bottom:16px}.hero{padding:25px 20px;min-height:220px}
+ .grid{gap:10px}.skin-art{height:135px}.card-info{padding:10px}.card-info h3{font-size:13px}
+ .card-bottom{align-items:flex-start;flex-direction:column}.card-bottom button{width:100%}
+ .daily{padding:14px;gap:12px}.daily-icon{width:55px;height:55px;font-size:32px}
+ .daily .primary{padding:10px;font-size:12px}.inventory-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .stat{padding:10px}.stat b{font-size:16px}.panel{padding:15px}
+}
 </style>
 </head>
 <body>
-
-<header>
-<button class="menuBtn" onclick="menuToggle()" aria-label="Меню">☰</button>
-<div class="logo">FORTNITE BATTLE</div>
-<div class="balance">🪙 <span id="coins">0</span></div>
-</header>
-
-<div id="shade" onclick="menuToggle()"></div>
-<aside id="sidebar">
-<div class="sideTop"><b class="logo">⚡ BATTLE MENU</b><button onclick="menuToggle()">✕</button></div>
-<div class="profileRow panel">
-<div class="avatar" id="sideAvatar">👤</div>
-<div><b id="sideName">Гість</b><div class="muted">Гравець Fortnite</div></div>
-</div>
-<button class="sideItem" onclick="go('home')">🏠 Головна</button>
-<button class="sideItem" onclick="go('cases')">🎁 Усі кейси</button>
-<button class="sideItem" onclick="go('upgrade')">🎯 Апгрейдер</button>
-<button class="sideItem" onclick="go('inventory')">🎒 Інвентар</button>
-<button class="sideItem" onclick="go('profile')">👤 Профіль</button>
-<div class="muted" style="margin-top:20px">Fortnite Battle • демоверсія</div>
+<div class="layout">
+<aside class="sidebar" id="sidebar">
+  <div class="logo">FORTNITE <span>BATTLE</span></div>
+  <nav class="nav">
+    <button class="active" data-page="home">⌂ &nbsp; Головна</button>
+    <button data-page="cases">▣ &nbsp; Кейси</button>
+    <button data-page="upgrade">↗ &nbsp; Апгрейд</button>
+    <button data-page="inventory">▤ &nbsp; Інвентар</button>
+    <button data-page="profile">◉ &nbsp; Профіль</button>
+  </nav>
+  <div class="side-note">FORTNITE BATTLE<br>Твоя колекція починається тут.</div>
 </aside>
 
 <main>
-<section id="home" class="page active">
-<div class="panel hero">
-<span class="tag">SEASON BATTLE</span>
-<h1>Твоя битва починається!</h1>
-<p>Відкривай кейси, збирай персонажів і спробуй отримати рідкісні скіни.</p>
-<button onclick="go('cases')">ВИБРАТИ КЕЙС →</button>
-</div>
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="secondary mobile-menu" id="menuBtn">☰</button>
+      <div><b>Ігровий центр</b><br><small id="welcome">Твоя наступна перемога починається тут</small></div>
+    </div>
+    <div class="balance">◈ <span id="balance">0</span> монет</div>
+  </header>
 
-<div class="panel">
-<div class="profileRow">
-<div class="avatar" id="homeAvatar">👤</div>
-<div><div class="muted">Твій профіль</div><b id="homeName">Гість</b><div class="muted" id="telegramStatus">Telegram не підключено</div></div>
-<button style="margin-left:auto" onclick="go('profile')">Профіль</button>
-</div>
-</div>
+  <section class="page active" id="page-home">
+    <div class="hero">
+      <div class="eyebrow">YOUR LOADOUT. YOUR LEGACY.</div>
+      <h1>FORTNITE <span>BATTLE</span></h1>
+      <p>Відкривай кейси, збирай колекцію скінів і покращуй свій інвентар. Час перевірити удачу.</p>
+      <button class="primary" data-go="cases">ВІДКРИТИ КЕЙСИ ↗</button>
+    </div>
+    <div class="daily">
+      <div class="daily-icon">🎁</div>
+      <div class="daily-text"><h3>Щоденний кейс</h3><p>Отримуй безкоштовну нагороду раз на 24 години.</p></div>
+      <button class="primary" id="dailyBtn">ЗАБРАТИ</button>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><small>Баланс</small><b id="homeCoins">0 ◈</b></div>
+      <div class="stat"><small>Скінів у колекції</small><b id="homeSkins">0</b></div>
+      <div class="stat"><small>Відкрито кейсів</small><b id="homeCases">0</b></div>
+    </div>
+    <div class="section-head"><h2>Популярні кейси</h2><button class="secondary" data-go="cases">Усі кейси →</button></div>
+    <div class="grid" id="homeCasesGrid"></div>
+  </section>
 
-<div class="panel">
-<h2>🎁 Щоденний кейс</h2>
-<div class="caseArt">🎁</div>
-<p>Безкоштовна нагорода раз на 24 години. Крути рулетку та дивись, що випаде!</p>
-<div class="notice">🪙 Найчастіші нагороди: 2 або 3 монети. Іноді випадають інші нагороди.</div>
-<p id="dailyTimer" class="muted">Кейс готовий!</p>
-<button id="dailyButton" onclick="openCase('daily')" style="width:100%">КРУТИТИ ЩОДЕННИЙ КЕЙС</button>
-</div>
+  <section class="page" id="page-cases">
+    <div class="section-head"><h2>Кейси</h2><small>Обирай свою нагороду</small></div>
+    <div class="grid" id="casesGrid"></div>
+    <div class="panel" id="openingPanel" style="display:none;margin-top:22px">
+      <h2 id="openingTitle">Відкриття кейса</h2>
+      <p>Рулетка вже крутиться. Зараз усе вирішиться.</p>
+      <div class="wheel-window"><div class="wheel" id="wheel"></div></div>
+      <div class="result" id="openResult"></div>
+    </div>
+  </section>
 
-<div class="panel">
-<h2>🔥 Популярні кейси</h2>
-<div class="caseGrid" id="homeCases"></div>
-<button onclick="go('cases')" style="width:100%;margin-top:12px">УСІ КЕЙСИ</button>
-</div>
-</section>
+  <section class="page" id="page-upgrade">
+    <div class="section-head"><h2>Апгрейд скінів</h2><small>Ризикни заради кращого предмета</small></div>
+    <div class="two-col">
+      <div class="panel">
+        <h2>Твоя ставка</h2>
+        <label for="stakeSelect">Скін з інвентаря</label>
+        <select id="stakeSelect"></select>
+        <label for="targetSelect">Скін, який хочеш отримати</label>
+        <select id="targetSelect"></select>
+        <label for="chanceRange">Шанс успіху: <b id="chanceLabel">25%</b></label>
+        <input id="chanceRange" type="range" min="0.01" max="75" step="0.01" value="25">
+        <p style="font-size:12px">Обраний шанс впливає на результат. У разі невдачі ставка втрачається.</p>
+        <button class="primary" id="upgradeBtn" style="width:100%">СПРОБУВАТИ АПГРЕЙД</button>
+        <div class="result" id="upgradeResult"></div>
+      </div>
+      <div class="panel">
+        <h2>Як це працює</h2>
+        <div class="skin-art" style="height:220px;border-radius:12px;margin-bottom:16px;--glow:#158cff">
+          <div class="fallback">⚡</div>
+        </div>
+        <p>1. Обери скін зі свого інвентаря.</p>
+        <p>2. Вибери ціль і шанс успіху.</p>
+        <p>3. Натисни кнопку та дочекайся результату.</p>
+        <p>Кожна спроба може закінчитися втратою ставки. Перевіряй вибір перед запуском.</p>
+      </div>
+    </div>
+  </section>
 
-<section id="cases" class="page">
-<div class="panel">
-<h2>🎁 Магазин кейсів</h2>
-<p class="muted">Вибери кейс. У кожного свій набір персонажів і вартість.</p>
-<div class="notice">Твій баланс починається з 0 монет. Спочатку забери щоденну нагороду.</div>
-</div>
-<div class="caseGrid" id="allCases"></div>
-</section>
+  <section class="page" id="page-inventory">
+    <div class="section-head"><h2>Мій інвентар</h2><small id="inventoryCount">0 предметів</small></div>
+    <div id="inventoryGrid" class="inventory-grid"></div>
+    <div class="panel" style="margin-top:24px">
+      <h2>Заявки на виведення</h2>
+      <p>Обери предмет зі свого інвентаря, щоб створити заявку. Передавання справжніх предметів потребує окремої підтримуваної системи.</p>
+      <div id="withdrawals"></div>
+    </div>
+  </section>
 
-<section id="spin" class="page">
-<div class="panel">
-<button onclick="go('cases')">← Назад до кейсів</button>
-<h2 id="spinTitle">Відкриття кейса</h2>
-<div id="spinArt" class="caseArt">🎁</div>
-<p id="spinInfo" class="muted"></p>
-<div id="rouletteBox"><div id="pointer"></div><div id="roulette"></div></div>
-<div id="rouletteResult">Готовий до відкриття!</div>
-<button id="spinButton" onclick="spinSelected()" style="width:100%">КРУТИТИ РУЛЕТКУ</button>
-</div>
-</section>
+  <section class="page" id="page-profile">
+    <div class="panel">
+      <div class="profile-top">
+        <div class="avatar">⚔</div>
+        <div><h2 id="profileName">Гравець</h2><p id="profileId">Fortnite Battle Player</p></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><small>Монети</small><b id="profileCoins">0</b></div>
+        <div class="stat"><small>Скінів</small><b id="profileSkins">0</b></div>
+        <div class="stat"><small>Кейсів</small><b id="profileCases">0</b></div>
+      </div>
+      <p>Профіль гравця та статистика колекції.</p>
+      <button class="secondary" id="refreshProfile">ОНОВИТИ ПРОФІЛЬ</button>
+    </div>
+    <div class="panel">
+      <h2>Нагороди</h2>
+      <p>Щоденний кейс доступний раз на 24 години.</p>
+      <button class="primary" data-go="home">ДО ГОЛОВНОЇ</button>
+    </div>
+  </section>
 
-<section id="upgrade" class="page">
-<div class="panel">
-<h2>🎯 Апгрейдер скінів</h2>
-<p class="muted">Вибери свій скін, ціль і шанс. У разі невдачі ставка втрачається.</p>
-<label>Скін для ставки</label>
-<select class="field" id="stake"></select>
-<label>Скін, який хочеш отримати</label>
-<select class="field" id="target"></select>
-<label>Шанс успіху: <b id="chanceLabel">50%</b></label>
-<input id="chance" type="range" min="0.01" max="75" step="0.01" value="50">
-<div class="notice">Максимальний шанс у цьому апгрейдері: 75%.</div>
-<div id="upgradeWheel" class="caseArt" style="border-radius:50%;width:180px;height:180px;margin:20px auto;font-size:24px;border:5px solid #657dff">🎯</div>
-<button id="upgradeButton" onclick="upgradeSkin()" style="width:100%">АПГРЕЙД</button>
-<div id="upgradeResult"></div>
-</div>
-</section>
-
-<section id="inventory" class="page">
-<div class="panel"><h2>🎒 Мій інвентар</h2><p class="muted">Усі отримані персонажі та їхня вартість.</p><div id="inventoryList" class="skinGrid"></div></div>
-</section>
-
-<section id="profile" class="page">
-<div class="panel">
-<h2>👤 Профіль гравця</h2>
-<div class="profileRow">
-<div class="avatar" id="profileAvatar">👤</div>
-<div><b id="profileName">Гість</b><div class="muted" id="profileHandle">Telegram не підключено</div></div>
-</div>
-<hr style="border-color:#33415d;margin:18px 0">
-<p>🪙 Баланс: <b id="profileCoins">0</b> монет</p>
-<p>🎒 Скінів: <b id="skinCount">0</b></p>
-<div class="notice" id="profileNotice">Відкрий цю гру через Telegram-бота, щоб отримати дані профілю Telegram.</div>
-</div>
-</section>
-<footer>Fan-made demo. Неофіційний проєкт, не пов'язаний з Epic Games.</footer>
+  <div class="footer">FORTNITE BATTLE · SKINS · CASES · UPGRADES</div>
 </main>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <h2 id="modalTitle">Заявка</h2>
+    <p id="modalText">Підтвердити дію?</p>
+    <label for="withdrawContact">Контакт для заявки</label>
+    <input id="withdrawContact" placeholder="Telegram username">
+    <div style="display:flex;gap:10px;margin-top:18px">
+      <button class="primary" id="confirmWithdraw">Створити заявку</button>
+      <button class="secondary" id="cancelModal">Скасувати</button>
+    </div>
+  </div>
+</div>
 
 <script>
-const tg=window.Telegram&&window.Telegram.WebApp;
-if(tg){tg.ready();tg.expand();}
-
-const skins=[
-{name:'Ренегат',icon:'🏴‍☠️',value:1,rarity:'Звичайний'},
-{name:'Банан',icon:'🍌',value:2,rarity:'Звичайний'},
-{name:'Рейнджер',icon:'🪖',value:3,rarity:'Звичайний'},
-{name:'Ніндзя',icon:'🥷',value:5,rarity:'Рідкісний'},
-{name:'Вовк',icon:'🐺',value:8,rarity:'Рідкісний'},
-{name:'Супергерой',icon:'🦸',value:12,rarity:'Рідкісний'},
-{name:'Крижаний',icon:'🧊',value:20,rarity:'Епічний'},
-{name:'Вогняний',icon:'🔥',value:35,rarity:'Епічний'},
-{name:'Темний лицар',icon:'🦇',value:50,rarity:'Епічний'},
-{name:'Король',icon:'👑',value:80,rarity:'Легендарний'},
-{name:'Галактика',icon:'🌌',value:150,rarity:'Легендарний'},
-{name:'Золотий воїн',icon:'⚜️',value:250,rarity:'Легендарний'}
+const SKINS = [
+ {id:"scout",name:"Розвідник",rarity:"Звичайний",value:10,emoji:"🪖",glow:"#6d829d",color:"#8194aa",img:""},
+ {id:"shadow",name:"Тіньовий боєць",rarity:"Незвичайний",value:25,emoji:"🥷",glow:"#4f8dff",color:"#4f8dff",img:""},
+ {id:"frost",name:"Крижаний мисливець",rarity:"Рідкісний",value:60,emoji:"❄️",glow:"#27c8ff",color:"#27c8ff",img:""},
+ {id:"neon",name:"Неоновий рейдер",rarity:"Епічний",value:140,emoji:"⚡",glow:"#a855f7",color:"#b66bff",img:""},
+ {id:"royal",name:"Королівський вартовий",rarity:"Легендарний",value:350,emoji:"👑",glow:"#ffad32",color:"#ffbd45",img:""},
+ {id:"phantom",name:"Фантом",rarity:"Епічний",value:220,emoji:"👤",glow:"#e34aff",color:"#e34aff",img:""},
+ {id:"storm",name:"Штормовий герой",rarity:"Легендарний",value:500,emoji:"🌩️",glow:"#48e7ff",color:"#48e7ff",img:""},
+ {id:"cosmic",name:"Космічний мандрівник",rarity:"Міфічний",value:1000,emoji:"🌌",glow:"#ff4a9a",color:"#ff62b2",img:""}
 ];
-
-const cases=[
-{id:'daily',name:'Щоденний кейс',icon:'🎁',price:0,desc:'Безкоштовно раз на 24 години',items:[0,1,2,3]},
-{id:'starter',name:'Стартовий',icon:'📦',price:5,desc:'Прості персонажі',items:[0,1,2,3,4]},
-{id:'battle',name:'Battle Royale',icon:'🪂',price:12,desc:'Воїни острова',items:[1,2,3,4,5]},
-{id:'ice',name:'Крижаний',icon:'❄️',price:25,desc:'Холодні та рідкісні скіни',items:[3,4,5,6,7]},
-{id:'fire',name:'Вогняний',icon:'🔥',price:45,desc:'Гарячі персонажі',items:[4,5,6,7,8]},
-{id:'shadow',name:'Тінь',icon:'🌑',price:70,desc:'Темні персонажі',items:[5,6,8,9]},
-{id:'epic',name:'Епічний',icon:'💜',price:100,desc:'Епічні нагороди',items:[6,7,8,9,10]},
-{id:'gold',name:'Золотий',icon:'👑',price:180,desc:'Золоті нагороди',items:[7,8,9,10,11]},
-{id:'galaxy',name:'Галактика',icon:'🌌',price:300,desc:'Космічні скіни',items:[8,9,10,11]},
-{id:'legend',name:'Легендарний',icon:'💎',price:500,desc:'Найцінніші персонажі',items:[9,10,11]}
+const CASES = [
+ {id:"daily",name:"Щоденний",price:0,desc:"Безкоштовна щоденна нагорода",emoji:"🎁",pool:["scout","shadow","frost"],daily:true},
+ {id:"starter",name:"Стартовий",price:50,desc:"Перші рідкісні знахідки",emoji:"📦",pool:["scout","shadow","frost","neon"]},
+ {id:"rare",name:"Рідкісний",price:150,desc:"Серйозніші нагороди",emoji:"💎",pool:["shadow","frost","neon","phantom","royal"]},
+ {id:"epic",name:"Епічний",price:350,desc:"Скіни високої рідкості",emoji:"🔮",pool:["frost","neon","phantom","royal","storm"]},
+ {id:"legend",name:"Легендарний",price:700,desc:"Найцінніші предмети",emoji:"👑",pool:["royal","storm","cosmic","phantom"]},
+ {id:"cosmic",name:"Космічний",price:1500,desc:"Максимальний рівень нагород",emoji:"🌌",pool:["storm","cosmic","royal"]}
 ];
+const KEY="fortnite_battle_v2";
+const defaults={coins:0,inventory:[],casesOpened:0,lastDaily:0,withdrawals:[],name:"Гравець"};
+let state;
+try{state=JSON.parse(localStorage.getItem(KEY))||defaults}catch(e){state={...defaults}}
+state={...defaults,...state};
+let pendingWithdraw=null;
+let toastTimer=null;
 
-let coins=0;
-let inventory=[];
-let lastDaily=Number(localStorage.getItem('fb_daily')||0);
-let selectedCase='daily';
-let busy=false;
-let user=null;
+function save(){localStorage.setItem(KEY,JSON.stringify(state));renderAll()}
+function skinById(id){return SKINS.find(s=>s.id===id)||SKINS[0]}
+function ownedCount(){return state.inventory.length}
+function notify(message){
+ const el=document.getElementById("toast");el.textContent=message;el.classList.add("show");
+ clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("show"),2600);
+}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function art(s,small=false){
+ return `<div class="skin-art" style="--glow:${s.glow}">
+   <span class="rarity" style="color:${s.color}">${s.rarity.toUpperCase()}</span>
+   <div class="fallback">${s.emoji}</div>
+ </div>`;
+}
+function skinCard(s,buttonText="",action="",priceLabel=true){
+ return `<article class="card">${art(s)}
+ <div class="card-info"><h3>${s.name}</h3><p>${s.rarity} · ${s.value} монет</p>
+ <div class="card-bottom"><span class="price">${s.value}</span>
+ ${buttonText?`<button class="primary" data-action="${action}" data-skin="${s.id}">${buttonText}</button>`:""}</div></div></article>`;
+}
+function caseCard(c){
+ const sample=skinById(c.pool[c.pool.length-1]);
+ return `<article class="card">
+ <div class="skin-art" style="--glow:${sample.glow}">
+ <span class="rarity">${c.daily?"DAILY":"CASE"}</span><div class="fallback">${c.emoji}</div>
+ </div>
+ <div class="card-info"><h3>${c.name}</h3><p>${c.desc}</p>
+ <div class="card-bottom"><span class="price">${c.price===0?"FREE":c.price}</span>
+ <button class="primary" data-action="open" data-case="${c.id}">${c.daily?"ЗАБРАТИ":"ВІДКРИТИ"}</button></div></div></article>`;
+}
+function renderAll(){
+ document.getElementById("balance").textContent=state.coins;
+ document.getElementById("homeCoins").textContent=state.coins+" ◈";
+ document.getElementById("homeSkins").textContent=ownedCount();
+ document.getElementById("homeCases").textContent=state.casesOpened;
+ document.getElementById("profileCoins").textContent=state.coins;
+ document.getElementById("profileSkins").textContent=ownedCount();
+ document.getElementById("profileCases").textContent=state.casesOpened;
+ document.getElementById("profileName").textContent=state.name||"Гравець";
+ document.getElementById("inventoryCount").textContent=ownedCount()+" предметів";
+ document.getElementById("homeCasesGrid").innerHTML=CASES.slice(1,5).map(caseCard).join("");
+ document.getElementById("casesGrid").innerHTML=CASES.map(caseCard).join("");
+ const inv=document.getElementById("inventoryGrid");
+ inv.innerHTML=state.inventory.length?state.inventory.map((item,i)=>{
+ const s=skinById(item.skinId);
+ return `<article class="card">${art(s)}<div class="card-info"><h3>${s.name}</h3><p>${s.rarity}</p>
+ <div class="card-bottom"><span class="price">${s.value}</span><button class="secondary" data-action="withdraw" data-index="${i}">Вивести</button></div></div></article>`;
+ }).join(""):`<div class="empty" style="grid-column:1/-1">Інвентар поки порожній.<br>Відкрий перший кейс, щоб отримати скін.</div>`;
+ document.getElementById("withdrawals").innerHTML=state.withdrawals.length?
+ state.withdrawals.slice().reverse().map(w=>`<div class="stat" style="margin-bottom:8px"><b>${escapeHTML(w.skin)}</b><p>Контакт: ${escapeHTML(w.contact||"не вказано")} · Статус: ${escapeHTML(w.status)}</p></div>`).join("")
+ :`<div class="empty">Заявок поки немає.</div>`;
+ renderUpgradeOptions();
+ const ready=Date.now()-Number(state.lastDaily||0)>=86400000;
+ const btn=document.getElementById("dailyBtn");
+ btn.disabled=!ready;btn.textContent=ready?"ЗАБРАТИ":"ВЖЕ ОТРИМАНО";
+}
+  
+function renderUpgradeOptions(){
+ const stake=document.getElementById("stakeSelect");
+ const target=document.getElementById("targetSelect");
+ const oldStake=stake.value;
+ const oldTarget=target.value;
 
-try{
-let saved=JSON.parse(localStorage.getItem('fb_game')||'null');
-if(saved){coins=Number(saved.coins)||0;inventory=Array.isArray(saved.inventory)?saved.inventory:[];}
-}catch(e){}
+ stake.innerHTML=state.inventory.length
+ ?state.inventory.map((item,i)=>{
+   const s=skinById(item.skinId);
+   return `<option value="${i}">${s.name} · ${s.value} монет</option>`;
+ }).join("")
+ :`<option value="">Інвентар порожній</option>`;
 
-if(tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user){
-user=tg.initDataUnsafe.user;
-}
+ target.innerHTML=SKINS.map(s=>
+ `<option value="${s.id}">${s.name} · ${s.value} монет</option>`
+ ).join("");
 
-function save(){
-localStorage.setItem('fb_game',JSON.stringify({coins,inventory}));
-document.getElementById('coins').textContent=coins;
-document.getElementById('profileCoins').textContent=coins;
-document.getElementById('skinCount').textContent=inventory.length;
-}
-
-function showUser(){
-let name=user?(user.first_name||'Гравець')+(user.last_name?' '+user.last_name:''):'Гість';
-let handle=user&&user.username?'@'+user.username:'Telegram не підключено';
-['sideName','homeName','profileName'].forEach(id=>document.getElementById(id).textContent=name);
-['sideAvatar','homeAvatar','profileAvatar'].forEach(id=>document.getElementById(id).textContent=user?'👤':'🎮');
-document.getElementById('telegramStatus').textContent=user?'Підключено через Telegram':'Відкрий гру всередині Telegram';
-document.getElementById('profileHandle').textContent=handle;
-if(user)document.getElementById('profileNotice').textContent='Telegram-профіль розпізнано в Mini App. Для безпечного збереження прогресу потрібен сервер.';
+ if([...stake.options].some(o=>o.value===oldStake))stake.value=oldStake;
+ if([...target.options].some(o=>o.value===oldTarget))target.value=oldTarget;
 }
 
-function menuToggle(){
-document.getElementById('sidebar').classList.toggle('open');
-document.getElementById('shade').classList.toggle('show');
+function showPage(name){
+ document.querySelectorAll(".page").forEach(p=>
+  p.classList.toggle("active",p.id==="page-"+name)
+ );
+ document.querySelectorAll(".nav button").forEach(b=>
+  b.classList.toggle("active",b.dataset.page===name)
+ );
+ document.getElementById("sidebar").classList.remove("open");
+
+ if(name==="upgrade")renderUpgradeOptions();
+ if(name==="profile")setProfile();
+
+ window.scrollTo({top:0,behavior:"smooth"});
 }
-function go(id){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-document.getElementById('sidebar').classList.remove('open');
-document.getElementById('shade').classList.remove('show');
-renderInventory();
-if(id==='cases')renderCases('allCases');
-if(id==='home')renderCases('homeCases');
-if(id==='upgrade')renderUpgrade();
-window.scrollTo(0,0);
+
+function setProfile(){
+ const tg=window.Telegram&&window.Telegram.WebApp;
+
+ if(tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user){
+  const u=tg.initDataUnsafe.user;
+  state.name=[u.first_name,u.last_name].filter(Boolean).join(" ")
+   ||u.username||"Гравець";
+
+  document.getElementById("welcome").textContent="Вітаємо, "+state.name;
+  document.getElementById("profileId").textContent=
+   u.username?"@"+u.username:"Telegram гравець";
+ }else{
+  document.getElementById("welcome").textContent=
+   "Твоя наступна перемога починається тут";
+  document.getElementById("profileId").textContent="Fortnite Battle Player";
+ }
+
+ document.getElementById("profileName").textContent=state.name||"Гравець";
 }
-function renderCases(target){
-let list=target==='homeCases'?cases.slice(1,4):cases;
-document.getElementById(target).innerHTML=list.map(c=>`
-<div class="caseCard">
-<div class="caseArt">${c.icon}</div>
-<h3>${c.name}</h3>
-<p>${c.desc}</p>
-<div class="price">${c.price===0?'БЕЗКОШТОВНО':'🪙 '+c.price+' монет'}</div>
-<button onclick="selectCase('${c.id}')">${c.price===0?'Відкрити':'Вибрати кейс'}</button>
-</div>`).join('');
+
+function weightedSkin(pool){
+ const weights=pool.map(id=>{
+  const s=skinById(id);
+  return 1/Math.sqrt(s.value);
+ });
+
+ let r=Math.random()*weights.reduce((a,b)=>a+b,0);
+
+ for(let i=0;i<pool.length;i++){
+  r-=weights[i];
+  if(r<=0)return skinById(pool[i]);
+ }
+
+ return skinById(pool[0]);
 }
-function selectCase(id){
-selectedCase=id;
-let c=cases.find(x=>x.id===id);
-if(!c)return;
-document.getElementById('spinTitle').textContent=c.name;
-document.getElementById('spinArt').textContent=c.icon;
-document.getElementById('spinInfo').textContent=c.price===0?'Безкоштовний кейс: монети або скін.':'Вартість: '+c.price+' монет. Нагороди залежать від кейса.';
-document.getElementById('rouletteResult').textContent='Натисни кнопку, щоб запустити рулетку.';
-document.getElementById('roulette').innerHTML='';
-document.getElementById('roulette').style.transition='none';
-document.getElementById('roulette').style.transform='translateX(0)';
-go('spin');
+
+function openCase(caseId){
+ const c=CASES.find(x=>x.id===caseId);
+ if(!c)return;
+
+ if(c.daily&&Date.now()-Number(state.lastDaily||0)<86400000){
+  notify("Щоденний кейс уже отримано.");
+  return;
+ }
+
+ if(state.coins<c.price){
+  notify("Недостатньо монет для цього кейса.");
+  return;
+ }
+
+ if(!c.daily)state.coins-=c.price;
+
+ const won=weightedSkin(c.pool);
+
+ if(c.daily){
+  state.lastDaily=Date.now();
+  state.coins+=Math.floor(Math.random()*2)+2;
+ }
+
+ state.inventory.push({
+  uid:Date.now()+"_"+Math.random().toString(36).slice(2,7),
+  skinId:won.id
+ });
+
+ state.casesOpened++;
+ save();
+
+ showPage("cases");
+
+ const panel=document.getElementById("openingPanel");
+ panel.style.display="block";
+ document.getElementById("openingTitle").textContent=c.name+" кейс";
+
+ const wheel=document.getElementById("wheel");
+ const sequence=Array.from({length:25},(_,i)=>
+  i===22?won:weightedSkin(c.pool)
+ );
+
+ wheel.style.transition="none";
+ wheel.style.transform="translateX(0)";
+
+ wheel.innerHTML=sequence.map(s=>
+  `<div class="wheel-item">${art(s)}<b>${s.name}</b></div>`
+ ).join("");
+
+ const itemWidth=129;
+ const container=wheel.parentElement.clientWidth;
+ const offset=22*itemWidth+60-container/2;
+
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{
+  wheel.style.transition="transform 4.2s cubic-bezier(.08,.75,.12,1)";
+  wheel.style.transform=`translateX(-${offset}px)`;
+ }));
+
+ const result=document.getElementById("openResult");
+ result.style.display="block";
+ result.innerHTML="Рулетка крутиться...";
+
+ setTimeout(()=>{
+  result.innerHTML=
+   `Випав скін <b style="color:${won.color}">${won.name}</b> · цінність ${won.value} монет`;
+  renderAll();
+ },4300);
 }
-function makeReward(c){
-if(c.id==='daily'){
-// 2 або 3 монети випадають найчастіше.
-let r=Math.random();
-if(r<0.42)return {type:'coins',amount:2};
-if(r<0.82)return {type:'coins',amount:3};
-if(r<0.92)return {type:'coins',amount:1};
-if(r<0.97)return {type:'coins',amount:5};
-let s=skins[c.items[Math.floor(Math.random()*c.items.length)]];
-return {type:'skin',skin:s};
+
+function dailyCase(){
+ openCase("daily");
 }
-let r=Math.random()*100;
-let itemIndex;
-if(r<60)itemIndex=c.items[0];
-else if(r<82)itemIndex=c.items[Math.min(1,c.items.length-1)];
-else if(r<94)itemIndex=c.items[Math.min(2,c.items.length-1)];
-else itemIndex=c.items[c.items.length-1];
-return {type:'skin',skin:skins[itemIndex]};
+
+function upgrade(){
+ const stakeIndex=document.getElementById("stakeSelect").value;
+
+ if(stakeIndex===""){
+  notify("Спочатку отримай скін у кейсі.");
+  return;
+ }
+
+ const item=state.inventory[Number(stakeIndex)];
+ if(!item)return;
+
+ const target=skinById(document.getElementById("targetSelect").value);
+ const chance=Number(document.getElementById("chanceRange").value);
+ const result=document.getElementById("upgradeResult");
+
+ if(target.id===item.skinId){
+  notify("Обери інший цільовий скін.");
+  return;
+ }
+
+ if(target.value<=skinById(item.skinId).value){
+  notify("Цільовий скін має бути дорожчим за ставку.");
+  return;
+ }
+
+ state.inventory.splice(Number(stakeIndex),1);
+
+ const win=Math.random()*100<chance;
+
+ if(win){
+  state.inventory.push({
+   uid:Date.now()+"_"+Math.random().toString(36).slice(2,7),
+   skinId:target.id
+  });
+ }
+
+ save();
+
+ result.style.display="block";
+ result.innerHTML=win
+  ?`<b style="color:#4ee6a8">УСПІХ!</b><br>Ти отримав скін ${target.name}.`
+  :`<b style="color:#ff697f">НЕВДАЧА</b><br>Скін зі ставки втрачено.`;
+
+ renderAll();
 }
-function getPossible(c){
-if(c.id==='daily')return [
-{type:'coins',amount:2},{type:'coins',amount:3},
-{type:'coins',amount:1},{type:'coins',amount:5},
-...c.items.map(i=>({type:'skin',skin:skins[i]}))
-];
-return c.items.map(i=>({type:'skin',skin:skins[i]}));
+
+let pendingWithdraw=null;
+
+function openWithdraw(index){
+ const item=state.inventory[index];
+ if(!item)return;
+
+ pendingWithdraw=index;
+ const s=skinById(item.skinId);
+
+ document.getElementById("modalTitle").textContent="Заявка на виведення";
+ document.getElementById("modalText").textContent=
+  "Предмет: "+s.name+". Заявка не передає предмет автоматично.";
+ document.getElementById("withdrawContact").value="";
+ document.getElementById("modalBackdrop").classList.add("show");
 }
-function rewardText(r){
-return r.type==='coins'?'🪙 '+r.amount+' монети':r.skin.icon+' '+r.skin.name;
+
+function confirmWithdraw(){
+ if(pendingWithdraw===null)return;
+
+ const contact=document.getElementById("withdrawContact").value.trim();
+
+ if(!contact){
+  notify("Вкажи контакт для заявки.");
+  return;
+ }
+
+ const item=state.inventory[pendingWithdraw];
+ if(!item)return;
+
+ const s=skinById(item.skinId);
+
+ state.withdrawals.push({
+  skin:s.name,
+  skinId:s.id,
+  contact,
+  status:"Очікує обробки",
+  created:Date.now()
+ });
+
+ document.getElementById("modalBackdrop").classList.remove("show");
+ pendingWithdraw=null;
+
+ save();
+ renderAll();
+ notify("Заявку створено. Вона збережена в цьому браузері.");
 }
-function openCase(id){selectCase(id);}
-function spinSelected(){
-if(busy)return;
-let c=cases.find(x=>x.id===selectedCase);
-if(!c)return;
-if(c.id==='daily'&&Date.now()-lastDaily<86400000){
-document.getElementById('rouletteResult').textContent='⏳ Щоденний кейс ще не готовий.';
-return;
-}
-if(coins<c.price){
-document.getElementById('rouletteResult').textContent='❌ Не вистачає монет! Забери щоденний кейс.';
-return;
-}
-if(c.price>0)coins-=c.price;
-if(c.id==='daily'){lastDaily=Date.now();localStorage.setItem('fb_daily',String(lastDaily));}
-busy=true;
-document.getElementById('spinButton').disabled=true;
-document.getElementById('rouletteResult').textContent='🎰 Крутимо рулетку...';
-let roulette=document.getElementById('roulette');
-let possible=getPossible(c);
-let winning=makeReward(c);
-let items=[];
-for(let i=0;i<38;i++)items.push(possible[Math.floor(Math.random()*possible.length)]);
-items[31]=winning;
-roulette.innerHTML=items.map(r=>`<div class="rouletteItem"><div class="person">${r.type==='coins'?'🪙':r.skin.icon}</div><small>${r.type==='coins'?r.amount+' монети':r.skin.name}</small></div>`).join('');
-roulette.style.transition='none';
-roulette.style.transform='translateX(0)';
-requestAnimationFrame(()=>requestAnimationFrame(()=>{
-let box=document.getElementById('rouletteBox');
-let card=roulette.children[31];
-let x=card.offsetLeft+card.offsetWidth/2-box.clientWidth/2;
-roulette.style.transition='transform 5s cubic-bezier(.08,.72,.12,1)';
-roulette.style.transform='translateX(-'+Math.max(0,x)+'px)';
-}));
-setTimeout(()=>{
-if(winning.type==='coins'){
-coins+=winning.amount;
-document.getElementById('rouletteResult').textContent='🎉 ВИПАЛО '+winning.amount+' МОНЕТИ!';
-}else{
-inventory.push(winning.skin.name);
-document.getElementById('rouletteResult').textContent='🎉 ТИ ОТРИМАВ СКІН: '+winning.skin.icon+' '+winning.skin.name+' ('+winning.skin.value+' монет)';
-}
-save();renderInventory();updateDaily();
-busy=false;
-document.getElementById('spinButton').disabled=false;
-},5200);
-}
-function updateDaily(){
-let left=86400000-(Date.now()-lastDaily);
-let btn=document.getElementById('dailyButton');
-let timer=document.getElementById('dailyTimer');
-if(left<=0){
-timer.textContent='Кейс готовий!';
-btn.disabled=false;
-btn.textContent='КРУТИТИ ЩОДЕННИЙ КЕЙС';
-}else{
-let h=Math.floor(left/3600000);
-let m=Math.floor(left%3600000/60000);
-let s=Math.floor(left%60000/1000);
-timer.textContent='Наступний кейс через '+h+'г '+m+'хв '+s+'с';
-btn.disabled=true;
-btn.textContent='КЕЙС УЖЕ ВІДКРИТО';
-}
-}
-function renderInventory(){
-let el=document.getElementById('inventoryList');
-if(!inventory.length){el.innerHTML='<div class="notice">Інвентар порожній. Відкрий щоденний кейс!</div>';return;}
-el.innerHTML=inventory.map((name,i)=>{
-let s=skins.find(x=>x.name===name)||{icon:'🎭',name,value:1,rarity:'Невідомий'};
-return `<div class="skinCard"><div class="skinIcon">${s.icon}</div><b>${s.name}</b><small>${s.rarity}</small><small>Ціна: ${s.value} монет</small></div>`;
-}).join('');
-}
-function renderUpgrade(){
-let a=document.getElementById('stake'),b=document.getElementById('target');
-a.innerHTML=inventory.map((n,i)=>'<option value="'+i+'">'+n+'</option>').join('');
-b.innerHTML=skins.map(s=>'<option value="'+s.name+'">'+s.icon+' '+s.name+' ('+s.value+' монет)</option>').join('');
-document.getElementById('chanceLabel').textContent=document.getElementById('chance').value+'%';
-}
-document.getElementById('chance').addEventListener('input',e=>{
-document.getElementById('chanceLabel').textContent=e.target.value+'%';
+
+document.addEventListener("click",e=>{
+ const nav=e.target.closest("[data-page]");
+ if(nav){
+  showPage(nav.dataset.page);
+  return;
+ }
+
+ const go=e.target.closest("[data-go]");
+ if(go){
+  showPage(go.dataset.go);
+  return;
+ }
+
+ const action=e.target.closest("[data-action]");
+ if(!action)return;
+
+ if(action.dataset.action==="open"){
+  openCase(action.dataset.case);
+ }
+
+ if(action.dataset.action==="withdraw"){
+  openWithdraw(Number(action.dataset.index));
+ }
 });
-function upgradeSkin(){
-if(busy)return;
-if(!inventory.length){document.getElementById('upgradeResult').textContent='Спочатку отримай скін із кейса!';return;}
-let idx=Number(document.getElementById('stake').value);
-let target=document.getElementById('target').value;
-if(!inventory[idx])return;
-if(inventory[idx]===target){document.getElementById('upgradeResult').textContent='Вибери інший скін.';return;}
-let chance=Number(document.getElementById('chance').value);
-busy=true;
-let wheel=document.getElementById('upgradeWheel');
-wheel.style.transition='transform 3s';
-wheel.style.transform='rotate(1080deg)';
-document.getElementById('upgradeButton').disabled=true;
-document.getElementById('upgradeResult').textContent='Колесо крутиться...';
-setTimeout(()=>{
-if(Math.random()*100<chance){
-inventory[idx]=target;
-document.getElementById('upgradeResult').textContent='🎉 УСПІХ! Тепер у тебе '+target+'!';
-}else{
-inventory.splice(idx,1);
-document.getElementById('upgradeResult').textContent='❌ Не пощастило. Скін втрачено.';
+
+document.getElementById("dailyBtn").addEventListener("click",dailyCase);
+
+document.getElementById("chanceRange").addEventListener("input",e=>{
+ document.getElementById("chanceLabel").textContent=
+  Number(e.target.value).toLocaleString("uk-UA")+"%";
+});
+
+document.getElementById("upgradeBtn").addEventListener("click",upgrade);
+
+document.getElementById("confirmWithdraw").addEventListener("click",confirmWithdraw);
+
+document.getElementById("cancelModal").addEventListener("click",()=>{
+ document.getElementById("modalBackdrop").classList.remove("show");
+ pendingWithdraw=null;
+});
+
+document.getElementById("menuBtn").addEventListener("click",()=>{
+ document.getElementById("sidebar").classList.toggle("open");
+});
+
+document.getElementById("refreshProfile").addEventListener("click",()=>{
+ setProfile();
+ renderAll();
+ notify("Профіль оновлено.");
+});
+
+if(window.Telegram&&window.Telegram.WebApp){
+ window.Telegram.WebApp.ready();
+ window.Telegram.WebApp.expand();
 }
-save();renderInventory();renderUpgrade();
-wheel.style.transform='rotate(0deg)';
-busy=false;
-document.getElementById('upgradeButton').disabled=false;
-},3100);
-}
-showUser();
-renderCases('homeCases');
-renderCases('allCases');
-renderInventory();
-save();
-updateDaily();
-setInterval(updateDaily,1000);
+
+setProfile();
+renderAll();
 </script>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 </body>
 </html>
+
+  
