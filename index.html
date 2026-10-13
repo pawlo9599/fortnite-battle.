@@ -1,687 +1,320 @@
-
 <!DOCTYPE html>
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#070b16">
-<title>Fortnite Battle</title>
+<meta name="theme-color" content="#090d18">
+<title>Fortnite Battle • Skin Cases</title>
 <style>
-:root {
-  --bg:#070b16;
-  --panel:#0d1426;
-  --panel2:#111c33;
-  --blue:#1677ff;
-  --cyan:#32c9ff;
-  --text:#f4f7ff;
-  --muted:#8290ad;
-  --line:#1d2b47;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;background:radial-gradient(ellipse at 50% -20%,#102b59 0%,var(--bg) 48%);
-  color:var(--text);font-family:Arial,Helvetica,sans-serif;min-height:100vh
-}
-button,input{font:inherit}
-button{cursor:pointer}
-button:disabled{opacity:.45;cursor:not-allowed}
-.layout{display:flex;min-height:100vh}
-.sidebar{
-  width:230px;flex-shrink:0;background:#080e1c;border-right:1px solid var(--line);
-  padding:25px 15px;display:flex;flex-direction:column;gap:25px
-}
-.logo{font-size:22px;font-weight:900;letter-spacing:1px;padding:8px}
-.logo span{color:var(--cyan)}
-.nav{display:grid;gap:9px}
-.nav button{
-  text-align:left;border:1px solid transparent;color:#9eacc8;background:transparent;
-  padding:14px;border-radius:12px;font-weight:700
-}
-.nav button.active,.nav button:hover{
-  color:white;background:linear-gradient(100deg,#123a78,#10203b);
-  border-color:#2056a3
-}
-.side-note{margin-top:auto;color:#53627e;font-size:12px;line-height:1.6;padding:8px}
-main{min-width:0;flex:1;padding:25px clamp(14px,3vw,38px);max-width:1600px;margin:0 auto;width:100%}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:25px}
-.topbar small{color:var(--muted)}
-.balance{
-  border:1px solid #244875;background:#0d1d37;border-radius:12px;
-  padding:12px 17px;font-weight:900;white-space:nowrap
-}
-.balance span{color:var(--cyan)}
-.mobile-menu{display:none}
-.page{display:none}.page.active{display:block}
-.hero{
-  position:relative;overflow:hidden;border:1px solid #214477;border-radius:22px;
-  padding:clamp(24px,4vw,48px);background:
-  radial-gradient(ellipse at 80% 40%,#1458a855,transparent 45%),
-  linear-gradient(115deg,#101c36,#080e1c 72%);
-  margin-bottom:25px;min-height:230px
-}
-.hero:after{
-  content:"";position:absolute;width:260px;height:260px;border-radius:50%;
-  border:35px solid #2589ff15;right:5%;top:-65px;box-shadow:0 0 90px #087bff25
-}
-.eyebrow{color:var(--cyan);font-size:12px;letter-spacing:3px;font-weight:900}
-h1{font-size:clamp(30px,4vw,50px);margin:12px 0;line-height:1.08}
-h1 span{color:var(--cyan)}
-p{color:var(--muted);line-height:1.6}
-.hero p{max-width:520px}
-.primary,.secondary{
-  padding:13px 18px;border-radius:10px;font-weight:800;border:1px solid transparent;
-  color:white;background:linear-gradient(100deg,#0879ff,#22b7ff);
-  box-shadow:0 5px 22px #0879ff25
-}
-.secondary{background:#121f36;border-color:#263b5e;box-shadow:none}
-.primary:hover{filter:brightness(1.13)}
-.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:26px 0 15px}
-h2{font-size:21px;margin:0}
-.section-head small{color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
-.card{
-  min-width:0;overflow:hidden;border-radius:16px;background:linear-gradient(160deg,#121d33,#0b1120);
-  border:1px solid var(--line);transition:transform .2s,border-color .2s
-}
-.card:hover{transform:translateY(-3px);border-color:#2768b4}
-.skin-art{
-  height:175px;position:relative;display:flex;align-items:center;justify-content:center;
-  overflow:hidden;background:radial-gradient(ellipse at 50% 80%,var(--glow,#176dff66),transparent 60%),
-  linear-gradient(145deg,#172944,#080e1a)
-}
-.skin-art img{width:100%;height:100%;object-fit:contain;position:relative;z-index:1;padding:8px}
-.skin-art .fallback{
-  font-size:67px;filter:drop-shadow(0 0 22px var(--glow,#168bff));
-  text-shadow:0 0 30px var(--glow,#168bff)
-}
-.rarity{
-  position:absolute;z-index:2;left:10px;top:10px;font-size:10px;
-  font-weight:900;letter-spacing:1px;padding:6px 8px;border-radius:6px;
-  background:#080d19d9;border:1px solid #ffffff20
-}
-.card-info{padding:14px}
-.card-info h3{font-size:15px;margin:0 0 7px}
-.card-info p{font-size:12px;margin:0 0 12px}
-.card-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.price{font-size:13px;font-weight:900;color:#b9eaff}
-.price:before{content:"◈ ";color:var(--cyan)}
-.card-bottom button{padding:9px 10px;font-size:12px}
-.daily{
-  display:flex;align-items:center;gap:20px;padding:20px;border-radius:16px;
-  border:1px solid #244777;background:linear-gradient(110deg,#10274a,#0c1426);
-  margin-bottom:22px
-}
-.daily-icon{font-size:45px;width:75px;height:75px;display:grid;place-items:center;
-  background:#153663;border-radius:14px}
-.daily-text{flex:1}.daily-text h3{margin:0 0 7px}.daily-text p{margin:0;font-size:13px}
-.two-col{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}
-.panel{background:linear-gradient(160deg,#101a2e,#0a1020);border:1px solid var(--line);border-radius:17px;padding:22px;margin-bottom:18px}
-.panel h2{margin-bottom:18px}
-.wheel-window{overflow:hidden;border:1px solid #23538e;border-radius:13px;background:#080e1b;position:relative}
-.wheel-window:before{content:"";position:absolute;z-index:3;left:50%;top:0;bottom:0;width:3px;background:var(--cyan);box-shadow:0 0 15px var(--cyan)}
-.wheel{display:flex;gap:9px;padding:12px;transform:translateX(0);will-change:transform}
-.wheel-item{flex:0 0 120px;height:145px;background:#121f37;border:1px solid #263c60;border-radius:10px;text-align:center;overflow:hidden}
-.wheel-item .skin-art{height:105px}
-.wheel-item .skin-art .fallback{font-size:38px}
-.wheel-item b{font-size:10px;display:block;padding:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.result{margin:15px 0;padding:14px;border-radius:10px;background:#0b1b30;color:#c5eaff;display:none}
-label{display:block;color:#9cacc9;font-size:13px;margin:16px 0 8px}
-input[type=range]{width:100%;accent-color:var(--cyan)}
-select,input[type=number]{
-  width:100%;background:#080f1e;border:1px solid #273a5c;border-radius:9px;
-  padding:12px;color:white
-}
-.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}
-.stat{padding:15px;border:1px solid var(--line);border-radius:12px;background:#0b1221}
-.stat small{color:var(--muted);display:block;margin-bottom:8px}
-.stat b{font-size:20px}
-.empty{padding:35px 15px;text-align:center;color:var(--muted);border:1px dashed #263956;border-radius:13px}
-.profile-top{display:flex;align-items:center;gap:16px}
-.avatar{width:70px;height:70px;border-radius:18px;background:linear-gradient(140deg,#167cff,#13234c);display:grid;place-items:center;font-size:32px}
-.inventory-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.inventory-grid .skin-art{height:140px}
-.inventory-grid .card-info{padding:11px}
-.inventory-grid .card-info h3{font-size:13px}
-.inventory-grid .card-bottom{align-items:flex-start;flex-direction:column}
-.inventory-grid .card-bottom button{width:100%}
-.toast{
-  position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);
-  background:#132442;border:1px solid #2d6bb1;padding:13px 18px;border-radius:12px;
-  opacity:0;pointer-events:none;transition:.2s;z-index:20;max-width:90%;text-align:center
-}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-.modal-backdrop{display:none;position:fixed;inset:0;background:#02040bdc;z-index:30;align-items:center;justify-content:center;padding:18px}
-.modal-backdrop.show{display:flex}
-.modal{width:min(460px,100%);background:#0c1528;border:1px solid #28528a;border-radius:18px;padding:23px}
-.modal h2{margin-bottom:12px}
-.footer{color:#53627e;font-size:11px;text-align:center;margin:35px 0 10px}
-@media(max-width:1050px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sidebar{width:190px}.two-col{grid-template-columns:1fr}}
-@media(max-width:650px){
- .layout{display:block}.sidebar{display:none;position:fixed;z-index:15;left:0;top:0;bottom:0;width:250px;box-shadow:20px 0 70px #0009}
- .sidebar.open{display:flex}.mobile-menu{display:inline-block}
- main{padding:16px 12px}.topbar{margin-bottom:16px}.hero{padding:25px 20px;min-height:220px}
- .grid{gap:10px}.skin-art{height:135px}.card-info{padding:10px}.card-info h3{font-size:13px}
- .card-bottom{align-items:flex-start;flex-direction:column}.card-bottom button{width:100%}
- .daily{padding:14px;gap:12px}.daily-icon{width:55px;height:55px;font-size:32px}
- .daily .primary{padding:10px;font-size:12px}.inventory-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
- .stat{padding:10px}.stat b{font-size:16px}.panel{padding:15px}
-}
+:root{--bg:#080b13;--panel:#101624;--panel2:#141d2f;--line:#223149;--muted:#8493ad;--text:#f1f5ff;--blue:#57a6ff;--cyan:#39e6ef;--green:#35e0a1;--red:#ff5575;--gold:#f9c75b;--radius:18px;--shadow:0 16px 42px #0005}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 80% -10%,#142b4e 0,transparent 38%),var(--bg);color:var(--text);font:15px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}button,input,select{font:inherit}button{cursor:pointer;border:0;color:inherit}button:disabled{opacity:.45;cursor:not-allowed}img{max-width:100%}.app{display:grid;grid-template-columns:245px minmax(0,1fr);min-height:100vh}.sidebar{position:sticky;top:0;height:100vh;border-right:1px solid #1b2639;background:#080c15eF;backdrop-filter:blur(16px);padding:24px 15px;display:flex;flex-direction:column;z-index:20}.brand{display:flex;align-items:center;gap:11px;padding:4px 7px 28px}.brand-mark{width:43px;height:43px;border-radius:14px;display:grid;place-items:center;font-size:22px;background:linear-gradient(145deg,#5be4ff,#4369fa);box-shadow:0 5px 24px #378eff45;color:#071222}.brand strong{font-size:16px;letter-spacing:1.1px;display:block}.brand small{color:var(--muted);font-size:10px;letter-spacing:2px}.nav-label{padding:9px 12px;color:#63728e;font-size:10px;font-weight:800;letter-spacing:1.8px}.nav{display:grid;gap:7px}.nav button{display:flex;align-items:center;gap:13px;padding:13px 14px;border-radius:12px;text-align:left;background:transparent;color:#a4b0c6;transition:.2s}.nav button:hover{background:#152036;color:#fff}.nav button.active{color:#fff;background:linear-gradient(100deg,#1f4e87aa,#1b2940);box-shadow:inset 3px 0 var(--cyan)}.nav-icon{width:22px;text-align:center;font-size:18px}.side-bottom{margin-top:auto}.side-note{padding:14px;border:1px solid var(--line);background:#101827;border-radius:14px;color:#8998b1;font-size:12px}.side-note b{color:#dfe9ff;display:block;margin-bottom:6px}.main{min-width:0;padding:22px clamp(15px,3vw,42px) 50px;max-width:1650px;width:100%;margin:0 auto}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:26px}.crumb{color:var(--muted);font-size:13px}.crumb b{color:#e8efff}.top-actions{display:flex;align-items:center;gap:10px}.balance{display:flex;gap:9px;align-items:center;border:1px solid #31425d;background:#111a2b;padding:10px 15px;border-radius:14px;font-weight:800}.coin{color:var(--gold);font-size:18px}.menu-btn{display:none;background:#152036;border:1px solid var(--line);padding:10px 13px;border-radius:12px}.page{display:none;animation:fadeIn .24s ease}.page.active{display:block}@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(28px,3vw,42px);letter-spacing:-1.2px;line-height:1.08;margin-bottom:12px}h2{font-size:22px;letter-spacing:-.4px;margin-bottom:5px}h3{font-size:15px;margin-bottom:4px}.muted{color:var(--muted)}.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin:30px 0 16px}.section-head p{color:var(--muted);margin:0;font-size:13px}.eyebrow{display:inline-flex;align-items:center;gap:8px;color:#79dbff;text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:900;margin-bottom:12px}.eyebrow:before{content:"";width:20px;height:2px;background:var(--cyan);box-shadow:0 0 12px var(--cyan)}.hero{position:relative;isolation:isolate;overflow:hidden;border:1px solid #29456b;border-radius:24px;padding:clamp(24px,4vw,48px);background:linear-gradient(110deg,#111d32 0%,#10192a 52%,#10294c 100%);box-shadow:var(--shadow);min-height:280px;display:flex;align-items:center}.hero:before{content:"";position:absolute;z-index:-1;width:390px;height:390px;border-radius:50%;right:-30px;top:-155px;background:radial-gradient(circle,#2c84ff47 0,transparent 67%);border:1px solid #5ea7ff20}.hero:after{content:"FN";position:absolute;z-index:-1;right:6%;bottom:-78px;font-style:italic;font-weight:1000;font-size:clamp(130px,19vw,260px);letter-spacing:-20px;color:#b3d9ff08;transform:skew(-9deg)}.hero-copy{max-width:620px}.hero h1 span{background:linear-gradient(95deg,#56e6ff,#6593ff 70%);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{max-width:510px;color:#9baccc;line-height:1.7}.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:12px;padding:12px 18px;font-weight:850;transition:transform .18s,filter .18s,border-color .18s}.btn:hover:not(:disabled){transform:translateY(-2px);filter:brightness(1.08)}.btn-primary{background:linear-gradient(100deg,#39d7ed,#4f8fff);color:#061220;box-shadow:0 8px 24px #3a99ff30}.btn-secondary{background:#19253a;border:1px solid #334660;color:#e9f1ff}.btn-quiet{background:transparent;border:1px solid #33445e;color:#bdc9de}.btn-danger{background:#391b2a;border:1px solid #663348;color:#ff9caf}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:17px}.stat-card{padding:18px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(140deg,#111a2a,#0e1420)}.stat-top{display:flex;align-items:center;justify-content:space-between;color:#a3b1c7;font-size:12px}.stat-symbol{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:#172840;font-size:16px}.stat-value{font-size:25px;font-weight:900;letter-spacing:-.8px;margin-top:10px}.case-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.case-card{position:relative;overflow:hidden;border-radius:17px;border:1px solid #23334b;background:linear-gradient(155deg,#17243a,#0f1522 70%);transition:.2s;min-width:0}.case-card:hover{transform:translateY(-4px);border-color:#4b92d9;box-shadow:0 14px 32px #0005}.case-cover{position:relative;height:160px;display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle at 50% 65%,var(--caseglow,#318bff36),transparent 64%),linear-gradient(145deg,#1a2942,#101521)}.case-cover:after{content:"";position:absolute;inset:12px;border:1px solid #b7d5ff20;border-radius:12px;pointer-events:none}.case-cover .art{height:100%;width:100%;border-radius:0;background:transparent}.case-cover .art img{object-fit:contain;width:100%;height:100%;padding:12px 20px;filter:drop-shadow(0 12px 10px #0006);transition:transform .25s}.case-card:hover .case-cover .art img{transform:scale(1.07) translateY(-3px)}.case-tag{position:absolute;top:12px;left:12px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:1px;padding:5px 8px;border-radius:7px;background:#07101dcc;border:1px solid #ffffff18;z-index:2}.case-info{padding:13px}.case-info p{color:var(--muted);font-size:12px;min-height:32px;margin:4px 0 13px}.case-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px}.price{font-weight:900;white-space:nowrap}.price .coin{font-size:14px}.case-bottom .btn{padding:9px 11px;font-size:12px}.section-banner{background:linear-gradient(110deg,#101d31,#111827);border:1px solid var(--line);padding:22px 24px;border-radius:18px;margin-bottom:22px;display:flex;justify-content:space-between;align-items:center;gap:20px}.section-banner p{margin:5px 0 0;color:var(--muted);font-size:13px}.loading-line{display:flex;align-items:center;gap:10px;color:#9ab0cd;font-size:12px;margin-top:12px}.dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}.searchbox{width:min(340px,100%);padding:11px 14px;border-radius:12px;background:#0c1320;border:1px solid #2a3850;color:#eef5ff;outline:0}.searchbox:focus,select:focus,input:focus{border-color:#5ca4ff;box-shadow:0 0 0 3px #4c9cff20;outline:0}.controls-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.opening-panel{display:none;margin:24px 0;padding:22px;background:#101827;border:1px solid #2a3d5c;border-radius:20px;box-shadow:var(--shadow);overflow:hidden}.opening-panel.show{display:block}.roulette-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:18px}.roulette-head p{margin:4px 0 0;color:var(--muted);font-size:12px}.roulette-window{position:relative;overflow:hidden;border:1px solid #2c405c;border-radius:14px;background:#090f1a;padding:9px 0}.roulette-window:before{content:"";position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:3px;background:var(--cyan);box-shadow:0 0 20px var(--cyan);z-index:5}.roulette-window:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#080d18 0,transparent 12%,transparent 88%,#080d18 100%);z-index:3}.roulette-track{display:flex;gap:9px;padding:4px 0;transform:translateX(0);will-change:transform}.roulette-item{flex:0 0 118px;width:118px;height:150px;border-radius:11px;border:1px solid #31425c;background:linear-gradient(145deg,#1b2940,#111826);padding:8px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center;overflow:hidden}.roulette-item .art{width:100%;height:102px;background:transparent}.roulette-item .art img{object-fit:contain;padding:3px;width:100%;height:100%}.roulette-item b{font-size:10px;line-height:1.2;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.open-result{display:none;margin-top:15px;padding:15px 17px;background:#142238;border:1px solid #355477;border-radius:13px}.open-result.show{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.result-name{font-weight:900;font-size:18px}.upgrade-layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(330px,.9fr);gap:18px;align-items:start}.panel{background:linear-gradient(145deg,#111a29,#0d131e);border:1px solid var(--line);border-radius:19px;padding:22px;min-width:0}.panel-title{margin-bottom:17px}.panel-title p{color:var(--muted);font-size:13px;margin:5px 0 0}.field{display:grid;gap:7px;margin-bottom:16px}.field label{font-size:12px;color:#aab8cf;font-weight:750}.field select,.field input{width:100%;min-width:0;background:#0a111d;color:#e8f0ff;border:1px solid #293a52;border-radius:11px;padding:12px}.stake-preview{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid #243650;background:#0b1220;border-radius:14px;margin-bottom:17px}.stake-preview .art{width:65px;height:70px;flex:0 0 65px}.stake-preview .art img{object-fit:contain;width:100%;height:100%}.stake-preview b{display:block}.stake-preview small{color:var(--muted)}.chance-box{display:flex;align-items:center;justify-content:space-between;padding:14px 15px;background:#101d30;border:1px solid #2c4b69;border-radius:14px;margin-bottom:15px}.chance-num{font-size:27px;font-weight:950;color:var(--green);letter-spacing:-.8px}.chance-track{height:7px;background:#2b3445;border-radius:20px;overflow:hidden;margin:0 0 19px}.chance-track span{height:100%;display:block;width:0;background:linear-gradient(90deg,#35e0a1,#6bf3d0);transition:width .2s}.wheel-zone{display:flex;align-items:center;flex-direction:column;justify-content:center;padding:6px 0 14px}.wheel-pointer{z-index:3;margin-bottom:-5px;color:#f5fbff;font-size:26px;text-shadow:0 2px 12px #000}.upgrade-wheel{position:relative;width:min(320px,76vw);aspect-ratio:1;border-radius:50%;border:8px solid #1b2a43;box-shadow:0 0 0 2px #405878,0 20px 55px #0008,inset 0 0 0 2px #ffffff30;background:repeating-conic-gradient(from 0deg,transparent 0 8deg,#0b1320 8deg 9deg),conic-gradient(from 0deg,var(--green) 0 var(--chance-angle,180deg),var(--red) var(--chance-angle,180deg) 360deg);transition:transform 5s cubic-bezier(.08,.72,.13,1);transform:rotate(0deg)}.upgrade-wheel:before{content:"";position:absolute;inset:13px;border-radius:50%;border:1px dashed #ffffff6e}.wheel-center{position:absolute;inset:35%;border-radius:50%;background:linear-gradient(145deg,#243955,#101827);border:4px solid #a2b5d0;box-shadow:0 0 0 5px #0c1625,0 0 24px #0009;display:grid;place-items:center;font-size:18px;font-weight:950;color:#e9f6ff;letter-spacing:1px}.wheel-legend{display:flex;gap:15px;justify-content:center;color:#aab8ce;font-size:11px;margin:6px 0 16px}.legend-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}.upgrade-outcome{display:none;margin-top:14px;padding:14px;border-radius:12px;background:#0c1522;border:1px solid var(--line);text-align:center}.upgrade-outcome.show{display:block}.grid-inventory{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.skin-card{overflow:hidden;border:1px solid #283952;border-radius:15px;background:linear-gradient(160deg,#182439,#101621);min-width:0}.skin-visual{height:165px;background:radial-gradient(circle at 50% 70%,#438cff25,transparent 62%),#121c2b;display:grid;place-items:center;overflow:hidden}.skin-visual .art{width:100%;height:100%}.skin-visual .art img{width:100%;height:100%;padding:13px;object-fit:contain}.skin-body{padding:12px}.skin-body p{font-size:11px;color:var(--muted);margin:4px 0 10px}.skin-controls{display:flex;gap:7px;flex-wrap:wrap}.skin-controls .btn{flex:1;padding:8px 7px;font-size:11px}.empty{padding:42px 20px;border:1px dashed #2f4059;border-radius:16px;text-align:center;color:var(--muted);grid-column:1/-1}.empty .empty-icon{font-size:32px;margin-bottom:10px}.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:17px}.profile-card{background:linear-gradient(135deg,#14233a,#101522);border:1px solid #293d5b;border-radius:19px;padding:23px}.avatar{width:62px;height:62px;display:grid;place-items:center;background:linear-gradient(145deg,#59e5f3,#547aff);color:#081222;border-radius:18px;font-size:28px;margin-bottom:16px}.profile-name{font-weight:950;font-size:24px}.withdrawal-list{display:grid;gap:10px}.withdraw-row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:13px;background:#0c1320;border:1px solid #25344a;border-radius:12px}.status{display:inline-block;padding:4px 8px;border-radius:8px;font-size:10px;font-weight:800;background:#2e2b19;color:#f7d779}.disclaimer{color:#71819c;font-size:11px;line-height:1.6;margin-top:16px}.modal-backdrop{display:none;position:fixed;inset:0;background:#03060bd9;backdrop-filter:blur(8px);z-index:60;align-items:center;justify-content:center;padding:18px}.modal-backdrop.show{display:flex}.modal{width:min(460px,100%);border:1px solid #2e4565;border-radius:20px;background:#101927;padding:23px;box-shadow:0 24px 90px #000b}.modal .field{margin-top:18px}.modal-actions{display:flex;gap:9px;justify-content:flex-end;margin-top:18px}.toast{position:fixed;right:20px;bottom:20px;z-index:99;max-width:min(420px,calc(100vw - 40px));padding:13px 17px;background:#18263b;border:1px solid #3a5b7f;box-shadow:var(--shadow);border-radius:13px;transform:translateY(140%);opacity:0;transition:.25s}.toast.show{transform:translateY(0);opacity:1}.art{display:grid;place-items:center;overflow:hidden;border-radius:12px;position:relative;background:linear-gradient(140deg,#243b5a,#121b2c)}.art img{display:block;object-fit:contain;width:100%;height:100%}.art .fallback-letter{font-size:36px;font-weight:1000;color:#dcefff;text-shadow:0 5px 25px #5ab4ff44}.art.no-image{background:linear-gradient(135deg,var(--artbg,#224a68),#101827)}.rarity-common{--artbg:#6d7884}.rarity-uncommon{--artbg:#2e784c}.rarity-rare{--artbg:#2564ab}.rarity-epic{--artbg:#713ab1}.rarity-legendary{--artbg:#b15a26}.rarity-mythic,.rarity-marvel,.rarity-icon{--artbg:#947022}.case-loading{margin:12px 0;color:var(--muted);font-size:12px}
+@media(max-width:1150px){.case-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.grid-inventory{grid-template-columns:repeat(3,minmax(0,1fr))}.upgrade-layout{grid-template-columns:1fr 1fr}}
+@media(max-width:850px){.app{grid-template-columns:1fr}.sidebar{position:fixed;left:0;top:0;width:260px;transform:translateX(-105%);transition:transform .22s;box-shadow:30px 0 80px #0008}.sidebar.open{transform:translateX(0)}.menu-btn{display:inline-flex}.main{padding-top:16px}.upgrade-layout{grid-template-columns:1fr}.case-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-inventory{grid-template-columns:repeat(3,minmax(0,1fr))}.topbar{margin-bottom:18px}}
+@media(max-width:560px){.hero{padding:24px 20px;min-height:0}.hero:after{right:-5px;bottom:-32px;font-size:135px}.stats{gap:8px}.stat-card{padding:13px}.stat-value{font-size:21px}.stat-top{font-size:10px}.stat-symbol{width:28px;height:28px}.section-head{align-items:start;flex-direction:column}.section-banner{align-items:start;flex-direction:column;padding:18px}.case-cover{height:135px}.case-info{padding:11px}.case-info p{font-size:11px}.case-bottom .btn{padding:8px}.grid-inventory{grid-template-columns:repeat(2,minmax(0,1fr))}.skin-visual{height:140px}.profile-grid{grid-template-columns:1fr}.panel{padding:17px}.upgrade-wheel{width:min(290px,78vw)}.topbar{align-items:center}.crumb{display:none}.balance{padding:9px 11px}.brand{padding-bottom:22px}}
 </style>
 </head>
 <body>
-<div class="layout">
+<div class="app">
 <aside class="sidebar" id="sidebar">
-  <div class="logo">FORTNITE <span>BATTLE</span></div>
-  <nav class="nav">
-    <button class="active" data-page="home">⌂ &nbsp; Головна</button>
-    <button data-page="cases">▣ &nbsp; Кейси</button>
-    <button data-page="upgrade">↗ &nbsp; Апгрейд</button>
-    <button data-page="inventory">▤ &nbsp; Інвентар</button>
-    <button data-page="profile">◉ &nbsp; Профіль</button>
-  </nav>
-  <div class="side-note">FORTNITE BATTLE<br>Твоя колекція починається тут.</div>
+ <div class="brand"><div class="brand-mark">⚡</div><div><strong>FORTNITE BATTLE</strong><small>SKIN CASES</small></div></div>
+ <div class="nav-label">ГОЛОВНЕ МЕНЮ</div>
+ <nav class="nav">
+  <button class="active" data-page="home"><span class="nav-icon">⌂</span>Головна</button>
+  <button data-page="cases"><span class="nav-icon">▣</span>Кейси</button>
+  <button data-page="upgrade"><span class="nav-icon">◉</span>Апгрейд</button>
+  <button data-page="inventory"><span class="nav-icon">▤</span>Інвентар</button>
+  <button data-page="profile"><span class="nav-icon">♙</span>Профіль</button>
+ </nav>
+ <div class="side-bottom"><div class="side-note"><b>⚡ Щоденний бонус</b>Відкривай безкоштовний кейс раз на 24 години та збирай колекцію скінів.</div><div class="disclaimer">Фан-проєкт. Не пов'язаний з Epic Games. Монети та скіни існують тільки в цій демоверсії.</div></div>
 </aside>
-
-<main>
-  <header class="topbar">
-    <div style="display:flex;align-items:center;gap:12px">
-      <button class="secondary mobile-menu" id="menuBtn">☰</button>
-      <div><b>Ігровий центр</b><br><small id="welcome">Твоя наступна перемога починається тут</small></div>
-    </div>
-    <div class="balance">◈ <span id="balance">0</span> монет</div>
-  </header>
-
-  <section class="page active" id="page-home">
-    <div class="hero">
-      <div class="eyebrow">YOUR LOADOUT. YOUR LEGACY.</div>
-      <h1>FORTNITE <span>BATTLE</span></h1>
-      <p>Відкривай кейси, збирай колекцію скінів і покращуй свій інвентар. Час перевірити удачу.</p>
-      <button class="primary" data-go="cases">ВІДКРИТИ КЕЙСИ ↗</button>
-    </div>
-    <div class="daily">
-      <div class="daily-icon">🎁</div>
-      <div class="daily-text"><h3>Щоденний кейс</h3><p>Отримуй безкоштовну нагороду раз на 24 години.</p></div>
-      <button class="primary" id="dailyBtn">ЗАБРАТИ</button>
-    </div>
-    <div class="stat-row">
-      <div class="stat"><small>Баланс</small><b id="homeCoins">0 ◈</b></div>
-      <div class="stat"><small>Скінів у колекції</small><b id="homeSkins">0</b></div>
-      <div class="stat"><small>Відкрито кейсів</small><b id="homeCases">0</b></div>
-    </div>
-    <div class="section-head"><h2>Популярні кейси</h2><button class="secondary" data-go="cases">Усі кейси →</button></div>
-    <div class="grid" id="homeCasesGrid"></div>
-  </section>
-
-  <section class="page" id="page-cases">
-    <div class="section-head"><h2>Кейси</h2><small>Обирай свою нагороду</small></div>
-    <div class="grid" id="casesGrid"></div>
-    <div class="panel" id="openingPanel" style="display:none;margin-top:22px">
-      <h2 id="openingTitle">Відкриття кейса</h2>
-      <p>Рулетка вже крутиться. Зараз усе вирішиться.</p>
-      <div class="wheel-window"><div class="wheel" id="wheel"></div></div>
-      <div class="result" id="openResult"></div>
-    </div>
-  </section>
-
-  <section class="page" id="page-upgrade">
-    <div class="section-head"><h2>Апгрейд скінів</h2><small>Ризикни заради кращого предмета</small></div>
-    <div class="two-col">
-      <div class="panel">
-        <h2>Твоя ставка</h2>
-        <label for="stakeSelect">Скін з інвентаря</label>
-        <select id="stakeSelect"></select>
-        <label for="targetSelect">Скін, який хочеш отримати</label>
-        <select id="targetSelect"></select>
-        <label for="chanceRange">Шанс успіху: <b id="chanceLabel">25%</b></label>
-        <input id="chanceRange" type="range" min="0.01" max="75" step="0.01" value="25">
-        <p style="font-size:12px">Обраний шанс впливає на результат. У разі невдачі ставка втрачається.</p>
-        <button class="primary" id="upgradeBtn" style="width:100%">СПРОБУВАТИ АПГРЕЙД</button>
-        <div class="result" id="upgradeResult"></div>
-      </div>
-      <div class="panel">
-        <h2>Як це працює</h2>
-        <div class="skin-art" style="height:220px;border-radius:12px;margin-bottom:16px;--glow:#158cff">
-          <div class="fallback">⚡</div>
-        </div>
-        <p>1. Обери скін зі свого інвентаря.</p>
-        <p>2. Вибери ціль і шанс успіху.</p>
-        <p>3. Натисни кнопку та дочекайся результату.</p>
-        <p>Кожна спроба може закінчитися втратою ставки. Перевіряй вибір перед запуском.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="page" id="page-inventory">
-    <div class="section-head"><h2>Мій інвентар</h2><small id="inventoryCount">0 предметів</small></div>
-    <div id="inventoryGrid" class="inventory-grid"></div>
-    <div class="panel" style="margin-top:24px">
-      <h2>Заявки на виведення</h2>
-      <p>Обери предмет зі свого інвентаря, щоб створити заявку. Передавання справжніх предметів потребує окремої підтримуваної системи.</p>
-      <div id="withdrawals"></div>
-    </div>
-  </section>
-
-  <section class="page" id="page-profile">
-    <div class="panel">
-      <div class="profile-top">
-        <div class="avatar">⚔</div>
-        <div><h2 id="profileName">Гравець</h2><p id="profileId">Fortnite Battle Player</p></div>
-      </div>
-      <div class="stat-row">
-        <div class="stat"><small>Монети</small><b id="profileCoins">0</b></div>
-        <div class="stat"><small>Скінів</small><b id="profileSkins">0</b></div>
-        <div class="stat"><small>Кейсів</small><b id="profileCases">0</b></div>
-      </div>
-      <p>Профіль гравця та статистика колекції.</p>
-      <button class="secondary" id="refreshProfile">ОНОВИТИ ПРОФІЛЬ</button>
-    </div>
-    <div class="panel">
-      <h2>Нагороди</h2>
-      <p>Щоденний кейс доступний раз на 24 години.</p>
-      <button class="primary" data-go="home">ДО ГОЛОВНОЇ</button>
-    </div>
-  </section>
-
-  <div class="footer">FORTNITE BATTLE · SKINS · CASES · UPGRADES</div>
+<main class="main">
+ <header class="topbar"><div class="controls-row"><button class="menu-btn" id="menuBtn" aria-label="Меню">☰</button><div class="crumb">FORTNITE BATTLE <span style="color:#536884">/</span> <b id="crumbText">Головна</b></div></div><div class="top-actions"><div class="balance"><span class="coin">◈</span><span id="balance">0</span><span style="font-size:11px;color:#8493ad">МОНЕТ</span></div></div></header>
+ <section class="page active" id="page-home">
+  <div class="hero"><div class="hero-copy"><div class="eyebrow">YOUR NEXT DROP</div><h1>Твоя колекція.<br><span>Твої правила.</span></h1><p>Відкривай кейси, лови рідкісні скіни та крути колесо апгрейду. Починай з безкоштовного дропу, а далі все залежить від удачі й твоєї колекції.</p><div class="controls-row"><button class="btn btn-primary" data-go="cases">Відкрити кейси <span>↗</span></button><button class="btn btn-secondary" id="heroDaily">Забрати щоденний кейс</button></div><div class="loading-line" id="apiStatus"><span class="dot"></span><span>Завантаження скінів Fortnite…</span></div></div></div>
+  <div class="stats"><div class="stat-card"><div class="stat-top">Баланс <span class="stat-symbol">◈</span></div><div class="stat-value" id="homeCoins">0</div></div><div class="stat-card"><div class="stat-top">Скіни в колекції <span class="stat-symbol">▤</span></div><div class="stat-value" id="homeSkins">0</div></div><div class="stat-card"><div class="stat-top">Відкрито кейсів <span class="stat-symbol">▣</span></div><div class="stat-value" id="homeCases">0</div></div></div>
+  <div class="section-head"><div><h2>Популярні кейси</h2><p>Від дешевих дропів до полювання за легендарками.</p></div><button class="btn btn-quiet" data-go="cases">Усі кейси →</button></div><div class="case-grid" id="homeCasesGrid"></div>
+ </section>
+ <section class="page" id="page-cases">
+  <div class="section-banner"><div><div class="eyebrow">CASE OPENING</div><h1 style="font-size:32px;margin-bottom:0">Магазин кейсів</h1><p>Кожен кейс має свій пул скінів і свою ціну. Дроп визначається випадково.</p></div><div class="controls-row"><input class="searchbox" id="caseSearch" placeholder="Знайти кейс…" autocomplete="off"></div></div>
+  <div class="opening-panel" id="openingPanel"><div class="roulette-head"><div><h2 id="openingTitle">Відкриття кейса</h2><p>Рулетка зупиниться на предметі, який випав.</p></div><button class="btn btn-quiet" id="hideOpening">Сховати</button></div><div class="roulette-window"><div class="roulette-track" id="rouletteTrack"></div></div><div class="open-result" id="openResult"></div></div>
+  <div class="case-grid" id="casesGrid"></div><div class="case-loading" id="caseCount"></div>
+ </section>
+ <section class="page" id="page-upgrade">
+  <div class="section-banner"><div><div class="eyebrow">RISK IT FOR THE DROP</div><h1 style="font-size:32px;margin-bottom:0">Колесо апгрейду</h1><p>Обери свій скін і ціль дорожче. Шанс порахується автоматично за вартістю предметів.</p></div></div>
+  <div class="upgrade-layout"><div class="panel"><div class="panel-title"><h2>Налаштування апгрейду</h2><p>Ти обираєш предмети, але не можеш намалювати собі шанс.</p></div><div class="field"><label for="stakeSelect">ТВІЙ СКІН (СТАВКА)</label><select id="stakeSelect"></select></div><div class="stake-preview" id="stakePreview"></div><div class="field"><label for="targetSearch">ЗНАЙТИ ЦІЛЬОВИЙ СКІН</label><input id="targetSearch" placeholder="Наприклад, Peely або Raven" autocomplete="off"></div><div class="field"><label for="targetSelect">ЦІЛЬОВИЙ СКІН (ДОРОЖЧИЙ)</label><select id="targetSelect"></select></div><div class="stake-preview" id="targetPreview"></div><div class="chance-box"><div><b>Розрахований шанс</b><div class="muted" style="font-size:11px;margin-top:4px">80% × вартість ставки ÷ вартість цілі</div></div><div class="chance-num" id="chanceValue">—</div></div><div class="chance-track"><span id="chanceBar"></span></div><button class="btn btn-primary" id="upgradeBtn" style="width:100%">Крутити колесо апгрейду ↗</button><p class="disclaimer">Якщо колесо зупиниться на зеленій частині, отримаєш цільовий скін. Якщо на червоній, ставка зникне. Це лише ігрова механіка, без реальних платежів.</p><div class="upgrade-outcome" id="upgradeOutcome"></div></div>
+  <div class="panel"><div class="panel-title"><h2>Колесо удачі</h2><p>Розмір зеленої частини відповідає твоєму шансу.</p></div><div class="wheel-zone"><div class="wheel-pointer">▼</div><div class="upgrade-wheel" id="upgradeWheel" style="--chance-angle:0deg"><div class="wheel-center">GO!</div></div></div><div class="wheel-legend"><span><i class="legend-dot" style="background:var(--green)"></i>Успіх</span><span><i class="legend-dot" style="background:var(--red)"></i>Невдача</span></div><div class="stat-card"><div class="stat-top">Правило апгрейду <span class="stat-symbol">ⓘ</span></div><p style="font-size:12px;color:#9eabc1;margin:12px 0 0;line-height:1.7">Чим дорожчий цільовий скін порівняно зі ставкою, тим менше шансів його отримати. Максимальний шанс для дорожчої цілі не перевищує 80%.</p></div></div></div>
+ </section>
+ <section class="page" id="page-inventory">
+  <div class="section-banner"><div><div class="eyebrow">YOUR LOCKER</div><h1 style="font-size:32px;margin-bottom:0">Мій інвентар</h1><p>Продавай зайві скіни за ігрові монети або створюй демо-заявку на виведення.</p></div><div class="balance"><span>▤</span><span id="inventoryCount">0 предметів</span></div></div><div class="grid-inventory" id="inventoryGrid"></div>
+ </section>
+ <section class="page" id="page-profile">
+  <div class="section-banner"><div><div class="eyebrow">PLAYER CARD</div><h1 style="font-size:32px;margin-bottom:0">Профіль гравця</h1><p>Твій прогрес і історія заявок.</p></div><button class="btn btn-secondary" id="refreshProfile">Оновити профіль</button></div>
+  <div class="profile-grid"><div class="profile-card"><div class="avatar">♙</div><div class="profile-name" id="profileName">Гравець</div><div class="muted" id="profileId">Fortnite Battle Player</div><div class="stats"><div class="stat-card"><div class="stat-top">Монети</div><div class="stat-value" id="profileCoins">0</div></div><div class="stat-card"><div class="stat-top">Скіни</div><div class="stat-value" id="profileSkins">0</div></div><div class="stat-card"><div class="stat-top">Кейси</div><div class="stat-value" id="profileCases">0</div></div></div></div><div class="profile-card"><h2>Заявки на виведення</h2><p class="muted" style="font-size:12px">Локальна демо-історія. Заявки не передають предмети у Fortnite.</p><div class="withdrawal-list" id="withdrawals"></div></div></div>
+ </section>
+ <footer class="disclaimer" style="padding-top:28px">Fortnite Battle — фанатська браузерна демоверсія. Назви та зображення косметики завантажуються через Fortnite-API, незалежний сторонній сервіс. Проєкт не пов'язаний з Epic Games, не використовує V-Bucks і не передає скіни в акаунти Fortnite.</footer>
 </main>
 </div>
-
+<div class="modal-backdrop" id="modalBackdrop"><div class="modal"><div class="eyebrow">WITHDRAWAL REQUEST</div><h2 id="modalTitle">Заявка на виведення</h2><p id="modalText" class="muted" style="font-size:13px">Це демо-заявка, вона не передає предмет автоматично.</p><div class="field"><label for="withdrawContact">Твій контакт для демо-заявки</label><input id="withdrawContact" placeholder="Telegram username" autocomplete="off"></div><p class="disclaimer">Не вводь пароль від Epic Games, коди підтвердження або інші секретні дані.</p><div class="modal-actions"><button class="btn btn-quiet" id="cancelModal">Скасувати</button><button class="btn btn-primary" id="confirmWithdraw">Створити заявку</button></div></div></div>
 <div class="toast" id="toast"></div>
-<div class="modal-backdrop" id="modalBackdrop">
-  <div class="modal">
-    <h2 id="modalTitle">Заявка</h2>
-    <p id="modalText">Підтвердити дію?</p>
-    <label for="withdrawContact">Контакт для заявки</label>
-    <input id="withdrawContact" placeholder="Telegram username">
-    <div style="display:flex;gap:10px;margin-top:18px">
-      <button class="primary" id="confirmWithdraw">Створити заявку</button>
-      <button class="secondary" id="cancelModal">Скасувати</button>
-    </div>
-  </div>
-</div>
-
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-const SKINS = [
- {id:"scout",name:"Розвідник",rarity:"Звичайний",value:10,emoji:"🪖",glow:"#6d829d",color:"#8194aa",img:""},
- {id:"shadow",name:"Тіньовий боєць",rarity:"Незвичайний",value:25,emoji:"🥷",glow:"#4f8dff",color:"#4f8dff",img:""},
- {id:"frost",name:"Крижаний мисливець",rarity:"Рідкісний",value:60,emoji:"❄️",glow:"#27c8ff",color:"#27c8ff",img:""},
- {id:"neon",name:"Неоновий рейдер",rarity:"Епічний",value:140,emoji:"⚡",glow:"#a855f7",color:"#b66bff",img:""},
- {id:"royal",name:"Королівський вартовий",rarity:"Легендарний",value:350,emoji:"👑",glow:"#ffad32",color:"#ffbd45",img:""},
- {id:"phantom",name:"Фантом",rarity:"Епічний",value:220,emoji:"👤",glow:"#e34aff",color:"#e34aff",img:""},
- {id:"storm",name:"Штормовий герой",rarity:"Легендарний",value:500,emoji:"🌩️",glow:"#48e7ff",color:"#48e7ff",img:""},
- {id:"cosmic",name:"Космічний мандрівник",rarity:"Міфічний",value:1000,emoji:"🌌",glow:"#ff4a9a",color:"#ff62b2",img:""}
-];
-const CASES = [
- {id:"daily",name:"Щоденний",price:0,desc:"Безкоштовна щоденна нагорода",emoji:"🎁",pool:["scout","shadow","frost"],daily:true},
- {id:"starter",name:"Стартовий",price:50,desc:"Перші рідкісні знахідки",emoji:"📦",pool:["scout","shadow","frost","neon"]},
- {id:"rare",name:"Рідкісний",price:150,desc:"Серйозніші нагороди",emoji:"💎",pool:["shadow","frost","neon","phantom","royal"]},
- {id:"epic",name:"Епічний",price:350,desc:"Скіни високої рідкості",emoji:"🔮",pool:["frost","neon","phantom","royal","storm"]},
- {id:"legend",name:"Легендарний",price:700,desc:"Найцінніші предмети",emoji:"👑",pool:["royal","storm","cosmic","phantom"]},
- {id:"cosmic",name:"Космічний",price:1500,desc:"Максимальний рівень нагород",emoji:"🌌",pool:["storm","cosmic","royal"]}
-];
-const KEY="fortnite_battle_v2";
-const defaults={coins:0,inventory:[],casesOpened:0,lastDaily:0,withdrawals:[],name:"Гравець"};
-let state;
-try{state=JSON.parse(localStorage.getItem(KEY))||defaults}catch(e){state={...defaults}}
-state={...defaults,...state};
+"use strict";
+const STORAGE_KEY="fortniteBattle_v3";
+const CACHE_KEY="fb_cosmetics_cache_v2";
+const DEFAULT_STATE={coins:0,inventory:[],casesOpened:0,lastDaily:0,withdrawals:[],name:"Гравець"};
+let state=loadState();
+let skins=[];
+let filteredCases=[];
 let pendingWithdraw=null;
+let opening=false;
+let upgrading=false;
 let toastTimer=null;
 
-function save(){localStorage.setItem(KEY,JSON.stringify(state));renderAll()}
-function skinById(id){return SKINS.find(s=>s.id===id)||SKINS[0]}
+const SEED_SKINS=[
+ {id:"fallback_aura",name:"Aura",rarity:"rare",value:250,series:"",image:""},
+ {id:"fallback_peely",name:"Peely",rarity:"epic",value:600,series:"",image:""},
+ {id:"fallback_raven",name:"Raven",rarity:"epic",value:600,series:"",image:""},
+ {id:"fallback_skull",name:"Skull Trooper",rarity:"legendary",value:1200,series:"",image:""},
+ {id:"fallback_blackknight",name:"Black Knight",rarity:"legendary",value:1500,series:"",image:""},
+ {id:"fallback_renegade",name:"Renegade Raider",rarity:"legendary",value:1500,series:"",image:""},
+ {id:"fallback_midas",name:"Midas",rarity:"legendary",value:1500,series:"",image:""},
+ {id:"fallback_drift",name:"Drift",rarity:"epic",value:600,series:"",image:""},
+ {id:"fallback_iceking",name:"Ice King",rarity:"legendary",value:1500,series:"Frozen",image:""},
+ {id:"fallback_marvel",name:"Marvel Hero",rarity:"marvel",value:2300,series:"Marvel",image:""},
+ {id:"fallback_icon",name:"Icon Series",rarity:"icon",value:2300,series:"Icon",image:""},
+ {id:"fallback_mythic",name:"Mythic Warrior",rarity:"mythic",value:3000,series:"",image:""}
+];
+const CASES=[
+ {id:"daily",name:"Щоденний дроп",price:0,tag:"FREE DROP",desc:"Безкоштовний кейс раз на 24 години",min:20,max:180,daily:true,glow:"#38dba955"},
+ {id:"starter",name:"Стартовий",price:15,tag:"START HERE",desc:"Дешевий кейс для перших скінів",min:25,max:130,glow:"#4d9fff50"},
+ {id:"street",name:"Вуличний",price:35,tag:"BUDGET",desc:"Прості образи та рідкісні знахідки",min:70,max:250,glow:"#4de6c050"},
+ {id:"blue",name:"Рідкісний",price:75,tag:"RARE DROP",desc:"Трохи вищий рівень ризику",min:150,max:400,glow:"#3b8bff66"},
+ {id:"epic",name:"Епічний",price:140,tag:"EPIC",desc:"Більше вартості, більше азарту",min:300,max:750,glow:"#ba58ff55"},
+ {id:"gold",name:"Легендарний",price:250,tag:"LEGENDARY",desc:"Полювання за дуже рідкісними скінами",min:550,max:1350,glow:"#ff9d3b55"},
+ {id:"frozen",name:"Крижаний",price:300,tag:"FROZEN SERIES",desc:"Зимова тема та холодні кольори",min:400,max:1500,series:"frozen",glow:"#69dbff55"},
+ {id:"shadow",name:"Тіньовий",price:320,tag:"DARK DROP",desc:"Темні образи та похмурий стиль",min:500,max:1600,series:"dark",glow:"#9d7bff55"},
+ {id:"lava",name:"Лавовий",price:380,tag:"LAVA SERIES",desc:"Вогняні образи з яскравими акцентами",min:550,max:1800,series:"lava",glow:"#ff632f55"},
+ {id:"icon",name:"Іконічний",price:450,tag:"ICON SERIES",desc:"Кейc із предметами найвищих серій",min:800,max:2400,series:"icon",glow:"#ffc85755"},
+ {id:"marvel",name:"Супергерої",price:520,tag:"MARVEL SERIES",desc:"Коміксовий дроп та топові образи",min:900,max:2600,series:"marvel",glow:"#fa567255"},
+ {id:"mythic",name:"Міфічний",price:650,tag:"MYTHIC",desc:"Високовартісні предмети",min:1300,max:3200,glow:"#f7d45b66"},
+ {id:"elite",name:"Елітний",price:850,tag:"ELITE DROP",desc:"Для тих, хто вже зібрав колекцію",min:1800,max:3800,glow:"#40d9ff55"},
+ {id:"jackpot",name:"Джекпот",price:1200,tag:"HIGH RISK",desc:"Найцінніші предмети в одному кейсі",min:2300,max:9000,glow:"#ffce5255"}
+];
+
+function loadState(){
+ try{
+  const raw=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");
+  if(!raw)return structuredClone(DEFAULT_STATE);
+  return {...structuredClone(DEFAULT_STATE),...raw,coins:Math.max(0,Number(raw.coins)||0),inventory:Array.isArray(raw.inventory)?raw.inventory:[],withdrawals:Array.isArray(raw.withdrawals)?raw.withdrawals:[]};
+ }catch(e){return structuredClone(DEFAULT_STATE)}
+}
+function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}catch(e){} renderAll()}
+function escapeHTML(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function formatNum(n){return Math.floor(Number(n)||0).toLocaleString("uk-UA")}
+function notify(message){const el=document.getElementById("toast");el.textContent=message;el.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("show"),2800)}
+function normRarity(raw,series){const x=String(raw||"").toLowerCase();const s=String(series||"").toLowerCase();if(s.includes("marvel"))return "marvel";if(s.includes("icon"))return "icon";if(x.includes("mythic"))return "mythic";if(x.includes("legendary"))return "legendary";if(x.includes("epic"))return "epic";if(x.includes("rare"))return "rare";if(x.includes("uncommon"))return "uncommon";return "common"}
+function priceFor(rarity,series){const s=String(series||"").toLowerCase();if(s.includes("marvel")||s.includes("icon"))return 2300;if(s.includes("frozen")||s.includes("lava")||s.includes("dark")||s.includes("shadow"))return 1500;return ({common:50,uncommon:100,rare:250,epic:600,legendary:1200,mythic:3000,marvel:2300,icon:2300})[rarity]||250}
+function normalizeCosmetic(c){
+ const series=c.series?.value||c.series?.name||"";
+ const rarity=normRarity(c.rarity?.value||c.rarity?.displayValue,series);
+ return {id:String(c.id),name:String(c.name||"Unnamed skin"),rarity,value:priceFor(rarity,series),series,image:c.images?.featured||c.images?.icon||c.images?.smallIcon||""};
+}
+async function loadSkins(){
+ const status=document.getElementById("apiStatus");
+ try{
+  const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),11000);
+  const response=await fetch("https://fortnite-api.com/v2/cosmetics/br?language=en",{signal:controller.signal,cache:"force-cache"});clearTimeout(timer);
+  if(!response.ok)throw new Error("API status "+response.status);
+  const json=await response.json();
+  const data=(json.data||[]).filter(c=>String(c.type?.value||"").toLowerCase()==="outfit").map(normalizeCosmetic).filter(s=>s.name&&s.id);
+  if(!data.length)throw new Error("No outfits returned");
+  skins=data;
+  try{localStorage.setItem(CACHE_KEY,JSON.stringify(data.slice(0,4000)))}catch(e){}
+  status.innerHTML='<span class="dot"></span><span>Завантажено '+formatNum(skins.length)+' скінів з каталогу Fortnite.</span>';
+ }catch(err){
+  try{const cached=JSON.parse(localStorage.getItem(CACHE_KEY)||"[]");if(cached.length)skins=cached}catch(e){}
+  if(!skins.length)skins=SEED_SKINS;
+  status.innerHTML='<span class="dot" style="background:var(--gold);box-shadow:0 0 10px var(--gold)"></span><span>Режим запасного каталогу · '+formatNum(skins.length)+' скінів. Перевір інтернет для повного списку.</span>';
+ }
+ // Remove outdated items from the local locker that cannot be found in the current catalogue.
+ const ids=new Set(skins.map(s=>s.id));
+ state.inventory=state.inventory.filter(it=>ids.has(it.skinId));
+ buildCasePages();renderAll();renderUpgradeOptions();
+}
+function skinById(id){return skins.find(s=>s.id===id)||SEED_SKINS.find(s=>s.id===id)||{id,name:"Невідомий скін",rarity:"common",value:50,image:""}}
 function ownedCount(){return state.inventory.length}
-function notify(message){
- const el=document.getElementById("toast");el.textContent=message;el.classList.add("show");
- clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("show"),2600);
+function rarityLabel(s){return ({common:"Звичайний",uncommon:"Незвичайний",rare:"Рідкісний",epic:"Епічний",legendary:"Легендарний",mythic:"Міфічний",marvel:"Marvel Series",icon:"Icon Series"})[s.rarity]||s.rarity}
+function art(s,extra=""){
+ const img=s.image?`<img loading="lazy" src="${escapeHTML(s.image)}" alt="${escapeHTML(s.name)}" onerror="this.remove();this.parentElement.classList.add('no-image');this.parentElement.innerHTML='<span class=&quot;fallback-letter&quot;>${escapeHTML((s.name||"F").slice(0,1).toUpperCase())}</span>'">`: `<span class="fallback-letter">${escapeHTML((s.name||"F").slice(0,1).toUpperCase())}</span>`;
+ return `<div class="art rarity-${escapeHTML(s.rarity)} ${s.image?"":"no-image"} ${extra}">${img}</div>`;
 }
-function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function art(s,small=false){
- return `<div class="skin-art" style="--glow:${s.glow}">
-   <span class="rarity" style="color:${s.color}">${s.rarity.toUpperCase()}</span>
-   <div class="fallback">${s.emoji}</div>
- </div>`;
+function poolFor(c){
+ let pool=skins.filter(s=>s.value>=c.min&&s.value<=c.max);
+ if(c.series){const matching=pool.filter(s=>String(s.series||"").toLowerCase().includes(c.series));if(matching.length>=4)pool=matching}
+ if(pool.length<8){const anchor=(c.min+c.max)/2;pool=skins.slice().sort((a,b)=>Math.abs(a.value-anchor)-Math.abs(b.value-anchor)).slice(0,Math.min(100,skins.length))}
+ return pool.length?pool:SEED_SKINS;
 }
-function skinCard(s,buttonText="",action="",priceLabel=true){
- return `<article class="card">${art(s)}
- <div class="card-info"><h3>${s.name}</h3><p>${s.rarity} · ${s.value} монет</p>
- <div class="card-bottom"><span class="price">${s.value}</span>
- ${buttonText?`<button class="primary" data-action="${action}" data-skin="${s.id}">${buttonText}</button>`:""}</div></div></article>`;
+function weightedSkin(pool){
+ if(!pool||!pool.length)return skins[0]||SEED_SKINS[0];
+ const weights=pool.map(s=>1/Math.max(30,Math.sqrt(s.value)));
+ let r=Math.random()*weights.reduce((a,b)=>a+b,0);
+ for(let i=0;i<pool.length;i++){r-=weights[i];if(r<=0)return pool[i]}
+ return pool[pool.length-1];
 }
+function caseCoverSkin(c){const pool=poolFor(c);return pool[Math.floor(pool.length*.65)]||pool[0]||SEED_SKINS[0]}
 function caseCard(c){
- const sample=skinById(c.pool[c.pool.length-1]);
- return `<article class="card">
- <div class="skin-art" style="--glow:${sample.glow}">
- <span class="rarity">${c.daily?"DAILY":"CASE"}</span><div class="fallback">${c.emoji}</div>
- </div>
- <div class="card-info"><h3>${c.name}</h3><p>${c.desc}</p>
- <div class="card-bottom"><span class="price">${c.price===0?"FREE":c.price}</span>
- <button class="primary" data-action="open" data-case="${c.id}">${c.daily?"ЗАБРАТИ":"ВІДКРИТИ"}</button></div></div></article>`;
+ const cover=caseCoverSkin(c);const disabled=(c.daily&&Date.now()-Number(state.lastDaily||0)<86400000)||(!c.daily&&state.coins<c.price)||opening;
+ const buttonText=c.daily?(disabled?"ВЖЕ ЗАБРАНО":"ЗАБРАТИ БЕЗКОШТОВНО"):"ВІДКРИТИ";
+ return `<article class="case-card" style="--caseglow:${c.glow||"#318bff36"}"><div class="case-cover"><span class="case-tag">${escapeHTML(c.tag)}</span>${art(cover)}</div><div class="case-info"><h3>${escapeHTML(c.name)}</h3><p>${escapeHTML(c.desc)}</p><div class="case-bottom"><span class="price">${c.price===0?'FREE':formatNum(c.price)+' <span class="coin">◈</span>'}</span><button class="btn ${c.daily?'btn-secondary':'btn-primary'}" data-action="open" data-case="${c.id}" ${disabled?'disabled':''}>${buttonText}</button></div></div></article>`;
+}
+function buildCasePages(){
+ const query=(document.getElementById("caseSearch")?.value||"").trim().toLowerCase();
+ filteredCases=CASES.filter(c=>(c.name+" "+c.tag+" "+c.desc).toLowerCase().includes(query));
+ document.getElementById("casesGrid").innerHTML=filteredCases.map(caseCard).join("");
+ document.getElementById("homeCasesGrid").innerHTML=CASES.slice(0,4).map(caseCard).join("");
+ document.getElementById("caseCount").textContent=`${CASES.length} кейсів · ${formatNum(skins.length)} скінів у каталозі`;
 }
 function renderAll(){
- document.getElementById("balance").textContent=state.coins;
- document.getElementById("homeCoins").textContent=state.coins+" ◈";
- document.getElementById("homeSkins").textContent=ownedCount();
- document.getElementById("homeCases").textContent=state.casesOpened;
- document.getElementById("profileCoins").textContent=state.coins;
- document.getElementById("profileSkins").textContent=ownedCount();
- document.getElementById("profileCases").textContent=state.casesOpened;
+ document.getElementById("balance").textContent=formatNum(state.coins);
+ document.getElementById("homeCoins").textContent=formatNum(state.coins)+" ◈";
+ document.getElementById("homeSkins").textContent=formatNum(ownedCount());
+ document.getElementById("homeCases").textContent=formatNum(state.casesOpened);
+ document.getElementById("profileCoins").textContent=formatNum(state.coins);
+ document.getElementById("profileSkins").textContent=formatNum(ownedCount());
+ document.getElementById("profileCases").textContent=formatNum(state.casesOpened);
  document.getElementById("profileName").textContent=state.name||"Гравець";
  document.getElementById("inventoryCount").textContent=ownedCount()+" предметів";
- document.getElementById("homeCasesGrid").innerHTML=CASES.slice(1,5).map(caseCard).join("");
- document.getElementById("casesGrid").innerHTML=CASES.map(caseCard).join("");
+ buildCasePages();
  const inv=document.getElementById("inventoryGrid");
  inv.innerHTML=state.inventory.length?state.inventory.map((item,i)=>{
- const s=skinById(item.skinId);
- return `<article class="card">${art(s)}<div class="card-info"><h3>${s.name}</h3><p>${s.rarity}</p>
- <div class="card-bottom"><span class="price">${s.value}</span><button class="secondary" data-action="withdraw" data-index="${i}">Вивести</button></div></div></article>`;
- }).join(""):`<div class="empty" style="grid-column:1/-1">Інвентар поки порожній.<br>Відкрий перший кейс, щоб отримати скін.</div>`;
- document.getElementById("withdrawals").innerHTML=state.withdrawals.length?
- state.withdrawals.slice().reverse().map(w=>`<div class="stat" style="margin-bottom:8px"><b>${escapeHTML(w.skin)}</b><p>Контакт: ${escapeHTML(w.contact||"не вказано")} · Статус: ${escapeHTML(w.status)}</p></div>`).join("")
- :`<div class="empty">Заявок поки немає.</div>`;
+  const s=skinById(item.skinId);const sell=Math.max(1,Math.floor(s.value*.35));
+  return `<article class="skin-card"><div class="skin-visual">${art(s)}</div><div class="skin-body"><h3>${escapeHTML(s.name)}</h3><p>${rarityLabel(s)} · ${formatNum(s.value)} монет</p><div class="skin-controls"><button class="btn btn-secondary" data-action="sell" data-index="${i}">Продати +${formatNum(sell)} ◈</button><button class="btn btn-quiet" data-action="withdraw" data-index="${i}">Вивести</button></div></div></article>`;
+ }).join(""):`<div class="empty"><div class="empty-icon">▤</div><b>Колекція поки порожня</b><p>Забери щоденний дроп або відкрий недорогий кейс.</p><button class="btn btn-primary" data-go="cases">До кейсів</button></div>`;
+ document.getElementById("withdrawals").innerHTML=state.withdrawals.length?state.withdrawals.slice().reverse().map(w=>`<div class="withdraw-row"><div><b>${escapeHTML(w.skin)}</b><div class="muted" style="font-size:11px">${escapeHTML(w.contact||"Контакт не вказаний")}</div></div><span class="status">${escapeHTML(w.status)}</span></div>`).join(""):`<div class="empty" style="padding:25px"><b>Заявок поки немає</b></div>`;
+ const dailyDone=Date.now()-Number(state.lastDaily||0)<86400000;
+ const dailyBtn=document.getElementById("heroDaily");dailyBtn.disabled=dailyDone;dailyBtn.textContent=dailyDone?"Щоденний кейс уже забрано":"Забрати щоденний кейс";
  renderUpgradeOptions();
- const ready=Date.now()-Number(state.lastDaily||0)>=86400000;
- const btn=document.getElementById("dailyBtn");
- btn.disabled=!ready;btn.textContent=ready?"ЗАБРАТИ":"ВЖЕ ОТРИМАНО";
 }
-  
-function renderUpgradeOptions(){
- const stake=document.getElementById("stakeSelect");
- const target=document.getElementById("targetSelect");
- const oldStake=stake.value;
- const oldTarget=target.value;
-
- stake.innerHTML=state.inventory.length
- ?state.inventory.map((item,i)=>{
-   const s=skinById(item.skinId);
-   return `<option value="${i}">${s.name} · ${s.value} монет</option>`;
- }).join("")
- :`<option value="">Інвентар порожній</option>`;
-
- target.innerHTML=SKINS.map(s=>
- `<option value="${s.id}">${s.name} · ${s.value} монет</option>`
- ).join("");
-
- if([...stake.options].some(o=>o.value===oldStake))stake.value=oldStake;
- if([...target.options].some(o=>o.value===oldTarget))target.value=oldTarget;
-}
-
 function showPage(name){
- document.querySelectorAll(".page").forEach(p=>
-  p.classList.toggle("active",p.id==="page-"+name)
- );
- document.querySelectorAll(".nav button").forEach(b=>
-  b.classList.toggle("active",b.dataset.page===name)
- );
+ document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+name));
+ document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===name));
+ const titles={home:"Головна",cases:"Кейси",upgrade:"Апгрейд",inventory:"Інвентар",profile:"Профіль"};
+ document.getElementById("crumbText").textContent=titles[name]||"Головна";
  document.getElementById("sidebar").classList.remove("open");
-
  if(name==="upgrade")renderUpgradeOptions();
  if(name==="profile")setProfile();
-
  window.scrollTo({top:0,behavior:"smooth"});
 }
-
 function setProfile(){
  const tg=window.Telegram&&window.Telegram.WebApp;
-
  if(tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user){
   const u=tg.initDataUnsafe.user;
-  state.name=[u.first_name,u.last_name].filter(Boolean).join(" ")
-   ||u.username||"Гравець";
-
-  document.getElementById("welcome").textContent="Вітаємо, "+state.name;
-  document.getElementById("profileId").textContent=
-   u.username?"@"+u.username:"Telegram гравець";
- }else{
-  document.getElementById("welcome").textContent=
-   "Твоя наступна перемога починається тут";
-  document.getElementById("profileId").textContent="Fortnite Battle Player";
- }
-
+  state.name=[u.first_name,u.last_name].filter(Boolean).join(" ")||u.username||"Гравець";
+  document.getElementById("profileId").textContent=u.username?"@"+u.username:"Telegram гравець";
+ }else{document.getElementById("profileId").textContent="Fortnite Battle Player"}
  document.getElementById("profileName").textContent=state.name||"Гравець";
 }
-
-function weightedSkin(pool){
- const weights=pool.map(id=>{
-  const s=skinById(id);
-  return 1/Math.sqrt(s.value);
- });
-
- let r=Math.random()*weights.reduce((a,b)=>a+b,0);
-
- for(let i=0;i<pool.length;i++){
-  r-=weights[i];
-  if(r<=0)return skinById(pool[i]);
- }
-
- return skinById(pool[0]);
+function targetOptions(stakeValue,query=""){
+ const q=query.trim().toLowerCase();
+ let list=skins.filter(s=>s.value>stakeValue&&s.name.toLowerCase().includes(q));
+ list.sort((a,b)=>a.value-b.value||a.name.localeCompare(b.name));
+ // Keep the select quick to use while retaining lots of options.
+ if(list.length>700){const near=list.slice(0,500);const expensive=list.slice(-200);list=[...new Map([...near,...expensive].map(s=>[s.id,s])).values()]}
+ return list;
 }
-
-function openCase(caseId){
- const c=CASES.find(x=>x.id===caseId);
- if(!c)return;
-
- if(c.daily&&Date.now()-Number(state.lastDaily||0)<86400000){
-  notify("Щоденний кейс уже отримано.");
-  return;
- }
-
- if(state.coins<c.price){
-  notify("Недостатньо монет для цього кейса.");
-  return;
- }
-
- if(!c.daily)state.coins-=c.price;
-
- const won=weightedSkin(c.pool);
-
- if(c.daily){
-  state.lastDaily=Date.now();
-  state.coins+=Math.floor(Math.random()*2)+2;
- }
-
- state.inventory.push({
-  uid:Date.now()+"_"+Math.random().toString(36).slice(2,7),
-  skinId:won.id
- });
-
- state.casesOpened++;
- save();
-
- showPage("cases");
-
- const panel=document.getElementById("openingPanel");
- panel.style.display="block";
- document.getElementById("openingTitle").textContent=c.name+" кейс";
-
- const wheel=document.getElementById("wheel");
- const sequence=Array.from({length:25},(_,i)=>
-  i===22?won:weightedSkin(c.pool)
- );
-
- wheel.style.transition="none";
- wheel.style.transform="translateX(0)";
-
- wheel.innerHTML=sequence.map(s=>
-  `<div class="wheel-item">${art(s)}<b>${s.name}</b></div>`
- ).join("");
-
- const itemWidth=129;
- const container=wheel.parentElement.clientWidth;
- const offset=22*itemWidth+60-container/2;
-
+function renderUpgradeOptions(keepTarget=true){
+ const stake=document.getElementById("stakeSelect"),target=document.getElementById("targetSelect");if(!stake||!target||!skins.length)return;
+ const oldStake=stake.value,oldTarget=target.value;
+ stake.innerHTML=state.inventory.length?state.inventory.map((it,i)=>{const s=skinById(it.skinId);return `<option value="${i}">${escapeHTML(s.name)} · ${formatNum(s.value)} ◈</option>`}).join(""):`<option value="">Інвентар порожній</option>`;
+ if([...stake.options].some(o=>o.value===oldStake))stake.value=oldStake;
+ const selected=state.inventory[Number(stake.value)];const stakeSkin=selected?skinById(selected.skinId):null;
+ const options=targetOptions(stakeSkin?.value||0,document.getElementById("targetSearch").value);
+ target.innerHTML=options.length?options.map(s=>`<option value="${escapeHTML(s.id)}">${escapeHTML(s.name)} · ${formatNum(s.value)} ◈</option>`).join(""):`<option value="">Немає дорожчих скінів за пошуком</option>`;
+ if(keepTarget&&options.some(s=>s.id===oldTarget))target.value=oldTarget;
+ updateUpgradePreview();
+}
+function updateArtPreview(el,s){el.innerHTML=s?`${art(s)}<div><b>${escapeHTML(s.name)}</b><small>${rarityLabel(s)} · ${formatNum(s.value)} монет</small></div>`:`${art({name:"?",rarity:"common",image:""})}<div><b>Спочатку отримай скін</b><small>Потрібен предмет для ставки</small></div>`}
+function calculatedChance(stake,target){if(!stake||!target||target.value<=stake.value)return 0;return Math.max(1,Math.min(80,Math.floor(80*stake.value/target.value*100)/100))}
+function updateUpgradePreview(){
+ const it=state.inventory[Number(document.getElementById("stakeSelect").value)];const stake=it?skinById(it.skinId):null;const target=skins.find(s=>s.id===document.getElementById("targetSelect").value)||null;
+ updateArtPreview(document.getElementById("stakePreview"),stake);updateArtPreview(document.getElementById("targetPreview"),target);
+ const chance=calculatedChance(stake,target);document.getElementById("chanceValue").textContent=chance?chance.toLocaleString("uk-UA",{maximumFractionDigits:2})+"%":"—";document.getElementById("chanceBar").style.width=chance+"%";document.getElementById("upgradeWheel").style.setProperty("--chance-angle",(chance*3.6)+"deg");
+ document.getElementById("upgradeBtn").disabled=upgrading||!stake||!target||target.value<=stake.value;
+}
+function rollRoulette(c,won){
+ const panel=document.getElementById("openingPanel");panel.classList.add("show");panel.scrollIntoView({behavior:"smooth",block:"center"});
+ document.getElementById("openingTitle").textContent=c.name+" · рулетка";
+ const track=document.getElementById("rouletteTrack");const pool=poolFor(c);const count=35;const winnerIndex=28;
+ const seq=Array.from({length:count},(_,i)=>i===winnerIndex?won:weightedSkin(pool));
+ track.style.transition="none";track.style.transform="translateX(0px)";
+ track.innerHTML=seq.map(s=>`<div class="roulette-item">${art(s)}<b title="${escapeHTML(s.name)}">${escapeHTML(s.name)}</b></div>`).join("");
+ const result=document.getElementById("openResult");result.classList.remove("show");result.innerHTML="";
  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-  wheel.style.transition="transform 4.2s cubic-bezier(.08,.75,.12,1)";
-  wheel.style.transform=`translateX(-${offset}px)`;
+  const item=track.children[winnerIndex];const trackBox=track.getBoundingClientRect();const itemBox=item.getBoundingClientRect();const windowBox=track.parentElement.getBoundingClientRect();const currentCenter=(itemBox.left-trackBox.left)+itemBox.width/2;const targetCenter=windowBox.width/2;const offset=currentCenter-targetCenter;
+  track.style.transition="transform 4.6s cubic-bezier(.08,.78,.12,1)";track.style.transform=`translateX(-${offset}px)`;
  }));
-
- const result=document.getElementById("openResult");
- result.style.display="block";
- result.innerHTML="Рулетка крутиться...";
-
  setTimeout(()=>{
-  result.innerHTML=
-   `Випав скін <b style="color:${won.color}">${won.name}</b> · цінність ${won.value} монет`;
-  renderAll();
- },4300);
+  result.innerHTML=`<div><div class="muted" style="font-size:11px;text-transform:uppercase;letter-spacing:1px">Випав предмет</div><div class="result-name">${escapeHTML(won.name)}</div><span class="muted" style="font-size:12px">${rarityLabel(won)} · ${formatNum(won.value)} монет</span></div><button class="btn btn-primary" data-go="inventory">Перейти в інвентар →</button>`;
+  result.classList.add("show");opening=false;renderAll();
+ },4800);
 }
-
-function dailyCase(){
- openCase("daily");
+function openCase(caseId){
+ if(opening)return;const c=CASES.find(x=>x.id===caseId);if(!c)return;
+ if(c.daily&&Date.now()-Number(state.lastDaily||0)<86400000){notify("Щоденний кейс уже забрано. Він оновиться через 24 години.");return}
+ if(!c.daily&&state.coins<c.price){notify("Не вистачає монет. Забери щоденний кейс або продай зайвий скін.");return}
+ const pool=poolFor(c);if(!pool.length){notify("Поки немає скінів для цього кейса.");return}
+ opening=true;if(!c.daily)state.coins-=c.price;else{state.lastDaily=Date.now();state.coins+=20}
+ const won=weightedSkin(pool);state.inventory.push({uid:Date.now()+"_"+Math.random().toString(36).slice(2,7),skinId:won.id});state.casesOpened++;
+ showPage("cases");save();buildCasePages();rollRoulette(c,won);notify(c.daily?"Щоденний кейс відкрито: +20 монет і новий скін!":"Кейс відкрито! Дивись, що випало.");
 }
-
+function dailyCase(){openCase("daily")}
 function upgrade(){
- const stakeIndex=document.getElementById("stakeSelect").value;
-
- if(stakeIndex===""){
-  notify("Спочатку отримай скін у кейсі.");
-  return;
- }
-
- const item=state.inventory[Number(stakeIndex)];
- if(!item)return;
-
- const target=skinById(document.getElementById("targetSelect").value);
- const chance=Number(document.getElementById("chanceRange").value);
- const result=document.getElementById("upgradeResult");
-
- if(target.id===item.skinId){
-  notify("Обери інший цільовий скін.");
-  return;
- }
-
- if(target.value<=skinById(item.skinId).value){
-  notify("Цільовий скін має бути дорожчим за ставку.");
-  return;
- }
-
- state.inventory.splice(Number(stakeIndex),1);
-
- const win=Math.random()*100<chance;
-
- if(win){
-  state.inventory.push({
-   uid:Date.now()+"_"+Math.random().toString(36).slice(2,7),
-   skinId:target.id
-  });
- }
-
- save();
-
- result.style.display="block";
- result.innerHTML=win
-  ?`<b style="color:#4ee6a8">УСПІХ!</b><br>Ти отримав скін ${target.name}.`
-  :`<b style="color:#ff697f">НЕВДАЧА</b><br>Скін зі ставки втрачено.`;
-
- renderAll();
+ if(upgrading)return;
+ const stakeIndex=document.getElementById("stakeSelect").value;const it=state.inventory[Number(stakeIndex)];if(!it){notify("Спочатку отримай скін у кейсі.");return}
+ const st=skinById(it.skinId);const target=skins.find(s=>s.id===document.getElementById("targetSelect").value);if(!target){notify("Обери цільовий скін.");return}
+ if(target.value<=st.value){notify("Цільовий скін має бути дорожчим за ставку.");return}
+ const chance=calculatedChance(st,target);if(!chance){notify("Неможливо розрахувати шанс.");return}
+ upgrading=true;document.getElementById("upgradeBtn").disabled=true;document.getElementById("upgradeOutcome").classList.remove("show");
+ const wheel=document.getElementById("upgradeWheel");wheel.style.transition="none";wheel.style.transform="rotate(0deg)";wheel.offsetHeight;
+ const didWin=Math.random()*100<chance;const chanceDeg=chance*3.6;const pointerAngle=didWin?Math.random()*chanceDeg:chanceDeg+Math.random()*(360-chanceDeg);const landing=(360-pointerAngle+360)%360;const total=landing+360*(7+Math.floor(Math.random()*3));
+ requestAnimationFrame(()=>{wheel.style.transition="transform 5.1s cubic-bezier(.08,.72,.13,1)";wheel.style.transform=`rotate(${total}deg)`});
+ setTimeout(()=>{
+  // Remove only the exact selected copy.
+  state.inventory.splice(Number(stakeIndex),1);
+  const out=document.getElementById("upgradeOutcome");
+  if(didWin){state.inventory.push({uid:Date.now()+"_"+Math.random().toString(36).slice(2,7),skinId:target.id});out.innerHTML=`<b style="font-size:17px;color:var(--green)">АПГРЕЙД УСПІШНИЙ!</b><p style="margin:6px 0 0">Ти отримав ${escapeHTML(target.name)}.</p>`;}
+  else{out.innerHTML=`<b style="font-size:17px;color:var(--red)">НЕВДАЧА</b><p style="margin:6px 0 0">Скін ${escapeHTML(st.name)} втрачено. Наступного разу пощастить більше.</p>`;}
+  out.classList.add("show");upgrading=false;save();renderUpgradeOptions(false);notify(didWin?"Апгрейд успішний!":"Апгрейд не пройшов.");
+ },5300);
 }
-
-
-function openWithdraw(index){
- const item=state.inventory[index];
- if(!item)return;
-
- pendingWithdraw=index;
- const s=skinById(item.skinId);
-
- document.getElementById("modalTitle").textContent="Заявка на виведення";
- document.getElementById("modalText").textContent=
-  "Предмет: "+s.name+". Заявка не передає предмет автоматично.";
- document.getElementById("withdrawContact").value="";
- document.getElementById("modalBackdrop").classList.add("show");
-}
-
-function confirmWithdraw(){
- if(pendingWithdraw===null)return;
-
- const contact=document.getElementById("withdrawContact").value.trim();
-
- if(!contact){
-  notify("Вкажи контакт для заявки.");
-  return;
- }
-
- const item=state.inventory[pendingWithdraw];
- if(!item)return;
-
- const s=skinById(item.skinId);
-
- state.withdrawals.push({
-  skin:s.name,
-  skinId:s.id,
-  contact,
-  status:"Очікує обробки",
-  created:Date.now()
- });
-
- document.getElementById("modalBackdrop").classList.remove("show");
- pendingWithdraw=null;
-
- save();
- renderAll();
- notify("Заявку створено. Вона збережена в цьому браузері.");
-}
+function sellSkin(index){const it=state.inventory[index];if(!it)return;const s=skinById(it.skinId);const payout=Math.max(1,Math.floor(s.value*.35));state.inventory.splice(index,1);state.coins+=payout;save();notify(`Продано ${s.name}: +${formatNum(payout)} монет.`)}
+function openWithdraw(index){const it=state.inventory[index];if(!it)return;pendingWithdraw=index;const s=skinById(it.skinId);document.getElementById("modalTitle").textContent="Заявка на виведення";document.getElementById("modalText").textContent="Предмет: "+s.name+". Це лише демо-заявка, предмет не передається у Fortnite.";document.getElementById("withdrawContact").value="";document.getElementById("modalBackdrop").classList.add("show")}
+function confirmWithdraw(){if(pendingWithdraw===null)return;const contact=document.getElementById("withdrawContact").value.trim();if(!contact){notify("Вкажи контакт для демо-заявки.");return}const it=state.inventory[pendingWithdraw];if(!it)return;const s=skinById(it.skinId);state.withdrawals.push({skin:s.name,skinId:s.id,contact,status:"Демо: очікує обробки",created:Date.now()});document.getElementById("modalBackdrop").classList.remove("show");pendingWithdraw=null;save();notify("Демо-заявку створено.")}
 
 document.addEventListener("click",e=>{
- const nav=e.target.closest("[data-page]");
- if(nav){
-  showPage(nav.dataset.page);
-  return;
- }
-
- const go=e.target.closest("[data-go]");
- if(go){
-  showPage(go.dataset.go);
-  return;
- }
-
- const action=e.target.closest("[data-action]");
- if(!action)return;
-
- if(action.dataset.action==="open"){
-  openCase(action.dataset.case);
- }
-
- if(action.dataset.action==="withdraw"){
-  openWithdraw(Number(action.dataset.index));
- }
+ const nav=e.target.closest("[data-page]");if(nav){showPage(nav.dataset.page);return}
+ const go=e.target.closest("[data-go]");if(go){showPage(go.dataset.go);return}
+ const action=e.target.closest("[data-action]");if(!action)return;
+ if(action.dataset.action==="open")openCase(action.dataset.case);
+ if(action.dataset.action==="sell")sellSkin(Number(action.dataset.index));
+ if(action.dataset.action==="withdraw")openWithdraw(Number(action.dataset.index));
 });
-
-document.getElementById("dailyBtn").addEventListener("click",dailyCase);
-
-document.getElementById("chanceRange").addEventListener("input",e=>{
- document.getElementById("chanceLabel").textContent=
-  Number(e.target.value).toLocaleString("uk-UA")+"%";
-});
-
+document.getElementById("dailyBtn")?.addEventListener("click",dailyCase);
+document.getElementById("heroDaily").addEventListener("click",dailyCase);
+document.getElementById("caseSearch").addEventListener("input",buildCasePages);
+document.getElementById("hideOpening").addEventListener("click",()=>document.getElementById("openingPanel").classList.remove("show"));
+document.getElementById("stakeSelect").addEventListener("change",()=>renderUpgradeOptions(false));
+document.getElementById("targetSelect").addEventListener("change",updateUpgradePreview);
+document.getElementById("targetSearch").addEventListener("input",()=>renderUpgradeOptions(false));
 document.getElementById("upgradeBtn").addEventListener("click",upgrade);
-
 document.getElementById("confirmWithdraw").addEventListener("click",confirmWithdraw);
-
-document.getElementById("cancelModal").addEventListener("click",()=>{
- document.getElementById("modalBackdrop").classList.remove("show");
- pendingWithdraw=null;
-});
-
-document.getElementById("menuBtn").addEventListener("click",()=>{
- document.getElementById("sidebar").classList.toggle("open");
-});
-
-document.getElementById("refreshProfile").addEventListener("click",()=>{
- setProfile();
- renderAll();
- notify("Профіль оновлено.");
-});
-
-if(window.Telegram&&window.Telegram.WebApp){
- window.Telegram.WebApp.ready();
- window.Telegram.WebApp.expand();
-}
-
-setProfile();
-renderAll();
+document.getElementById("cancelModal").addEventListener("click",()=>{document.getElementById("modalBackdrop").classList.remove("show");pendingWithdraw=null});
+document.getElementById("modalBackdrop").addEventListener("click",e=>{if(e.target.id==="modalBackdrop"){e.currentTarget.classList.remove("show");pendingWithdraw=null}});
+document.getElementById("menuBtn").addEventListener("click",()=>document.getElementById("sidebar").classList.toggle("open"));
+document.getElementById("refreshProfile").addEventListener("click",()=>{setProfile();renderAll();notify("Профіль оновлено.")});
+if(window.Telegram&&window.Telegram.WebApp){window.Telegram.WebApp.ready();window.Telegram.WebApp.expand()}
+setProfile();renderAll();
+loadSkins();
 </script>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
 </body>
 </html>
-
-  
