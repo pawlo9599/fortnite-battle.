@@ -73,6 +73,7 @@ body{background:radial-gradient(ellipse at 80% -18%,#0a1425 0,transparent 32%),#
   <button data-page="battle"><span class="nav-icon">⚔</span>Батл кейсів</button>
   <button data-page="inventory"><span class="nav-icon">▤</span>Інвентар</button>
   <button data-page="profile"><span class="nav-icon">♙</span>Профіль</button>
+  <button data-page="admin" id="adminNav" style="display:none"><span class="nav-icon">⚙</span>Адмін-панель</button>
  </nav>
  <div class="side-bottom"><div class="side-note"><b>⚡ Щоденний бонус</b>Відкривай безкоштовний кейс раз на 24 години та збирай колекцію скінів.</div><div class="disclaimer">Фан-проєкт. Не пов'язаний з Epic Games. Виведення скінів поки недоступне, пізніше функція може з’явитися.</div></div>
 </aside>
@@ -91,7 +92,7 @@ body{background:radial-gradient(ellipse at 80% -18%,#0a1425 0,transparent 32%),#
  </section>
  <section class="page" id="page-upgrade">
   <div class="section-banner"><div><div class="eyebrow">RISK IT FOR THE DROP</div><h1 style="font-size:32px;margin-bottom:0">Колесо апгрейду</h1><p>Обери свій скін і ціль дорожче. Шанс порахується автоматично за вартістю предметів.</p></div></div>
-  <div class="upgrade-layout"><div class="panel"><div class="panel-title"><h2>Налаштування апгрейду</h2><p>Ти обираєш предмети, але не можеш намалювати собі шанс.</p></div><div class="field"><label for="stakeSelect">ТВІЙ СКІН (СТАВКА)</label><select id="stakeSelect"></select></div><div class="stake-preview" id="stakePreview"></div><div class="field"><label for="targetSearch">ЗНАЙТИ ЦІЛЬОВИЙ СКІН</label><input id="targetSearch" placeholder="Наприклад, Peely або Raven" autocomplete="off"></div><div class="field"><label for="targetSelect">ЦІЛЬОВИЙ СКІН (УСІ СКІНИ)</label><select id="targetSelect"></select></div><div class="stake-preview" id="targetPreview"></div><div class="chance-box"><div><b>Реальний шанс</b><div class="muted" style="font-size:11px;margin-top:4px">45% × вартість ставки ÷ вартість цілі</div></div><div class="chance-num" id="chanceValue">—</div></div><div class="chance-track"><span id="chanceBar"></span></div><button class="btn btn-primary" id="upgradeBtn" style="width:100%">Крутити колесо апгрейду ↗</button><p class="disclaimer">Якщо колесо зупиниться на зеленій частині, отримаєш цільовий скін. Якщо на червоній, ставка зникне. Це лише ігрова механіка, без реальних платежів.</p><div class="upgrade-outcome" id="upgradeOutcome"></div></div>
+  <div class="upgrade-layout"><div class="panel"><div class="panel-title"><h2>Налаштування апгрейду</h2><p>Ти обираєш предмети, але не можеш намалювати собі шанс.</p></div><div class="field"><label for="stakeSelect">ТВІЙ СКІН (СТАВКА)</label><select id="stakeSelect"></select></div><div class="stake-preview" id="stakePreview"></div><div class="field"><label for="upgradeMinPercent">МІНІМУМ ДО ВАРТОСТІ СТАВКИ</label><select id="upgradeMinPercent"><option value="25" selected>+25% до ціни</option><option value="50">+50% до ціни</option><option value="75">+75% до ціни</option><option value="100">+100% до ціни</option><option value="150">+150% до ціни</option><option value="200">+200% до ціни</option></select><p class="muted" style="font-size:12px;margin:7px 0 0">Дешевші цілі автоматично ховаються. Ставка 100 ◈ при +25% дозволяє цілі від 125 ◈.</p></div><div class="field"><label for="targetSearch">ЗНАЙТИ ЦІЛЬОВИЙ СКІН</label><input id="targetSearch" placeholder="Наприклад, Peely або Raven" autocomplete="off"></div><div class="field"><label for="targetSelect">ЦІЛЬОВИЙ СКІН (УСІ СКІНИ)</label><select id="targetSelect"></select></div><div class="stake-preview" id="targetPreview"></div><div class="chance-box"><div><b>Реальний шанс</b><div class="muted" style="font-size:11px;margin-top:4px">45% × вартість ставки ÷ вартість цілі</div></div><div class="chance-num" id="chanceValue">—</div></div><div class="chance-track"><span id="chanceBar"></span></div><button class="btn btn-primary" id="upgradeBtn" style="width:100%">Крутити колесо апгрейду ↗</button><p class="disclaimer">Якщо колесо зупиниться на зеленій частині, отримаєш цільовий скін. Якщо на червоній, ставка зникне. Це лише ігрова механіка, без реальних платежів.</p><div class="upgrade-outcome" id="upgradeOutcome"></div></div>
   <div class="panel"><div class="panel-title"><h2>Колесо удачі</h2><p>Розмір зеленої частини відповідає твоєму шансу.</p></div><div class="wheel-zone"><div class="wheel-pointer">▼</div><div class="upgrade-wheel" id="upgradeWheel" style="--chance-angle:0deg"><div class="wheel-center">GO!</div></div></div><div class="wheel-legend"><span><i class="legend-dot" style="background:var(--green)"></i>Успіх</span><span><i class="legend-dot" style="background:var(--red)"></i>Невдача</span></div><div class="stat-card"><div class="stat-top">Правило апгрейду <span class="stat-symbol">ⓘ</span></div><p style="font-size:12px;color:#9eabc1;margin:12px 0 0;line-height:1.7">Чим дорожчий цільовий скін порівняно зі ставкою, тим менше шансів його отримати. Базовий множник становить 45%; значення на екрані й на колесі збігаються з шансом випадіння.</p></div></div></div>
  </section>
  <section class="page" id="page-battle">
@@ -106,6 +107,7 @@ body{background:radial-gradient(ellipse at 80% -18%,#0a1425 0,transparent 32%),#
   <div class="section-banner"><div><div class="eyebrow">PLAYER CARD</div><h1 style="font-size:32px;margin-bottom:0">Профіль гравця</h1><p>Твій прогрес і історія заявок.</p></div><button class="btn btn-secondary" id="refreshProfile">Оновити профіль</button></div>
   <div class="profile-grid"><div class="profile-card"><div class="avatar" id="profileAvatar">♙</div><div class="profile-name" id="profileName">Гравець</div><div class="muted" id="profileId">Fortnite Battle Player</div><div class="stats"><div class="stat-card"><div class="stat-top">Монети</div><div class="stat-value" id="profileCoins">0</div></div><div class="stat-card"><div class="stat-top">Скіни</div><div class="stat-value" id="profileSkins">0</div></div><div class="stat-card"><div class="stat-top">Кейси</div><div class="stat-value" id="profileCases">0</div></div></div></div><div class="profile-card"><h2>Заявки на виведення</h2><p class="muted" style="font-size:12px">Виведення тимчасово закриті. Коли функція запрацює, тут буде історія заявок.</p><div class="withdrawal-list" id="withdrawals"></div></div></div>
  </section>
+ <section class="page" id="page-admin"><div class="section-banner"><div><div class="eyebrow">ADMIN CONTROL</div><h1 style="font-size:32px;margin-bottom:0">Адмін-панель</h1><p>Видавання монет гравцям.</p></div></div><div class="panel" style="max-width:650px"><h2>Видати монети</h2><p class="muted" style="font-size:13px">Введи Telegram ID гравця та кількість монет.</p><div class="field"><label for="adminPlayerId">TELEGRAM ID ГРАВЦЯ</label><input id="adminPlayerId" type="number" min="1" step="1" placeholder="123456789"></div><div class="field"><label for="adminCoinsAmount">КІЛЬКІСТЬ МОНЕТ</label><input id="adminCoinsAmount" type="number" min="1" step="1" placeholder="5000"></div><button class="btn btn-primary" id="adminGiveCoins">Видати монети</button><p id="adminStatus" class="muted" style="margin-top:12px;font-size:13px"></p></div></section>
  <footer class="disclaimer" style="padding-top:28px">Fortnite Battle — фанатський браузерний проєкт. Назви та зображення косметики завантажуються через Fortnite-API, незалежний сторонній сервіс. Проєкт не пов'язаний з Epic Games, не використовує V-Bucks і наразі не передає скіни в акаунти Fortnite. Виведення поки немає, пізніше функція може з’явитися.</footer>
 </main>
 </div>
@@ -295,7 +297,7 @@ function renderAll(){
   return `<article class="skin-card"><div class="skin-visual">${art(s)}</div><div class="skin-body"><h3>${escapeHTML(s.name)}</h3><p>${rarityLabel(s)} · ${formatNum(s.value)} монет</p><div class="skin-controls"><button class="btn btn-secondary" data-action="sell" data-index="${i}">Продати +${formatNum(sell)} ◈</button><button class="btn btn-quiet withdraw-closed" disabled title="Виведення тимчасово закриті">Виведення закриті</button></div></div></article>`;
  }).join(""):`<div class="empty"><div class="empty-icon">▤</div><b>Колекція поки порожня</b><p>Забери щоденний дроп або відкрий недорогий кейс.</p><button class="btn btn-primary" data-go="cases">До кейсів</button></div>`;
  document.getElementById("withdrawals").innerHTML=state.withdrawals.length?state.withdrawals.slice().reverse().map(w=>`<div class="withdraw-row"><div><b>${escapeHTML(w.skin)}</b><div class="muted" style="font-size:11px">${escapeHTML(w.contact||"Контакт не вказаний")}</div></div><span class="status">${escapeHTML(w.status)}</span></div>`).join(""):`<div class="empty" style="padding:25px"><b>Заявок поки немає</b></div>`;
- const dailyDone=Date.now()-Number(state.lastDaily||0)<86400000;
+ const dailyDone=Date.now()-Number(state.lastDaily||0)<43200000;
  const dailyBtn=document.getElementById("heroDaily");dailyBtn.disabled=dailyDone;dailyBtn.textContent=dailyDone?"Щоденний кейс уже забрано":"Забрати щоденний кейс";
  renderUpgradeOptions();
  updateSelectedCaseButton();
@@ -303,12 +305,25 @@ function renderAll(){
 function showPage(name){
  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+name));
  document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===name));
- const titles={home:"Головна",cases:"Кейси",upgrade:"Апгрейд",battle:"Батл кейсів",inventory:"Інвентар",profile:"Профіль"};
+ const titles={home:"Головна",cases:"Кейси",upgrade:"Апгрейд",battle:"Батл кейсів",inventory:"Інвентар",profile:"Профіль",admin:"Адмін-панель"};
  document.getElementById("crumbText").textContent=titles[name]||"Головна";
  document.getElementById("sidebar").classList.remove("open");
  if(name==="upgrade")renderUpgradeOptions();
  if(name==="profile")setProfile();
  window.scrollTo({top:0,behavior:"smooth"});
+}
+const ADMIN_TELEGRAM_ID="5272212723";
+const QUICK_API_URL="https://meclevpvnrqynmphtvwn.supabase.co/functions/v1/quick-api";
+function initAdminPanel(){const tg=window.Telegram&&window.Telegram.WebApp;const user=tg?.initDataUnsafe?.user;if(user&&String(user.id)===ADMIN_TELEGRAM_ID)document.getElementById("adminNav").style.display="flex";}
+async function adminGiveCoins(){
+ const tg=window.Telegram&&window.Telegram.WebApp,user=tg?.initDataUnsafe?.user,status=document.getElementById("adminStatus");
+ const targetId=Number(document.getElementById("adminPlayerId").value),amount=Number(document.getElementById("adminCoinsAmount").value);
+ if(!user||String(user.id)!==ADMIN_TELEGRAM_ID){status.textContent="Доступ заборонено: потрібен акаунт адміністратора.";return;}
+ if(!Number.isSafeInteger(targetId)||targetId<=0||!Number.isSafeInteger(amount)||amount<=0){status.textContent="Введи правильний Telegram ID і ціле число монет.";return;}
+ if(!tg.initData){status.textContent="Відкрий гру через Telegram-бота.";return;}
+ const btn=document.getElementById("adminGiveCoins");btn.disabled=true;status.textContent="Надсилаю запит…";
+ try{const r=await fetch(QUICK_API_URL,{method:"POST",headers:{"Content-Type":"application/json","x-telegram-init-data":tg.initData},body:JSON.stringify({action:"add_coins",telegram_id:targetId,amount})});const d=await r.json().catch(()=>({}));if(!r.ok||d.error||d.ok===false)throw new Error(d.error||d.message||("API помилка "+r.status));status.textContent="API прийняв запит: "+JSON.stringify(d);}
+ catch(e){status.textContent="Не вдалося видати монети: "+(e.message||"помилка")+". Якщо quick-api не підтримує add_coins, потрібно додати цю дію на сервері.";}finally{btn.disabled=false;}
 }
 function setProfile(){
  const tg=window.Telegram&&window.Telegram.WebApp;
@@ -331,9 +346,9 @@ function setProfile(){
 }
 function targetOptions(stakeValue,query=""){
  const q=query.trim().toLocaleLowerCase();
- // Show every outfit returned by the catalogue. Search only narrows the list when the user types.
- // A target that is not more expensive can still be viewed, but the upgrade action blocks it.
- return skins.filter(s=>!q||s.name.toLocaleLowerCase().includes(q))
+ const percent=Number(document.getElementById("upgradeMinPercent")?.value||25);
+ const minimum=Math.ceil(Number(stakeValue||0)*(1+percent/100));
+ return skins.filter(s=>s.value>=minimum&&(!q||s.name.toLocaleLowerCase().includes(q)))
   .slice().sort((a,b)=>a.value-b.value||a.name.localeCompare(b.name));
 }
 function renderUpgradeOptions(keepTarget=true){
@@ -346,13 +361,15 @@ function renderUpgradeOptions(keepTarget=true){
  target.innerHTML=options.length?options.map(s=>`<option value="${escapeHTML(s.id)}">${escapeHTML(s.name)} · ${formatNum(s.value)} ◈${stakeSkin&&s.value<=stakeSkin.value?" · замала вартість":""}</option>`).join(""):`<option value="">За цим пошуком скінів немає</option>`;
  if(keepTarget&&options.some(s=>s.id===oldTarget))target.value=oldTarget;
  else{
-  const firstValid=options.find(s=>!stakeSkin||s.value>stakeSkin.value);
+  const percent=Number(document.getElementById("upgradeMinPercent")?.value||25);
+  const minimum=stakeSkin?Math.ceil(stakeSkin.value*(1+percent/100)):0;
+  const firstValid=options.find(s=>!stakeSkin||s.value>=minimum);
   if(firstValid)target.value=firstValid.id;
  }
  updateUpgradePreview();
 }
 function updateArtPreview(el,s){el.innerHTML=s?`${art(s)}<div><b>${escapeHTML(s.name)}</b><small>${rarityLabel(s)} · ${formatNum(s.value)} монет</small></div>`:`${art({name:"?",rarity:"common",image:""})}<div><b>Спочатку отримай скін</b><small>Потрібен предмет для ставки</small></div>`}
-function calculatedChance(stake,target){if(!stake||!target||target.value<=stake.value)return 0;return Math.max(0.1,Math.min(45,Math.floor(45*stake.value/target.value*100)/100))}
+function calculatedChance(stake,target){const percent=Number(document.getElementById("upgradeMinPercent")?.value||25);if(!stake||!target||target.value<Math.ceil(stake.value*(1+percent/100)))return 0;return Math.max(0.1,Math.min(45,Math.floor(45*stake.value/target.value*100)/100))}
 function updateUpgradePreview(){
  const it=state.inventory[Number(document.getElementById("stakeSelect").value)];const stake=it?skinById(it.skinId):null;const target=skins.find(s=>s.id===document.getElementById("targetSelect").value)||null;
  updateArtPreview(document.getElementById("stakePreview"),stake);updateArtPreview(document.getElementById("targetPreview"),target);
@@ -363,7 +380,7 @@ function updateSelectedCaseButton(){
  const btn=document.getElementById("openSelectedCase");
  if(!btn||!selectedCaseId)return;
  const c=CASES.find(x=>x.id===selectedCaseId);if(!c)return;
- const dailyDone=c.daily&&Date.now()-Number(state.lastDaily||0)<86400000;
+ const dailyDone=c.daily&&Date.now()-Number(state.lastDaily||0)<43200000;
  const affordable=c.daily||state.coins>=c.price;
  btn.disabled=opening||dailyDone||!affordable;
  if(dailyDone)btn.textContent="ЩОДЕННИЙ КЕЙС УЖЕ ЗАБРАНО";
@@ -413,7 +430,7 @@ function rollRoulette(c,won){
 }
 function openCase(caseId){
  if(opening)return;const c=CASES.find(x=>x.id===caseId);if(!c)return;
- if(c.daily&&Date.now()-Number(state.lastDaily||0)<86400000){notify("Щоденний кейс уже забрано. Він оновиться через 24 години.");return}
+ if(c.daily&&Date.now()-Number(state.lastDaily||0)<43200000){notify("Щоденний кейс уже забрано. Він оновиться через 12 годин.");return}
  if(!c.daily&&state.coins<c.price){notify("Не вистачає монет. Забери щоденний кейс або продай зайвий скін.");return}
  const pool=poolFor(c);if(!pool.length){notify("Поки немає скінів для цього кейса.");return}
  closeCasePreview();document.getElementById("openingPanel").classList.remove("show");
@@ -426,7 +443,7 @@ function upgrade(){
  if(upgrading)return;
  const stakeIndex=document.getElementById("stakeSelect").value;const it=state.inventory[Number(stakeIndex)];if(!it){notify("Спочатку отримай скін у кейсі.");return}
  const st=skinById(it.skinId);const target=skins.find(s=>s.id===document.getElementById("targetSelect").value);if(!target){notify("Обери цільовий скін.");return}
- if(target.value<=st.value){notify("Цільовий скін має бути дорожчим за ставку.");return}
+ if(target.value<Math.ceil(st.value*(1+Number(document.getElementById("upgradeMinPercent").value||25)/100))){notify("Цільовий скін дешевший за встановлений мінімум.");return}
  const chance=calculatedChance(st,target);if(!chance){notify("Неможливо розрахувати шанс.");return}
  upgrading=true;document.getElementById("upgradeBtn").disabled=true;document.getElementById("upgradeOutcome").classList.remove("show");
  const wheel=document.getElementById("upgradeWheel");wheel.style.transition="none";wheel.style.transform="rotate(0deg)";wheel.offsetHeight;
@@ -485,7 +502,9 @@ document.getElementById("hideOpening").addEventListener("click",()=>document.get
 document.getElementById("stakeSelect").addEventListener("change",()=>renderUpgradeOptions(false));
 document.getElementById("targetSelect").addEventListener("change",updateUpgradePreview);
 document.getElementById("targetSearch").addEventListener("input",()=>renderUpgradeOptions(false));
+document.getElementById("upgradeMinPercent").addEventListener("change",()=>renderUpgradeOptions(false));
 document.getElementById("upgradeBtn").addEventListener("click",upgrade);
+document.getElementById("adminGiveCoins").addEventListener("click",adminGiveCoins);
 document.getElementById("battleCase").addEventListener("change",updateBattleSummary);
 document.getElementById("startBattle").addEventListener("click",startBattle);
 updateBattleSummary();
@@ -495,226 +514,9 @@ document.getElementById("modalBackdrop").addEventListener("click",e=>{if(e.targe
 document.getElementById("menuBtn").addEventListener("click",()=>document.getElementById("sidebar").classList.toggle("open"));
 document.getElementById("refreshProfile").addEventListener("click",()=>{setProfile();renderAll();notify("Профіль оновлено.")});
 if(window.Telegram&&window.Telegram.WebApp){window.Telegram.WebApp.ready();window.Telegram.WebApp.expand();setProfile()}
+initAdminPanel();
 setProfile();renderAll();
 loadSkins();
 </script>
- 
-<script>
-(() => {
-  const API_URL = "https://meclevpvnrqynmphtvwn.supabase.co/functions/v1/quick-api";
-  const SUPABASE_KEY = "sb_publishable_Ubl8THsz5wBqLgIlHXxisg_xfpDMtn5";
-  const ADMIN_ID = "5272212723";
-
-  const tg = window.Telegram?.WebApp;
-  if (!tg) {
-    console.info("Fortnite Battle: відкрий гру через Telegram.");
-    return;
-  }
-
-  tg.ready();
-
-  const initData = tg.initData || "";
-  const tgUser = tg.initDataUnsafe?.user;
-
-  if (!initData || !tgUser?.id) {
-    console.info("Відкрий гру через кнопку бота в Telegram.");
-    return;
-  }
-
-  async function api(action, data = {}) {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "apikey": SUPABASE_KEY,
-        "x-telegram-init-data": initData
-      },
-      body: JSON.stringify({ action, ...data })
-    });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.error || `Помилка ${response.status}`);
-    }
-
-    return result;
-  }
-
-  // Реєструємо гравця через підтверджені сервером Telegram-дані.
-  api("sync_player").catch(error => {
-    console.error("Не вдалося зареєструвати гравця:", error);
-  });
-
-  // Звичайним гравцям адмін-панель не показується.
-  if (String(tgUser.id) !== ADMIN_ID) return;
-
-  const style = document.createElement("style");
-  style.textContent = `
-    #fb-admin-open {
-      position:fixed;right:14px;bottom:14px;z-index:99998;
-      background:#7c3aed;color:white;border:0;border-radius:12px;
-      padding:12px 16px;font-weight:800;cursor:pointer;
-      box-shadow:0 5px 22px #0006;
-    }
-    #fb-admin {
-      position:fixed;inset:4%;z-index:99999;overflow:auto;
-      background:#111827;color:#f9fafb;border:1px solid #475569;
-      border-radius:16px;padding:18px;font:14px Arial,sans-serif;
-      box-shadow:0 10px 50px #0009;
-    }
-    #fb-admin * {box-sizing:border-box}
-    #fb-admin input,#fb-admin button {
-      padding:10px;border-radius:8px;border:1px solid #64748b;
-      margin:4px 2px;font-size:14px;
-    }
-    #fb-admin input {background:#1f2937;color:white;max-width:100%}
-    #fb-admin button {cursor:pointer;background:#374151;color:white}
-    #fb-admin .fb-primary {background:#7c3aed;border:0}
-    #fb-admin .fb-player {
-      display:block;width:100%;text-align:left;margin:6px 0;
-      background:#1f2937;border:1px solid #475569;
-    }
-    #fb-admin .fb-field {display:block;margin:12px 0}
-    #fb-admin .fb-field input {width:100%;max-width:240px}
-    #fb-admin-status {white-space:pre-wrap;color:#c4b5fd;margin:12px 0}
-  `;
-  document.head.appendChild(style);
-
-  const openButton = document.createElement("button");
-  openButton.id = "fb-admin-open";
-  openButton.textContent = "⚙ Адмін-панель";
-  document.body.appendChild(openButton);
-
-  const panel = document.createElement("section");
-  panel.id = "fb-admin";
-  panel.hidden = true;
-  panel.innerHTML = `
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
-      <h2 style="margin:4px 0 14px">Fortnite Battle · Адмін</h2>
-      <button id="fb-admin-close">Закрити ✕</button>
-    </div>
-    <p>Пошук гравців за username або Telegram ID</p>
-    <input id="fb-search" placeholder="@username або ID" style="width:min(100%,360px)">
-    <button id="fb-search-btn" class="fb-primary">Знайти</button>
-    <div id="fb-results"></div>
-    <hr style="border-color:#475569;margin:18px 0">
-    <h3>Тестові шанси</h3>
-    <p id="fb-selected">Спочатку вибери гравця зі списку.</p>
-    <label class="fb-field">
-      <input id="fb-test-mode" type="checkbox">
-      Увімкнути тестовий режим
-    </label>
-    <label class="fb-field">Звичайні, %
-      <input id="fb-common" type="number" min="0" max="100" value="70">
-    </label>
-    <label class="fb-field">Незвичайні, %
-      <input id="fb-uncommon" type="number" min="0" max="100" value="25">
-    </label>
-    <label class="fb-field">Рідкісні, %
-      <input id="fb-rare" type="number" min="0" max="100" value="5">
-    </label>
-    <button id="fb-save" class="fb-primary">Зберегти налаштування</button>
-    <div id="fb-admin-status"></div>
-    <p style="color:#9ca3af;font-size:12px">
-      Шанси мають у сумі дорівнювати 100%. Налаштування зберігаються
-      в базі, але впливатимуть на відкриття кейсів лише після окремого
-      підключення механіки випадіння до сервера.
-    </p>
-  `;
-  document.body.appendChild(panel);
-
-  let selectedPlayer = null;
-  const $ = id => document.getElementById(id);
-  const status = message => $("fb-admin-status").textContent = message;
-
-  openButton.addEventListener("click", () => {
-    panel.hidden = false;
-  });
-
-  $("fb-admin-close").addEventListener("click", () => {
-    panel.hidden = true;
-  });
-
-  async function searchPlayers() {
-    const query = $("fb-search").value.trim();
-    if (!query) {
-      status("Введи username або Telegram ID.");
-      return;
-    }
-
-    status("Шукаю гравців...");
-    $("fb-results").replaceChildren();
-
-    try {
-      const result = await api("search", { query });
-      if (!result.players?.length) {
-        status("Гравців не знайдено. Переконайся, що вони вже зареєструвалися.");
-        return;
-      }
-
-      status(`Знайдено гравців: ${result.players.length}`);
-
-      result.players.forEach(player => {
-        const button = document.createElement("button");
-        button.className = "fb-player";
-        button.textContent =
-          `${player.username ? "@" + player.username : player.first_name || "Гравець"} · ID ${player.telegram_id} · Монети: ${player.balance ?? 0}`;
-
-        button.addEventListener("click", () => {
-          selectedPlayer = player;
-          $("fb-selected").textContent =
-            `Обрано: ${player.username ? "@" + player.username : player.first_name || "Гравець"} (ID ${player.telegram_id})`;
-          status("Гравця вибрано.");
-        });
-
-        $("fb-results").appendChild(button);
-      });
-    } catch (error) {
-      status("Помилка пошуку: " + error.message);
-    }
-  }
-
-  $("fb-search-btn").addEventListener("click", searchPlayers);
-  $("fb-search").addEventListener("keydown", event => {
-    if (event.key === "Enter") searchPlayers();
-  });
-
-  $("fb-save").addEventListener("click", async () => {
-    if (!selectedPlayer) {
-      status("Спочатку знайди й вибери гравця.");
-      return;
-    }
-
-    const common = Number($("fb-common").value);
-    const uncommon = Number($("fb-uncommon").value);
-    const rare = Number($("fb-rare").value);
-
-    if (![common, uncommon, rare].every(
-      n => Number.isFinite(n) && n >= 0 && n <= 100
-    ) || Math.abs(common + uncommon + rare - 100) > 0.000001) {
-      status("Помилка: сума трьох шансів має дорівнювати 100%.");
-      return;
-    }
-
-    status("Зберігаю налаштування...");
-
-    try {
-      await api("set_test_settings", {
-        telegram_id: String(selectedPlayer.telegram_id),
-        test_mode: $("fb-test-mode").checked,
-        common_chance: common,
-        uncommon_chance: uncommon,
-        rare_chance: rare
-      });
-
-      status("Налаштування успішно збережено в Supabase.");
-    } catch (error) {
-      status("Не вдалося зберегти: " + error.message);
-    }
-  });
-})();
-</script>
-
 </body>
 </html>
