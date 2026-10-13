@@ -186,7 +186,7 @@ function formatNum(n){return Math.floor(Number(n)||0).toLocaleString("uk-UA")}
 function notify(message){const el=document.getElementById("toast");el.textContent=message;el.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("show"),2800)}
 function normRarity(raw,series){const x=String(raw||"").toLowerCase();const s=String(series||"").toLowerCase();if(s.includes("marvel"))return "marvel";if(s.includes("icon"))return "icon";if(x.includes("mythic"))return "mythic";if(x.includes("legendary"))return "legendary";if(x.includes("epic"))return "epic";if(x.includes("rare"))return "rare";if(x.includes("uncommon"))return "uncommon";return "common"}
 function priceFor(rarity,series,name="",id=""){
- const base=({common:50,uncommon:100,rare:150,epic:350,legendary:800,mythic:1800,marvel:2200,icon:2200})[rarity]||150;
+ const base=({common:25,uncommon:50,rare:100,epic:250,legendary:600,mythic:1400,marvel:1700,icon:1700})[rarity]||50;
  const n=String(name||"").toLowerCase();
  const s=String(series||"").toLowerCase();
  const combined=n+" "+s;
@@ -195,9 +195,9 @@ function priceFor(rarity,series,name="",id=""){
  let hash=0;for(const ch of String(id||name||"skin")){hash=(hash*31+ch.charCodeAt(0))>>>0;}
  let multiplier=1+(hash%6)*0.18;
  if(/marvel|icon series|star wars|gaming legends|dragon ball|naruto|dc series|anime|nike|frozen|lava|shadow|slurp/.test(combined))multiplier*=2.2;
- if(base>=800&&hash%19===0)multiplier*=3.1;
+ if(base>=600&&hash%19===0)multiplier*=3.1;
  if(hash%131===0)multiplier*=5.5;
- return Math.max(50,Math.round((base*multiplier)/50)*50);
+ return Math.max(25,Math.round((base*multiplier)/25)*25);
 }
 function normalizeCosmetic(c){
  const series=c.series?.value||c.series?.name||"";
@@ -235,19 +235,32 @@ function art(s,extra=""){
  return `<div class="art rarity-${escapeHTML(s.rarity)} ${s.image?"":"no-image"} ${extra}">${img}</div>`;
 }
 function poolFor(c){
- // Paid cases and the daily case no longer drop common/uncommon "normal" skins.
- const eligible=skins.filter(s=>!(["common","uncommon"].includes(s.rarity)));
- let pool=eligible.filter(s=>s.value>=c.min&&s.value<=c.max);
- if(c.series){const matching=pool.filter(s=>String(s.series||"").toLowerCase().includes(c.series));if(matching.length>=4)pool=matching}
- if(pool.length<8){
-  const anchor=(c.min+c.max)/2;
-  pool=eligible.slice().sort((a,b)=>Math.abs(a.value-anchor)-Math.abs(b.value-anchor)).slice(0,Math.min(100,eligible.length));
- }
- return pool.length?pool:SEED_SKINS.filter(s=>!(["common","uncommon"].includes(s.rarity)));
+ // Кожен звичайний кейс містить багато дешевих common/uncommon скінів.
+ // Лише два найдорожчі кейси (9000 і 15000) не містять звичайних та незвичайних.
+ const all=skins.filter(s=>s&&s.name&&s.id);
+ const premiumOnly=Number(c.price)>=9000;
+ const low=all.filter(s=>s.rarity==="common"||s.rarity==="uncommon").sort((a,b)=>a.value-b.value);
+ const cheap=low.slice(0,Math.min(25,low.length));
+ let themed=all.filter(s=>s.value>=c.min&&s.value<=c.max);
+ if(premiumOnly) themed=themed.filter(s=>s.rarity!=="common"&&s.rarity!=="uncommon");
+ if(c.series){const matching=themed.filter(s=>String(s.series||"").toLowerCase().includes(c.series));if(matching.length>=4)themed=matching}
+ const combined=new Map();
+ if(!premiumOnly) cheap.forEach(s=>combined.set(s.id,s));
+ themed.forEach(s=>combined.set(s.id,s));
+ // Fill each pool with more low-rarity skins to make the case preview feel populated.
+ if(!premiumOnly && combined.size<25) low.forEach(s=>{if(combined.size<25)combined.set(s.id,s)});
+ // Premium cases are filled only with rare and higher-rarity outfits.
+ if(combined.size<25) all.filter(s=>!premiumOnly||(s.rarity!=="common"&&s.rarity!=="uncommon")).sort((a,b)=>a.value-b.value).forEach(s=>{if(combined.size<25)combined.set(s.id,s)});
+ return [...combined.values()];
 }
 function weightedSkin(pool){
  if(!pool||!pool.length)return skins[0]||SEED_SKINS[0];
- const weights=pool.map(s=>1/Math.max(30,Math.sqrt(s.value)));
+ const rarityWeight={common:90,uncommon:75,rare:12,epic:3.5,legendary:0.8,mythic:0.18,marvel:0.22,icon:0.22};
+ const weights=pool.map(s=>{
+  const rarity=rarityWeight[s.rarity]||8;
+  const valuePenalty=Math.pow(Math.max(25,s.value)/25,0.9);
+  return rarity/valuePenalty;
+ });
  let r=Math.random()*weights.reduce((a,b)=>a+b,0);
  for(let i=0;i<pool.length;i++){r-=weights[i];if(r<=0)return pool[i]}
  return pool[pool.length-1];
@@ -369,9 +382,9 @@ function openCasePreview(caseId){
  const track=document.getElementById("caseMarqueeTrack");
  const count=Math.min(32,pool.length);
  const showcase=Array.from({length:count},(_,i)=>pool[Math.floor(i*pool.length/count)]);
- const html=showcase.map(s=>`<div class="roulette-item">${art(s)}<b title="${escapeHTML(s.name)}">${escapeHTML(s.name)}</b></div>`).join("");
+ const html=showcase.map(s=>`<div class="roulette-item" title="${escapeHTML(s.name)} · ${formatNum(s.value)} монет">${art(s)}<b title="${escapeHTML(s.name)}">${escapeHTML(s.name)}</b></div>`).join("");
  track.style.animation="none";track.innerHTML=html+html;track.offsetHeight;track.style.animation="";
- document.getElementById("caseDetailMeta").textContent=`${formatNum(pool.length)} можливих скінів · звичайні та незвичайні скіни не випадають`;
+ document.getElementById("caseDetailMeta").textContent=`${formatNum(pool.length)} скінів у кейсі`;
  panel.classList.add("show");
  updateSelectedCaseButton();
  panel.scrollIntoView({behavior:"smooth",block:"center"});
@@ -387,7 +400,7 @@ function rollRoulette(c,won){
  const track=document.getElementById("rouletteTrack");const pool=poolFor(c);const count=35;const winnerIndex=28;
  const seq=Array.from({length:count},(_,i)=>i===winnerIndex?won:weightedSkin(pool));
  track.style.transition="none";track.style.transform="translateX(0px)";
- track.innerHTML=seq.map(s=>`<div class="roulette-item">${art(s)}<b title="${escapeHTML(s.name)}">${escapeHTML(s.name)}</b></div>`).join("");
+ track.innerHTML=seq.map(s=>`<div class="roulette-item" title="${escapeHTML(s.name)} · ${formatNum(s.value)} монет">${art(s)}<b title="${escapeHTML(s.name)}">${escapeHTML(s.name)}</b></div>`).join("");
  const result=document.getElementById("openResult");result.classList.remove("show");result.innerHTML="";
  requestAnimationFrame(()=>requestAnimationFrame(()=>{
   const item=track.children[winnerIndex];const trackBox=track.getBoundingClientRect();const itemBox=item.getBoundingClientRect();const windowBox=track.parentElement.getBoundingClientRect();const currentCenter=(itemBox.left-trackBox.left)+itemBox.width/2;const targetCenter=windowBox.width/2;const offset=currentCenter-targetCenter;
