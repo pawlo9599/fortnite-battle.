@@ -498,5 +498,223 @@ if(window.Telegram&&window.Telegram.WebApp){window.Telegram.WebApp.ready();windo
 setProfile();renderAll();
 loadSkins();
 </script>
+ 
+<script>
+(() => {
+  const API_URL = "https://meclevpvnrqynmphtvwn.supabase.co/functions/v1/quick-api";
+  const SUPABASE_KEY = "sb_publishable_Ubl8THsz5wBqLgIlHXxisg_xfpDMtn5";
+  const ADMIN_ID = "5272212723";
+
+  const tg = window.Telegram?.WebApp;
+  if (!tg) {
+    console.info("Fortnite Battle: відкрий гру через Telegram.");
+    return;
+  }
+
+  tg.ready();
+
+  const initData = tg.initData || "";
+  const tgUser = tg.initDataUnsafe?.user;
+
+  if (!initData || !tgUser?.id) {
+    console.info("Відкрий гру через кнопку бота в Telegram.");
+    return;
+  }
+
+  async function api(action, data = {}) {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_KEY,
+        "x-telegram-init-data": initData
+      },
+      body: JSON.stringify({ action, ...data })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || `Помилка ${response.status}`);
+    }
+
+    return result;
+  }
+
+  // Реєструємо гравця через підтверджені сервером Telegram-дані.
+  api("sync_player").catch(error => {
+    console.error("Не вдалося зареєструвати гравця:", error);
+  });
+
+  // Звичайним гравцям адмін-панель не показується.
+  if (String(tgUser.id) !== ADMIN_ID) return;
+
+  const style = document.createElement("style");
+  style.textContent = `
+    #fb-admin-open {
+      position:fixed;right:14px;bottom:14px;z-index:99998;
+      background:#7c3aed;color:white;border:0;border-radius:12px;
+      padding:12px 16px;font-weight:800;cursor:pointer;
+      box-shadow:0 5px 22px #0006;
+    }
+    #fb-admin {
+      position:fixed;inset:4%;z-index:99999;overflow:auto;
+      background:#111827;color:#f9fafb;border:1px solid #475569;
+      border-radius:16px;padding:18px;font:14px Arial,sans-serif;
+      box-shadow:0 10px 50px #0009;
+    }
+    #fb-admin * {box-sizing:border-box}
+    #fb-admin input,#fb-admin button {
+      padding:10px;border-radius:8px;border:1px solid #64748b;
+      margin:4px 2px;font-size:14px;
+    }
+    #fb-admin input {background:#1f2937;color:white;max-width:100%}
+    #fb-admin button {cursor:pointer;background:#374151;color:white}
+    #fb-admin .fb-primary {background:#7c3aed;border:0}
+    #fb-admin .fb-player {
+      display:block;width:100%;text-align:left;margin:6px 0;
+      background:#1f2937;border:1px solid #475569;
+    }
+    #fb-admin .fb-field {display:block;margin:12px 0}
+    #fb-admin .fb-field input {width:100%;max-width:240px}
+    #fb-admin-status {white-space:pre-wrap;color:#c4b5fd;margin:12px 0}
+  `;
+  document.head.appendChild(style);
+
+  const openButton = document.createElement("button");
+  openButton.id = "fb-admin-open";
+  openButton.textContent = "⚙ Адмін-панель";
+  document.body.appendChild(openButton);
+
+  const panel = document.createElement("section");
+  panel.id = "fb-admin";
+  panel.hidden = true;
+  panel.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+      <h2 style="margin:4px 0 14px">Fortnite Battle · Адмін</h2>
+      <button id="fb-admin-close">Закрити ✕</button>
+    </div>
+    <p>Пошук гравців за username або Telegram ID</p>
+    <input id="fb-search" placeholder="@username або ID" style="width:min(100%,360px)">
+    <button id="fb-search-btn" class="fb-primary">Знайти</button>
+    <div id="fb-results"></div>
+    <hr style="border-color:#475569;margin:18px 0">
+    <h3>Тестові шанси</h3>
+    <p id="fb-selected">Спочатку вибери гравця зі списку.</p>
+    <label class="fb-field">
+      <input id="fb-test-mode" type="checkbox">
+      Увімкнути тестовий режим
+    </label>
+    <label class="fb-field">Звичайні, %
+      <input id="fb-common" type="number" min="0" max="100" value="70">
+    </label>
+    <label class="fb-field">Незвичайні, %
+      <input id="fb-uncommon" type="number" min="0" max="100" value="25">
+    </label>
+    <label class="fb-field">Рідкісні, %
+      <input id="fb-rare" type="number" min="0" max="100" value="5">
+    </label>
+    <button id="fb-save" class="fb-primary">Зберегти налаштування</button>
+    <div id="fb-admin-status"></div>
+    <p style="color:#9ca3af;font-size:12px">
+      Шанси мають у сумі дорівнювати 100%. Налаштування зберігаються
+      в базі, але впливатимуть на відкриття кейсів лише після окремого
+      підключення механіки випадіння до сервера.
+    </p>
+  `;
+  document.body.appendChild(panel);
+
+  let selectedPlayer = null;
+  const $ = id => document.getElementById(id);
+  const status = message => $("fb-admin-status").textContent = message;
+
+  openButton.addEventListener("click", () => {
+    panel.hidden = false;
+  });
+
+  $("fb-admin-close").addEventListener("click", () => {
+    panel.hidden = true;
+  });
+
+  async function searchPlayers() {
+    const query = $("fb-search").value.trim();
+    if (!query) {
+      status("Введи username або Telegram ID.");
+      return;
+    }
+
+    status("Шукаю гравців...");
+    $("fb-results").replaceChildren();
+
+    try {
+      const result = await api("search", { query });
+      if (!result.players?.length) {
+        status("Гравців не знайдено. Переконайся, що вони вже зареєструвалися.");
+        return;
+      }
+
+      status(`Знайдено гравців: ${result.players.length}`);
+
+      result.players.forEach(player => {
+        const button = document.createElement("button");
+        button.className = "fb-player";
+        button.textContent =
+          `${player.username ? "@" + player.username : player.first_name || "Гравець"} · ID ${player.telegram_id} · Монети: ${player.balance ?? 0}`;
+
+        button.addEventListener("click", () => {
+          selectedPlayer = player;
+          $("fb-selected").textContent =
+            `Обрано: ${player.username ? "@" + player.username : player.first_name || "Гравець"} (ID ${player.telegram_id})`;
+          status("Гравця вибрано.");
+        });
+
+        $("fb-results").appendChild(button);
+      });
+    } catch (error) {
+      status("Помилка пошуку: " + error.message);
+    }
+  }
+
+  $("fb-search-btn").addEventListener("click", searchPlayers);
+  $("fb-search").addEventListener("keydown", event => {
+    if (event.key === "Enter") searchPlayers();
+  });
+
+  $("fb-save").addEventListener("click", async () => {
+    if (!selectedPlayer) {
+      status("Спочатку знайди й вибери гравця.");
+      return;
+    }
+
+    const common = Number($("fb-common").value);
+    const uncommon = Number($("fb-uncommon").value);
+    const rare = Number($("fb-rare").value);
+
+    if (![common, uncommon, rare].every(
+      n => Number.isFinite(n) && n >= 0 && n <= 100
+    ) || Math.abs(common + uncommon + rare - 100) > 0.000001) {
+      status("Помилка: сума трьох шансів має дорівнювати 100%.");
+      return;
+    }
+
+    status("Зберігаю налаштування...");
+
+    try {
+      await api("set_test_settings", {
+        telegram_id: String(selectedPlayer.telegram_id),
+        test_mode: $("fb-test-mode").checked,
+        common_chance: common,
+        uncommon_chance: uncommon,
+        rare_chance: rare
+      });
+
+      status("Налаштування успішно збережено в Supabase.");
+    } catch (error) {
+      status("Не вдалося зберегти: " + error.message);
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
