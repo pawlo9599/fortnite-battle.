@@ -11,7 +11,55 @@
 @media(max-width:1150px){.case-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.grid-inventory{grid-template-columns:repeat(3,minmax(0,1fr))}.upgrade-layout{grid-template-columns:1fr 1fr}}
 @media(max-width:850px){.app{grid-template-columns:1fr}.sidebar{position:fixed;left:0;top:0;width:260px;transform:translateX(-105%);transition:transform .22s;box-shadow:30px 0 80px #0008}.sidebar.open{transform:translateX(0)}.menu-btn{display:inline-flex}.main{padding-top:16px}.upgrade-layout{grid-template-columns:1fr}.case-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-inventory{grid-template-columns:repeat(3,minmax(0,1fr))}.topbar{margin-bottom:18px}}
 @media(max-width:560px){.hero{padding:24px 20px;min-height:0}.hero:after{right:-5px;bottom:-32px;font-size:135px}.stats{gap:8px}.stat-card{padding:13px}.stat-value{font-size:21px}.stat-top{font-size:10px}.stat-symbol{width:28px;height:28px}.section-head{align-items:start;flex-direction:column}.section-banner{align-items:start;flex-direction:column;padding:18px}.case-cover{height:135px}.case-info{padding:11px}.case-info p{font-size:11px}.case-bottom .btn{padding:8px}.grid-inventory{grid-template-columns:repeat(2,minmax(0,1fr))}.skin-visual{height:140px}.profile-grid{grid-template-columns:1fr}.panel{padding:17px}.upgrade-wheel{width:min(290px,78vw)}.topbar{align-items:center}.crumb{display:none}.balance{padding:9px 11px}.brand{padding-bottom:22px}}
+
+/* Darker midnight theme */
+:root{--bg:#030509;--panel:#080b11;--panel2:#0a1018;--line:#17202d;--muted:#78869b;--text:#e7edf8;--blue:#3989f5;--cyan:#20c5d8;--green:#27c98a;--red:#f04462;--gold:#dfb84e;--shadow:0 18px 48px #000b}
+body{background:radial-gradient(ellipse at 80% -18%,#0a1425 0,transparent 32%),#030509}
+.sidebar{background:#05070bed;border-right-color:#121925}
+.brand-mark{background:linear-gradient(145deg,#30bed0,#3156bd);box-shadow:0 5px 20px #1a5fb529}
+.nav button:hover{background:#0c1420}.nav button.active{background:linear-gradient(100deg,#122844aa,#0b111b);box-shadow:inset 3px 0 var(--cyan)}
+.side-note,.stat-card,.panel,.opening-panel,.modal{background:linear-gradient(145deg,#090d14,#06090f);border-color:#182231}
+.balance{background:#080d15;border-color:#1c2a3d}
+.hero{background:linear-gradient(110deg,#080d16 0%,#090d14 55%,#0a1422 100%);border-color:#1b2d44}
+.hero:before{background:radial-gradient(circle,#143b7440 0,transparent 67%);border-color:#34578018}
+.case-card{background:linear-gradient(155deg,#0d1420,#070a10 70%);border-color:#192638}
+.case-cover{background:radial-gradient(circle at 50% 65%,var(--caseglow,#173b5b30),transparent 64%),linear-gradient(145deg,#0c1420,#070a10)}
+.case-card:hover{border-color:#28547f;box-shadow:0 14px 32px #0009}
+.section-banner{background:linear-gradient(110deg,#090f18,#070a10);border-color:#182333}
+.roulette-window{background:#03060b;border-color:#1a2b3c}.roulette-item{background:linear-gradient(145deg,#0d1420,#070a10);border-color:#1a2636}
+.btn-secondary{background:#0d1420;border-color:#202d40;color:#dce6f6}.btn-quiet{border-color:#202c3d;color:#b3c0d2}.btn-primary{background:linear-gradient(100deg,#24aebe,#3977d9);box-shadow:0 7px 20px #0b4c9b22;color:#020811}
+.searchbox,.field select,.field input{background:#060a10;border-color:#1b2635;color:#e7edf8}
+.profile-card{background:linear-gradient(145deg,#090e16,#06090f);border-color:#182231}.withdraw-row{background:#070b12;border-color:#182333}
+.withdraw-closed{flex:1;white-space:normal;background:#101017;border-color:#2c2530;color:#9b8c98;opacity:.75}
+
+
+.battle-layout{display:grid;grid-template-columns:minmax(270px,.72fr) minmax(0,1.28fr);gap:18px;align-items:start}.battle-summary{padding:13px 15px;border:1px solid #2b4562;background:#0b1422;border-radius:12px;margin:8px 0 15px;font-weight:850}.battle-topline{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.battle-score{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;text-align:center;padding:16px;background:#0b121e;border:1px solid #23344c;border-radius:15px}.battle-score>div{display:grid;justify-items:center;gap:7px}.battle-score strong{font-size:14px;color:var(--gold)}.battle-avatar{display:grid;place-items:center;width:48px;height:48px;border-radius:15px;background:linear-gradient(145deg,#2dc8db,#3766df);font-size:12px;font-weight:1000;color:#06101c}.battle-avatar.rival{background:linear-gradient(145deg,#b34eff,#6c3ce0);color:white}.battle-avatar img,.avatar img{width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block}.battle-avatar img{position:absolute;inset:0}.battle-avatar{position:relative;overflow:hidden}.avatar{overflow:hidden;object-fit:cover}.battle-vs{font-weight:1000;color:#f9c75b;font-size:22px}.battle-rounds{display:grid;gap:12px;margin-top:15px}.battle-round{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px;border:1px solid #25364d;background:#0a101a;border-radius:14px}.battle-round-title{grid-column:1/-1;font-size:11px;color:var(--muted);font-weight:900;letter-spacing:1px}.battle-drop{display:grid;grid-template-columns:62px minmax(0,1fr);gap:10px;align-items:center;padding:9px;background:#111a29;border-radius:11px;min-width:0}.battle-drop .art{width:62px;height:70px}.battle-drop b{font-size:12px;display:block;overflow-wrap:anywhere}.battle-drop small{color:var(--muted);font-size:10px}.battle-drop.winner{outline:1px solid var(--green);background:#10251f}.battle-result{display:none;margin-top:14px;padding:16px;border:1px solid #2b705c;background:#0d211d;border-radius:13px}.battle-result.show{display:block}.battle-result.lose{border-color:#6b3444;background:#241019}@media(max-width:850px){.battle-layout{grid-template-columns:1fr}}@media(max-width:560px){.battle-round{padding:8px;gap:7px}.battle-drop{grid-template-columns:48px minmax(0,1fr);padding:6px;gap:7px}.battle-drop .art{width:48px;height:58px}}
+
 </style>
+<style>
+.case-card{cursor:pointer}
+.case-detail-panel{display:none;margin:22px 0 26px;padding:22px;background:linear-gradient(145deg,#0b111c,#0b1019);border:1px solid #2c405c;border-radius:20px;box-shadow:0 22px 50px #0007;overflow:hidden}
+.case-detail-panel.show{display:block;animation:fadeIn .25s ease}
+.case-detail-top,.case-detail-bottom{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.case-detail-top{margin-bottom:18px}
+.case-detail-top p{margin:6px 0 0;color:var(--muted);font-size:13px}
+.case-detail-kicker{color:#76d9ff;font-weight:900;font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:7px}
+.case-marquee-frame{position:relative;overflow:hidden;border:1px solid #263750;border-radius:15px;padding:10px 0;background:#060a11}
+.case-marquee-frame:before,.case-marquee-frame:after{content:"";position:absolute;top:0;bottom:0;width:70px;z-index:2;pointer-events:none}
+.case-marquee-frame:before{left:0;background:linear-gradient(90deg,#060a11,transparent)}
+.case-marquee-frame:after{right:0;background:linear-gradient(270deg,#060a11,transparent)}
+.case-marquee-track{display:flex;width:max-content;gap:10px;animation:casePreviewRoll 48s linear infinite;will-change:transform}
+.case-marquee-frame:hover .case-marquee-track{animation-play-state:paused}
+.case-marquee-track .roulette-item{flex:0 0 124px;width:124px;height:146px;background:linear-gradient(145deg,#161f2f,#0d131e);border-color:#28384f}
+.case-marquee-track .roulette-item .art{height:98px}
+@keyframes casePreviewRoll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.case-detail-bottom{margin-top:17px}
+.case-detail-bottom .muted{font-size:12px}
+.case-open-price{font-weight:900;color:var(--gold);font-size:15px}
+.case-detail-bottom .btn{min-width:190px}
+@media(max-width:720px){.case-detail-panel{padding:15px}.case-marquee-track .roulette-item{flex-basis:106px;width:106px;height:134px}.case-detail-bottom .btn{width:100%}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -22,10 +70,11 @@
   <button class="active" data-page="home"><span class="nav-icon">⌂</span>Головна</button>
   <button data-page="cases"><span class="nav-icon">▣</span>Кейси</button>
   <button data-page="upgrade"><span class="nav-icon">◉</span>Апгрейд</button>
+  <button data-page="battle"><span class="nav-icon">⚔</span>Батл кейсів</button>
   <button data-page="inventory"><span class="nav-icon">▤</span>Інвентар</button>
   <button data-page="profile"><span class="nav-icon">♙</span>Профіль</button>
  </nav>
- <div class="side-bottom"><div class="side-note"><b>⚡ Щоденний бонус</b>Відкривай безкоштовний кейс раз на 24 години та збирай колекцію скінів.</div><div class="disclaimer">Фан-проєкт. Не пов'язаний з Epic Games. Монети та скіни існують тільки в цій демоверсії.</div></div>
+ <div class="side-bottom"><div class="side-note"><b>⚡ Щоденний бонус</b>Відкривай безкоштовний кейс раз на 24 години та збирай колекцію скінів.</div><div class="disclaimer">Фан-проєкт. Не пов'язаний з Epic Games. Виведення скінів поки недоступне, пізніше функція може з’явитися.</div></div>
 </aside>
 <main class="main">
  <header class="topbar"><div class="controls-row"><button class="menu-btn" id="menuBtn" aria-label="Меню">☰</button><div class="crumb">FORTNITE BATTLE <span style="color:#536884">/</span> <b id="crumbText">Головна</b></div></div><div class="top-actions"><div class="balance"><span class="coin">◈</span><span id="balance">0</span><span style="font-size:11px;color:#8493ad">МОНЕТ</span></div></div></header>
@@ -37,68 +86,91 @@
  <section class="page" id="page-cases">
   <div class="section-banner"><div><div class="eyebrow">CASE OPENING</div><h1 style="font-size:32px;margin-bottom:0">Магазин кейсів</h1><p>Кожен кейс має свій пул скінів і свою ціну. Дроп визначається випадково.</p></div><div class="controls-row"><input class="searchbox" id="caseSearch" placeholder="Знайти кейс…" autocomplete="off"></div></div>
   <div class="opening-panel" id="openingPanel"><div class="roulette-head"><div><h2 id="openingTitle">Відкриття кейса</h2><p>Рулетка зупиниться на предметі, який випав.</p></div><button class="btn btn-quiet" id="hideOpening">Сховати</button></div><div class="roulette-window"><div class="roulette-track" id="rouletteTrack"></div></div><div class="open-result" id="openResult"></div></div>
+  <div class="case-detail-panel" id="caseDetailPanel" aria-live="polite"><div class="case-detail-top"><div><div class="case-detail-kicker" id="caseDetailTag">CASE PREVIEW</div><h2 id="caseDetailTitle">Обери кейс</h2><p id="caseDetailDesc">Подивись на доступні скіни, а потім відкривай кейс.</p></div><button class="btn btn-quiet" id="closeCaseDetail" data-action="close-detail">Закрити ✕</button></div><div class="case-marquee-frame"><div class="case-marquee-track" id="caseMarqueeTrack"></div></div><div class="case-detail-bottom"><div><div class="case-open-price" id="caseDetailPrice">—</div><div class="muted" id="caseDetailMeta">Скіни з цього кейса прокручуються повільно.</div></div><button class="btn btn-primary" id="openSelectedCase" data-action="confirm-open" disabled>Відкрити кейс</button></div></div>
   <div class="case-grid" id="casesGrid"></div><div class="case-loading" id="caseCount"></div>
  </section>
  <section class="page" id="page-upgrade">
   <div class="section-banner"><div><div class="eyebrow">RISK IT FOR THE DROP</div><h1 style="font-size:32px;margin-bottom:0">Колесо апгрейду</h1><p>Обери свій скін і ціль дорожче. Шанс порахується автоматично за вартістю предметів.</p></div></div>
-  <div class="upgrade-layout"><div class="panel"><div class="panel-title"><h2>Налаштування апгрейду</h2><p>Ти обираєш предмети, але не можеш намалювати собі шанс.</p></div><div class="field"><label for="stakeSelect">ТВІЙ СКІН (СТАВКА)</label><select id="stakeSelect"></select></div><div class="stake-preview" id="stakePreview"></div><div class="field"><label for="targetSearch">ЗНАЙТИ ЦІЛЬОВИЙ СКІН</label><input id="targetSearch" placeholder="Наприклад, Peely або Raven" autocomplete="off"></div><div class="field"><label for="targetSelect">ЦІЛЬОВИЙ СКІН (ДОРОЖЧИЙ)</label><select id="targetSelect"></select></div><div class="stake-preview" id="targetPreview"></div><div class="chance-box"><div><b>Розрахований шанс</b><div class="muted" style="font-size:11px;margin-top:4px">80% × вартість ставки ÷ вартість цілі</div></div><div class="chance-num" id="chanceValue">—</div></div><div class="chance-track"><span id="chanceBar"></span></div><button class="btn btn-primary" id="upgradeBtn" style="width:100%">Крутити колесо апгрейду ↗</button><p class="disclaimer">Якщо колесо зупиниться на зеленій частині, отримаєш цільовий скін. Якщо на червоній, ставка зникне. Це лише ігрова механіка, без реальних платежів.</p><div class="upgrade-outcome" id="upgradeOutcome"></div></div>
-  <div class="panel"><div class="panel-title"><h2>Колесо удачі</h2><p>Розмір зеленої частини відповідає твоєму шансу.</p></div><div class="wheel-zone"><div class="wheel-pointer">▼</div><div class="upgrade-wheel" id="upgradeWheel" style="--chance-angle:0deg"><div class="wheel-center">GO!</div></div></div><div class="wheel-legend"><span><i class="legend-dot" style="background:var(--green)"></i>Успіх</span><span><i class="legend-dot" style="background:var(--red)"></i>Невдача</span></div><div class="stat-card"><div class="stat-top">Правило апгрейду <span class="stat-symbol">ⓘ</span></div><p style="font-size:12px;color:#9eabc1;margin:12px 0 0;line-height:1.7">Чим дорожчий цільовий скін порівняно зі ставкою, тим менше шансів його отримати. Максимальний шанс для дорожчої цілі не перевищує 80%.</p></div></div></div>
+  <div class="upgrade-layout"><div class="panel"><div class="panel-title"><h2>Налаштування апгрейду</h2><p>Ти обираєш предмети, але не можеш намалювати собі шанс.</p></div><div class="field"><label for="stakeSelect">ТВІЙ СКІН (СТАВКА)</label><select id="stakeSelect"></select></div><div class="stake-preview" id="stakePreview"></div><div class="field"><label for="targetSearch">ЗНАЙТИ ЦІЛЬОВИЙ СКІН</label><input id="targetSearch" placeholder="Наприклад, Peely або Raven" autocomplete="off"></div><div class="field"><label for="targetSelect">ЦІЛЬОВИЙ СКІН (УСІ СКІНИ)</label><select id="targetSelect"></select></div><div class="stake-preview" id="targetPreview"></div><div class="chance-box"><div><b>Реальний шанс</b><div class="muted" style="font-size:11px;margin-top:4px">45% × вартість ставки ÷ вартість цілі</div></div><div class="chance-num" id="chanceValue">—</div></div><div class="chance-track"><span id="chanceBar"></span></div><button class="btn btn-primary" id="upgradeBtn" style="width:100%">Крутити колесо апгрейду ↗</button><p class="disclaimer">Якщо колесо зупиниться на зеленій частині, отримаєш цільовий скін. Якщо на червоній, ставка зникне. Це лише ігрова механіка, без реальних платежів.</p><div class="upgrade-outcome" id="upgradeOutcome"></div></div>
+  <div class="panel"><div class="panel-title"><h2>Колесо удачі</h2><p>Розмір зеленої частини відповідає твоєму шансу.</p></div><div class="wheel-zone"><div class="wheel-pointer">▼</div><div class="upgrade-wheel" id="upgradeWheel" style="--chance-angle:0deg"><div class="wheel-center">GO!</div></div></div><div class="wheel-legend"><span><i class="legend-dot" style="background:var(--green)"></i>Успіх</span><span><i class="legend-dot" style="background:var(--red)"></i>Невдача</span></div><div class="stat-card"><div class="stat-top">Правило апгрейду <span class="stat-symbol">ⓘ</span></div><p style="font-size:12px;color:#9eabc1;margin:12px 0 0;line-height:1.7">Чим дорожчий цільовий скін порівняно зі ставкою, тим менше шансів його отримати. Базовий множник становить 45%; значення на екрані й на колесі збігаються з шансом випадіння.</p></div></div></div>
+ </section>
+ <section class="page" id="page-battle">
+  <div class="section-banner"><div><div class="eyebrow">CASE BATTLE</div><h1 style="font-size:32px;margin-bottom:0">Батл кейсів</h1><p>Ти проти суперника-бота: відкриваєте однакові кейси, бачите обидва дропи, а переможець забирає весь банк.</p></div></div>
+  <div class="battle-layout"><div class="panel"><div class="panel-title"><h2>Налаштуй батл</h2><p>Три раунди. Вища сумарна вартість скінів перемагає.</p></div><div class="field"><label for="battleCase">КЕЙС ДЛЯ БАТЛУ</label><select id="battleCase"><option value="starter">Стартовий · 15 ◈</option><option value="street">Вуличний · 25 ◈</option><option value="blue">Рідкісний · 50 ◈</option><option value="epic">Епічний · 100 ◈</option><option value="gold">Легендарний · 180 ◈</option><option value="frozen">Крижаний · 220 ◈</option><option value="shadow">Тіньовий · 240 ◈</option><option value="lava">Лавовий · 280 ◈</option><option value="icon">Іконічний · 350 ◈</option><option value="marvel">Супергерої · 400 ◈</option><option value="mythic">Міфічний · 500 ◈</option><option value="elite">Елітний · 700 ◈</option><option value="jackpot">Джекпот · 1200 ◈</option></select></div><div class="battle-summary" id="battleSummary">Вартість входу: 45 ◈ · банк: 90 ◈</div><button class="btn btn-primary" id="startBattle" style="width:100%">⚔ Почати батл</button><p class="disclaimer">Зараз суперник керується грою, це не реальний онлайн-гравець. Монети та предмети зберігаються лише в цьому браузері.</p></div>
+  <div class="panel"><div class="battle-topline"><h2>Арена</h2><span class="status">3 РАУНДИ</span></div><div class="battle-score"><div><div class="battle-avatar" id="battleYouAvatar">YOU</div><b id="battleYouName">Ти</b><strong id="battleYouScore">0 ◈</strong></div><div class="battle-vs">VS</div><div><div class="battle-avatar rival">BOT</div><b>Суперник</b><strong id="battleBotScore">0 ◈</strong></div></div><div id="battleRounds" class="battle-rounds"><div class="empty"><div class="empty-icon">⚔</div><b>Арена чекає</b><p>Обери кейс і почни батл. Ти побачиш обидва скіни в кожному раунді.</p></div></div><div id="battleResult" class="battle-result"></div></div></div>
  </section>
  <section class="page" id="page-inventory">
-  <div class="section-banner"><div><div class="eyebrow">YOUR LOCKER</div><h1 style="font-size:32px;margin-bottom:0">Мій інвентар</h1><p>Продавай зайві скіни за ігрові монети або створюй демо-заявку на виведення.</p></div><div class="balance"><span>▤</span><span id="inventoryCount">0 предметів</span></div></div><div class="grid-inventory" id="inventoryGrid"></div>
+  <div class="section-banner"><div><div class="eyebrow">YOUR LOCKER</div><h1 style="font-size:32px;margin-bottom:0">Мій інвентар</h1><p>Продавай зайві скіни за ігрові монети. Виведення тимчасово закриті.</p></div><div class="balance"><span>▤</span><span id="inventoryCount">0 предметів</span></div></div><div class="grid-inventory" id="inventoryGrid"></div>
  </section>
  <section class="page" id="page-profile">
   <div class="section-banner"><div><div class="eyebrow">PLAYER CARD</div><h1 style="font-size:32px;margin-bottom:0">Профіль гравця</h1><p>Твій прогрес і історія заявок.</p></div><button class="btn btn-secondary" id="refreshProfile">Оновити профіль</button></div>
-  <div class="profile-grid"><div class="profile-card"><div class="avatar">♙</div><div class="profile-name" id="profileName">Гравець</div><div class="muted" id="profileId">Fortnite Battle Player</div><div class="stats"><div class="stat-card"><div class="stat-top">Монети</div><div class="stat-value" id="profileCoins">0</div></div><div class="stat-card"><div class="stat-top">Скіни</div><div class="stat-value" id="profileSkins">0</div></div><div class="stat-card"><div class="stat-top">Кейси</div><div class="stat-value" id="profileCases">0</div></div></div></div><div class="profile-card"><h2>Заявки на виведення</h2><p class="muted" style="font-size:12px">Локальна демо-історія. Заявки не передають предмети у Fortnite.</p><div class="withdrawal-list" id="withdrawals"></div></div></div>
+  <div class="profile-grid"><div class="profile-card"><div class="avatar" id="profileAvatar">♙</div><div class="profile-name" id="profileName">Гравець</div><div class="muted" id="profileId">Fortnite Battle Player</div><div class="stats"><div class="stat-card"><div class="stat-top">Монети</div><div class="stat-value" id="profileCoins">0</div></div><div class="stat-card"><div class="stat-top">Скіни</div><div class="stat-value" id="profileSkins">0</div></div><div class="stat-card"><div class="stat-top">Кейси</div><div class="stat-value" id="profileCases">0</div></div></div></div><div class="profile-card"><h2>Заявки на виведення</h2><p class="muted" style="font-size:12px">Виведення тимчасово закриті. Коли функція запрацює, тут буде історія заявок.</p><div class="withdrawal-list" id="withdrawals"></div></div></div>
  </section>
- <footer class="disclaimer" style="padding-top:28px">Fortnite Battle — фанатська браузерна демоверсія. Назви та зображення косметики завантажуються через Fortnite-API, незалежний сторонній сервіс. Проєкт не пов'язаний з Epic Games, не використовує V-Bucks і не передає скіни в акаунти Fortnite.</footer>
+ <footer class="disclaimer" style="padding-top:28px">Fortnite Battle — фанатський браузерний проєкт. Назви та зображення косметики завантажуються через Fortnite-API, незалежний сторонній сервіс. Проєкт не пов'язаний з Epic Games, не використовує V-Bucks і наразі не передає скіни в акаунти Fortnite. Виведення поки немає, пізніше функція може з’явитися.</footer>
 </main>
 </div>
-<div class="modal-backdrop" id="modalBackdrop"><div class="modal"><div class="eyebrow">WITHDRAWAL REQUEST</div><h2 id="modalTitle">Заявка на виведення</h2><p id="modalText" class="muted" style="font-size:13px">Це демо-заявка, вона не передає предмет автоматично.</p><div class="field"><label for="withdrawContact">Твій контакт для демо-заявки</label><input id="withdrawContact" placeholder="Telegram username" autocomplete="off"></div><p class="disclaimer">Не вводь пароль від Epic Games, коди підтвердження або інші секретні дані.</p><div class="modal-actions"><button class="btn btn-quiet" id="cancelModal">Скасувати</button><button class="btn btn-primary" id="confirmWithdraw">Створити заявку</button></div></div></div>
+<div class="modal-backdrop" id="modalBackdrop"><div class="modal"><div class="eyebrow">WITHDRAWAL REQUEST</div><h2 id="modalTitle">Заявка на виведення</h2><p id="modalText" class="muted" style="font-size:13px">Виведення поки недоступне. Функція з’явиться пізніше.</p><div class="field"><label for="withdrawContact">Контакт для заявки</label><input id="withdrawContact" placeholder="Telegram username" autocomplete="off"></div><p class="disclaimer">Не вводь пароль від Epic Games, коди підтвердження або інші секретні дані.</p><div class="modal-actions"><button class="btn btn-quiet" id="cancelModal">Скасувати</button><button class="btn btn-primary" id="confirmWithdraw">Створити заявку</button></div></div></div>
 <div class="toast" id="toast"></div>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
 "use strict";
 const STORAGE_KEY="fortniteBattle_v3";
-const CACHE_KEY="fb_cosmetics_cache_v2";
+const CACHE_KEY="fb_cosmetics_cache_v5";
+const WITHDRAWALS_ENABLED=false;
 const DEFAULT_STATE={coins:0,inventory:[],casesOpened:0,lastDaily:0,withdrawals:[],name:"Гравець"};
 let state=loadState();
 let skins=[];
 let filteredCases=[];
 let pendingWithdraw=null;
+let selectedCaseId=null;
 let opening=false;
 let upgrading=false;
 let toastTimer=null;
 
 const SEED_SKINS=[
- {id:"fallback_aura",name:"Aura",rarity:"rare",value:250,series:"",image:""},
- {id:"fallback_peely",name:"Peely",rarity:"epic",value:600,series:"",image:""},
- {id:"fallback_raven",name:"Raven",rarity:"epic",value:600,series:"",image:""},
- {id:"fallback_skull",name:"Skull Trooper",rarity:"legendary",value:1200,series:"",image:""},
- {id:"fallback_blackknight",name:"Black Knight",rarity:"legendary",value:1500,series:"",image:""},
- {id:"fallback_renegade",name:"Renegade Raider",rarity:"legendary",value:1500,series:"",image:""},
- {id:"fallback_midas",name:"Midas",rarity:"legendary",value:1500,series:"",image:""},
- {id:"fallback_drift",name:"Drift",rarity:"epic",value:600,series:"",image:""},
- {id:"fallback_iceking",name:"Ice King",rarity:"legendary",value:1500,series:"Frozen",image:""},
- {id:"fallback_marvel",name:"Marvel Hero",rarity:"marvel",value:2300,series:"Marvel",image:""},
- {id:"fallback_icon",name:"Icon Series",rarity:"icon",value:2300,series:"Icon",image:""},
- {id:"fallback_mythic",name:"Mythic Warrior",rarity:"mythic",value:3000,series:"",image:""}
+ {id:"fallback_aura",name:"Aura",rarity:"rare",value:150,series:"",image:"https://fortnite-api.com/images/cosmetics/br/aura/icon.png"},
+ {id:"fallback_peely",name:"Peely",rarity:"epic",value:350,series:"",image:"https://fortnite-api.com/images/cosmetics/br/peely/icon.png"},
+ {id:"fallback_raven",name:"Raven",rarity:"epic",value:350,series:"",image:"https://fortnite-api.com/images/cosmetics/br/raven/icon.png"},
+ {id:"fallback_skull",name:"Skull Trooper",rarity:"legendary",value:40000,series:"",image:"https://fortnite-api.com/images/cosmetics/br/skull-trooper/icon.png"},
+ {id:"fallback_blackknight",name:"Black Knight",rarity:"legendary",value:55000,series:"",image:"https://fortnite-api.com/images/cosmetics/br/black-knight/icon.png"},
+ {id:"fallback_renegade",name:"Renegade Raider",rarity:"legendary",value:90000,series:"",image:"https://fortnite-api.com/images/cosmetics/br/renegade-raider/icon.png"},
+ {id:"fallback_midas",name:"Midas",rarity:"legendary",value:800,series:"",image:"https://fortnite-api.com/images/cosmetics/br/midas/icon.png"},
+ {id:"fallback_drift",name:"Drift",rarity:"epic",value:350,series:"",image:"https://fortnite-api.com/images/cosmetics/br/drift/icon.png"},
+ {id:"fallback_iceking",name:"Ice King",rarity:"legendary",value:1200,series:"Frozen",image:"https://fortnite-api.com/images/cosmetics/br/ice-king/icon.png"},
+ {id:"fallback_marvel",name:"Marvel Hero",rarity:"marvel",value:1800,series:"Marvel",image:"https://fortnite-api.com/images/cosmetics/br/marvel-hero/icon.png"},
+ {id:"fallback_icon",name:"Icon Series",rarity:"icon",value:1800,series:"Icon",image:"https://fortnite-api.com/images/cosmetics/br/icon-series/icon.png"},
+ {id:"fallback_mythic",name:"Mythic Warrior",rarity:"mythic",value:12000,series:"",image:"https://fortnite-api.com/images/cosmetics/br/mythic-warrior/icon.png"},
+ {id:"fallback_aerial",name:"Aerial Assault Trooper",rarity:"legendary",value:100000,series:"OG",image:"https://fortnite-api.com/images/cosmetics/br/aerial-assault-trooper/icon.png"},
+ {id:"fallback_ghoul",name:"Ghoul Trooper",rarity:"legendary",value:48000,series:"OG",image:"https://fortnite-api.com/images/cosmetics/br/ghoul-trooper/icon.png"},
+ {id:"fallback_galaxy",name:"Galaxy",rarity:"legendary",value:35000,series:"Icon",image:"https://fortnite-api.com/images/cosmetics/br/galaxy/icon.png"},
+ {id:"fallback_honor",name:"Honor Guard",rarity:"epic",value:30000,series:"",image:"https://fortnite-api.com/images/cosmetics/br/honor-guard/icon.png"},
+ {id:"fallback_doublehelix",name:"Double Helix",rarity:"epic",value:28000,series:"",image:"https://fortnite-api.com/images/cosmetics/br/double-helix/icon.png"},
+ {id:"fallback_omega",name:"Omega",rarity:"legendary",value:22000,series:"",image:"https://fortnite-api.com/images/cosmetics/br/omega/icon.png"},
+ {id:"fallback_reaper",name:"The Reaper",rarity:"legendary",value:18000,series:"",image:"https://fortnite-api.com/images/cosmetics/br/the-reaper/icon.png"},
+ {id:"fallback_wonder",name:"Wonder",rarity:"epic",value:18000,series:"",image:"https://fortnite-api.com/images/cosmetics/br/wonder/icon.png"},
+ {id:"fallback_sparkle",name:"Sparkle Specialist",rarity:"epic",value:15000,series:"",image:"https://fortnite-api.com/images/cosmetics/br/sparkle-specialist/icon.png"},
+ {id:"fallback_purpleskull",name:"Purple Skull Trooper",rarity:"legendary",value:32000,series:"",image:"https://fortnite-api.com/images/cosmetics/br/purple-skull-trooper/icon.png"}
 ];
 const CASES=[
  {id:"daily",name:"Щоденний дроп",price:0,tag:"FREE DROP",desc:"Безкоштовний кейс раз на 24 години",min:20,max:180,daily:true,glow:"#38dba955"},
  {id:"starter",name:"Стартовий",price:15,tag:"START HERE",desc:"Дешевий кейс для перших скінів",min:25,max:130,glow:"#4d9fff50"},
- {id:"street",name:"Вуличний",price:35,tag:"BUDGET",desc:"Прості образи та рідкісні знахідки",min:70,max:250,glow:"#4de6c050"},
- {id:"blue",name:"Рідкісний",price:75,tag:"RARE DROP",desc:"Трохи вищий рівень ризику",min:150,max:400,glow:"#3b8bff66"},
- {id:"epic",name:"Епічний",price:140,tag:"EPIC",desc:"Більше вартості, більше азарту",min:300,max:750,glow:"#ba58ff55"},
- {id:"gold",name:"Легендарний",price:250,tag:"LEGENDARY",desc:"Полювання за дуже рідкісними скінами",min:550,max:1350,glow:"#ff9d3b55"},
- {id:"frozen",name:"Крижаний",price:300,tag:"FROZEN SERIES",desc:"Зимова тема та холодні кольори",min:400,max:1500,series:"frozen",glow:"#69dbff55"},
- {id:"shadow",name:"Тіньовий",price:320,tag:"DARK DROP",desc:"Темні образи та похмурий стиль",min:500,max:1600,series:"dark",glow:"#9d7bff55"},
- {id:"lava",name:"Лавовий",price:380,tag:"LAVA SERIES",desc:"Вогняні образи з яскравими акцентами",min:550,max:1800,series:"lava",glow:"#ff632f55"},
- {id:"icon",name:"Іконічний",price:450,tag:"ICON SERIES",desc:"Кейc із предметами найвищих серій",min:800,max:2400,series:"icon",glow:"#ffc85755"},
- {id:"marvel",name:"Супергерої",price:520,tag:"MARVEL SERIES",desc:"Коміксовий дроп та топові образи",min:900,max:2600,series:"marvel",glow:"#fa567255"},
- {id:"mythic",name:"Міфічний",price:650,tag:"MYTHIC",desc:"Високовартісні предмети",min:1300,max:3200,glow:"#f7d45b66"},
- {id:"elite",name:"Елітний",price:850,tag:"ELITE DROP",desc:"Для тих, хто вже зібрав колекцію",min:1800,max:3800,glow:"#40d9ff55"},
- {id:"jackpot",name:"Джекпот",price:1200,tag:"HIGH RISK",desc:"Найцінніші предмети в одному кейсі",min:2300,max:9000,glow:"#ffce5255"}
+ {id:"street",name:"Вуличний",price:25,tag:"BUDGET",desc:"Прості образи та рідкісні знахідки",min:70,max:250,glow:"#4de6c050"},
+ {id:"blue",name:"Рідкісний",price:50,tag:"RARE DROP",desc:"Трохи вищий рівень ризику",min:150,max:400,glow:"#3b8bff66"},
+ {id:"epic",name:"Епічний",price:100,tag:"EPIC",desc:"Більше вартості, більше азарту",min:300,max:750,glow:"#ba58ff55"},
+ {id:"gold",name:"Легендарний",price:180,tag:"LEGENDARY",desc:"Полювання за дуже рідкісними скінами",min:550,max:1350,glow:"#ff9d3b55"},
+ {id:"frozen",name:"Крижаний",price:220,tag:"FROZEN SERIES",desc:"Зимова тема та холодні кольори",min:400,max:1500,series:"frozen",glow:"#69dbff55"},
+ {id:"shadow",name:"Тіньовий",price:240,tag:"DARK DROP",desc:"Темні образи та похмурий стиль",min:500,max:1600,series:"dark",glow:"#9d7bff55"},
+ {id:"lava",name:"Лавовий",price:280,tag:"LAVA SERIES",desc:"Вогняні образи з яскравими акцентами",min:550,max:1800,series:"lava",glow:"#ff632f55"},
+ {id:"icon",name:"Іконічний",price:350,tag:"ICON SERIES",desc:"Кейc із предметами найвищих серій",min:800,max:2400,series:"icon",glow:"#ffc85755"},
+ {id:"marvel",name:"Супергерої",price:400,tag:"MARVEL SERIES",desc:"Коміксовий дроп та топові образи",min:900,max:2600,series:"marvel",glow:"#fa567255"},
+ {id:"mythic",name:"Міфічний",price:500,tag:"MYTHIC",desc:"Високовартісні предмети",min:1300,max:3200,glow:"#f7d45b66"},
+ {id:"elite",name:"Елітний",price:700,tag:"ELITE DROP",desc:"Для тих, хто вже зібрав колекцію",min:1800,max:3800,glow:"#40d9ff55"},
+ {id:"jackpot",name:"Джекпот",price:1200,tag:"HIGH RISK",desc:"Висока ціна та преміальні образи",min:2200,max:9000,glow:"#ffce5255"},
+ {id:"omega",name:"Омега",price:1800,tag:"OMEGA DROP",desc:"Дорогі образи та колекційні серії",min:3500,max:12000,glow:"#7b7cff66"},
+ {id:"galaxy",name:"Галактика",price:2800,tag:"GALAXY SERIES",desc:"Космічні та особливі скіни",min:5000,max:20000,glow:"#9873ff66"},
+ {id:"blackhole",name:"Чорна діра",price:5000,tag:"BLACK HOLE",desc:"Високорівневий кейс для великої колекції",min:9000,max:35000,glow:"#5b4eff66"},
+ {id:"founders",name:"Засновники",price:9000,tag:"FOUNDER VAULT",desc:"Найдорожчі колекційні образи в грі",min:18000,max:100000,glow:"#ffb84d77"},
+ {id:"ultra",name:"Ультра-джекпот",price:15000,tag:"ULTRA JACKPOT",desc:"Найдорожчий кейс із максимальним ризиком",min:30000,max:150000,glow:"#ff4f9c77"}
 ];
 
 function loadState(){
@@ -113,11 +185,24 @@ function escapeHTML(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;",
 function formatNum(n){return Math.floor(Number(n)||0).toLocaleString("uk-UA")}
 function notify(message){const el=document.getElementById("toast");el.textContent=message;el.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("show"),2800)}
 function normRarity(raw,series){const x=String(raw||"").toLowerCase();const s=String(series||"").toLowerCase();if(s.includes("marvel"))return "marvel";if(s.includes("icon"))return "icon";if(x.includes("mythic"))return "mythic";if(x.includes("legendary"))return "legendary";if(x.includes("epic"))return "epic";if(x.includes("rare"))return "rare";if(x.includes("uncommon"))return "uncommon";return "common"}
-function priceFor(rarity,series){const s=String(series||"").toLowerCase();if(s.includes("marvel")||s.includes("icon"))return 2300;if(s.includes("frozen")||s.includes("lava")||s.includes("dark")||s.includes("shadow"))return 1500;return ({common:50,uncommon:100,rare:250,epic:600,legendary:1200,mythic:3000,marvel:2300,icon:2300})[rarity]||250}
+function priceFor(rarity,series,name="",id=""){
+ const base=({common:50,uncommon:100,rare:150,epic:350,legendary:800,mythic:1800,marvel:2200,icon:2200})[rarity]||150;
+ const n=String(name||"").toLowerCase();
+ const s=String(series||"").toLowerCase();
+ const combined=n+" "+s;
+ const grails={"aerial assault trooper":100000,"renegade raider":90000,"black knight":55000,"ghoul trooper":48000,"skull trooper":40000,"ikonik":35000,"galaxy":35000,"honor guard":30000,"double helix":28000,"omega":22000,"the reaper":18000,"wonder":18000,"sparkle specialist":15000,"purple skull trooper":32000};
+ for(const [key,value] of Object.entries(grails)){if(n.includes(key))return value}
+ let hash=0;for(const ch of String(id||name||"skin")){hash=(hash*31+ch.charCodeAt(0))>>>0;}
+ let multiplier=1+(hash%6)*0.18;
+ if(/marvel|icon series|star wars|gaming legends|dragon ball|naruto|dc series|anime|nike|frozen|lava|shadow|slurp/.test(combined))multiplier*=2.2;
+ if(base>=800&&hash%19===0)multiplier*=3.1;
+ if(hash%131===0)multiplier*=5.5;
+ return Math.max(50,Math.round((base*multiplier)/50)*50);
+}
 function normalizeCosmetic(c){
  const series=c.series?.value||c.series?.name||"";
  const rarity=normRarity(c.rarity?.value||c.rarity?.displayValue,series);
- return {id:String(c.id),name:String(c.name||"Unnamed skin"),rarity,value:priceFor(rarity,series),series,image:c.images?.featured||c.images?.icon||c.images?.smallIcon||""};
+ return {id:String(c.id),name:String(c.name||"Unnamed skin"),rarity,value:priceFor(rarity,series,c.name,c.id),series,image:c.images?.featured||c.images?.icon||c.images?.smallIcon||c.images?.other||""};
 }
 async function loadSkins(){
  const status=document.getElementById("apiStatus");
@@ -129,7 +214,7 @@ async function loadSkins(){
   const data=(json.data||[]).filter(c=>String(c.type?.value||"").toLowerCase()==="outfit").map(normalizeCosmetic).filter(s=>s.name&&s.id);
   if(!data.length)throw new Error("No outfits returned");
   skins=data;
-  try{localStorage.setItem(CACHE_KEY,JSON.stringify(data.slice(0,4000)))}catch(e){}
+  try{localStorage.setItem(CACHE_KEY,JSON.stringify(data))}catch(e){}
   status.innerHTML='<span class="dot"></span><span>Завантажено '+formatNum(skins.length)+' скінів з каталогу Fortnite.</span>';
  }catch(err){
   try{const cached=JSON.parse(localStorage.getItem(CACHE_KEY)||"[]");if(cached.length)skins=cached}catch(e){}
@@ -145,14 +230,20 @@ function skinById(id){return skins.find(s=>s.id===id)||SEED_SKINS.find(s=>s.id==
 function ownedCount(){return state.inventory.length}
 function rarityLabel(s){return ({common:"Звичайний",uncommon:"Незвичайний",rare:"Рідкісний",epic:"Епічний",legendary:"Легендарний",mythic:"Міфічний",marvel:"Marvel Series",icon:"Icon Series"})[s.rarity]||s.rarity}
 function art(s,extra=""){
- const img=s.image?`<img loading="lazy" src="${escapeHTML(s.image)}" alt="${escapeHTML(s.name)}" onerror="this.remove();this.parentElement.classList.add('no-image');this.parentElement.innerHTML='<span class=&quot;fallback-letter&quot;>${escapeHTML((s.name||"F").slice(0,1).toUpperCase())}</span>'">`: `<span class="fallback-letter">${escapeHTML((s.name||"F").slice(0,1).toUpperCase())}</span>`;
+ const letter=escapeHTML((s.name||"F").slice(0,1).toUpperCase());
+ const img=s.image?`<img loading="lazy" src="${escapeHTML(s.image)}" alt="${escapeHTML(s.name)}" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('no-image');this.parentElement.insertAdjacentHTML('beforeend','<span class=\"fallback-letter\">${letter}</span>')">`:`<span class="fallback-letter">${letter}</span>`;
  return `<div class="art rarity-${escapeHTML(s.rarity)} ${s.image?"":"no-image"} ${extra}">${img}</div>`;
 }
 function poolFor(c){
- let pool=skins.filter(s=>s.value>=c.min&&s.value<=c.max);
+ // Paid cases and the daily case no longer drop common/uncommon "normal" skins.
+ const eligible=skins.filter(s=>!(["common","uncommon"].includes(s.rarity)));
+ let pool=eligible.filter(s=>s.value>=c.min&&s.value<=c.max);
  if(c.series){const matching=pool.filter(s=>String(s.series||"").toLowerCase().includes(c.series));if(matching.length>=4)pool=matching}
- if(pool.length<8){const anchor=(c.min+c.max)/2;pool=skins.slice().sort((a,b)=>Math.abs(a.value-anchor)-Math.abs(b.value-anchor)).slice(0,Math.min(100,skins.length))}
- return pool.length?pool:SEED_SKINS;
+ if(pool.length<8){
+  const anchor=(c.min+c.max)/2;
+  pool=eligible.slice().sort((a,b)=>Math.abs(a.value-anchor)-Math.abs(b.value-anchor)).slice(0,Math.min(100,eligible.length));
+ }
+ return pool.length?pool:SEED_SKINS.filter(s=>!(["common","uncommon"].includes(s.rarity)));
 }
 function weightedSkin(pool){
  if(!pool||!pool.length)return skins[0]||SEED_SKINS[0];
@@ -163,9 +254,9 @@ function weightedSkin(pool){
 }
 function caseCoverSkin(c){const pool=poolFor(c);return pool[Math.floor(pool.length*.65)]||pool[0]||SEED_SKINS[0]}
 function caseCard(c){
- const cover=caseCoverSkin(c);const disabled=(c.daily&&Date.now()-Number(state.lastDaily||0)<86400000)||(!c.daily&&state.coins<c.price)||opening;
- const buttonText=c.daily?(disabled?"ВЖЕ ЗАБРАНО":"ЗАБРАТИ БЕЗКОШТОВНО"):"ВІДКРИТИ";
- return `<article class="case-card" style="--caseglow:${c.glow||"#318bff36"}"><div class="case-cover"><span class="case-tag">${escapeHTML(c.tag)}</span>${art(cover)}</div><div class="case-info"><h3>${escapeHTML(c.name)}</h3><p>${escapeHTML(c.desc)}</p><div class="case-bottom"><span class="price">${c.price===0?'FREE':formatNum(c.price)+' <span class="coin">◈</span>'}</span><button class="btn ${c.daily?'btn-secondary':'btn-primary'}" data-action="open" data-case="${c.id}" ${disabled?'disabled':''}>${buttonText}</button></div></div></article>`;
+ const cover=caseCoverSkin(c);
+ const disabled=opening;
+ return `<article class="case-card" data-case-card="${c.id}" style="--caseglow:${c.glow||"#318bff36"}"><div class="case-cover"><span class="case-tag">${escapeHTML(c.tag)}</span>${art(cover)}</div><div class="case-info"><h3>${escapeHTML(c.name)}</h3><p>${escapeHTML(c.desc)}</p><div class="case-bottom"><span class="price">${c.price===0?'FREE':formatNum(c.price)+' <span class="coin">◈</span>'}</span><button class="btn ${c.daily?'btn-secondary':'btn-primary'}" data-action="preview" data-case="${c.id}" ${disabled?'disabled':''}>ОГЛЯНУТИ</button></div></div></article>`;
 }
 function buildCasePages(){
  const query=(document.getElementById("caseSearch")?.value||"").trim().toLowerCase();
@@ -188,17 +279,18 @@ function renderAll(){
  const inv=document.getElementById("inventoryGrid");
  inv.innerHTML=state.inventory.length?state.inventory.map((item,i)=>{
   const s=skinById(item.skinId);const sell=Math.max(1,Math.floor(s.value*.35));
-  return `<article class="skin-card"><div class="skin-visual">${art(s)}</div><div class="skin-body"><h3>${escapeHTML(s.name)}</h3><p>${rarityLabel(s)} · ${formatNum(s.value)} монет</p><div class="skin-controls"><button class="btn btn-secondary" data-action="sell" data-index="${i}">Продати +${formatNum(sell)} ◈</button><button class="btn btn-quiet" data-action="withdraw" data-index="${i}">Вивести</button></div></div></article>`;
+  return `<article class="skin-card"><div class="skin-visual">${art(s)}</div><div class="skin-body"><h3>${escapeHTML(s.name)}</h3><p>${rarityLabel(s)} · ${formatNum(s.value)} монет</p><div class="skin-controls"><button class="btn btn-secondary" data-action="sell" data-index="${i}">Продати +${formatNum(sell)} ◈</button><button class="btn btn-quiet withdraw-closed" disabled title="Виведення тимчасово закриті">Виведення закриті</button></div></div></article>`;
  }).join(""):`<div class="empty"><div class="empty-icon">▤</div><b>Колекція поки порожня</b><p>Забери щоденний дроп або відкрий недорогий кейс.</p><button class="btn btn-primary" data-go="cases">До кейсів</button></div>`;
  document.getElementById("withdrawals").innerHTML=state.withdrawals.length?state.withdrawals.slice().reverse().map(w=>`<div class="withdraw-row"><div><b>${escapeHTML(w.skin)}</b><div class="muted" style="font-size:11px">${escapeHTML(w.contact||"Контакт не вказаний")}</div></div><span class="status">${escapeHTML(w.status)}</span></div>`).join(""):`<div class="empty" style="padding:25px"><b>Заявок поки немає</b></div>`;
  const dailyDone=Date.now()-Number(state.lastDaily||0)<86400000;
  const dailyBtn=document.getElementById("heroDaily");dailyBtn.disabled=dailyDone;dailyBtn.textContent=dailyDone?"Щоденний кейс уже забрано":"Забрати щоденний кейс";
  renderUpgradeOptions();
+ updateSelectedCaseButton();
 }
 function showPage(name){
  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+name));
  document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===name));
- const titles={home:"Головна",cases:"Кейси",upgrade:"Апгрейд",inventory:"Інвентар",profile:"Профіль"};
+ const titles={home:"Головна",cases:"Кейси",upgrade:"Апгрейд",battle:"Батл кейсів",inventory:"Інвентар",profile:"Профіль"};
  document.getElementById("crumbText").textContent=titles[name]||"Головна";
  document.getElementById("sidebar").classList.remove("open");
  if(name==="upgrade")renderUpgradeOptions();
@@ -211,16 +303,25 @@ function setProfile(){
   const u=tg.initDataUnsafe.user;
   state.name=[u.first_name,u.last_name].filter(Boolean).join(" ")||u.username||"Гравець";
   document.getElementById("profileId").textContent=u.username?"@"+u.username:"Telegram гравець";
- }else{document.getElementById("profileId").textContent="Fortnite Battle Player"}
+  // Telegram Mini Apps may provide the user's avatar URL in initDataUnsafe.user.photo_url.
+  if(u.photo_url){
+   const profileAvatar=document.getElementById("profileAvatar");
+   profileAvatar.innerHTML=`<img src="${escapeHTML(u.photo_url)}" alt="Фото профілю Telegram" referrerpolicy="no-referrer">`;
+   profileAvatar.querySelector("img").onerror=()=>{profileAvatar.textContent="♙"};
+   const battleAvatar=document.getElementById("battleYouAvatar");
+   battleAvatar.innerHTML=`<img src="${escapeHTML(u.photo_url)}" alt="Фото профілю Telegram" referrerpolicy="no-referrer">`;
+   battleAvatar.querySelector("img").onerror=()=>{battleAvatar.textContent="YOU"};
+  }
+ }else{document.getElementById("profileId").textContent="Відкрий гру через Telegram, щоб показати свій профіль"}
  document.getElementById("profileName").textContent=state.name||"Гравець";
+ document.getElementById("battleYouName").textContent=state.name||"Ти";
 }
 function targetOptions(stakeValue,query=""){
- const q=query.trim().toLowerCase();
- let list=skins.filter(s=>s.value>stakeValue&&s.name.toLowerCase().includes(q));
- list.sort((a,b)=>a.value-b.value||a.name.localeCompare(b.name));
- // Keep the select quick to use while retaining lots of options.
- if(list.length>700){const near=list.slice(0,500);const expensive=list.slice(-200);list=[...new Map([...near,...expensive].map(s=>[s.id,s])).values()]}
- return list;
+ const q=query.trim().toLocaleLowerCase();
+ // Show every outfit returned by the catalogue. Search only narrows the list when the user types.
+ // A target that is not more expensive can still be viewed, but the upgrade action blocks it.
+ return skins.filter(s=>!q||s.name.toLocaleLowerCase().includes(q))
+  .slice().sort((a,b)=>a.value-b.value||a.name.localeCompare(b.name));
 }
 function renderUpgradeOptions(keepTarget=true){
  const stake=document.getElementById("stakeSelect"),target=document.getElementById("targetSelect");if(!stake||!target||!skins.length)return;
@@ -229,18 +330,57 @@ function renderUpgradeOptions(keepTarget=true){
  if([...stake.options].some(o=>o.value===oldStake))stake.value=oldStake;
  const selected=state.inventory[Number(stake.value)];const stakeSkin=selected?skinById(selected.skinId):null;
  const options=targetOptions(stakeSkin?.value||0,document.getElementById("targetSearch").value);
- target.innerHTML=options.length?options.map(s=>`<option value="${escapeHTML(s.id)}">${escapeHTML(s.name)} · ${formatNum(s.value)} ◈</option>`).join(""):`<option value="">Немає дорожчих скінів за пошуком</option>`;
+ target.innerHTML=options.length?options.map(s=>`<option value="${escapeHTML(s.id)}">${escapeHTML(s.name)} · ${formatNum(s.value)} ◈${stakeSkin&&s.value<=stakeSkin.value?" · замала вартість":""}</option>`).join(""):`<option value="">За цим пошуком скінів немає</option>`;
  if(keepTarget&&options.some(s=>s.id===oldTarget))target.value=oldTarget;
+ else{
+  const firstValid=options.find(s=>!stakeSkin||s.value>stakeSkin.value);
+  if(firstValid)target.value=firstValid.id;
+ }
  updateUpgradePreview();
 }
 function updateArtPreview(el,s){el.innerHTML=s?`${art(s)}<div><b>${escapeHTML(s.name)}</b><small>${rarityLabel(s)} · ${formatNum(s.value)} монет</small></div>`:`${art({name:"?",rarity:"common",image:""})}<div><b>Спочатку отримай скін</b><small>Потрібен предмет для ставки</small></div>`}
-function calculatedChance(stake,target){if(!stake||!target||target.value<=stake.value)return 0;return Math.max(1,Math.min(80,Math.floor(80*stake.value/target.value*100)/100))}
+function calculatedChance(stake,target){if(!stake||!target||target.value<=stake.value)return 0;return Math.max(0.1,Math.min(45,Math.floor(45*stake.value/target.value*100)/100))}
 function updateUpgradePreview(){
  const it=state.inventory[Number(document.getElementById("stakeSelect").value)];const stake=it?skinById(it.skinId):null;const target=skins.find(s=>s.id===document.getElementById("targetSelect").value)||null;
  updateArtPreview(document.getElementById("stakePreview"),stake);updateArtPreview(document.getElementById("targetPreview"),target);
  const chance=calculatedChance(stake,target);document.getElementById("chanceValue").textContent=chance?chance.toLocaleString("uk-UA",{maximumFractionDigits:2})+"%":"—";document.getElementById("chanceBar").style.width=chance+"%";document.getElementById("upgradeWheel").style.setProperty("--chance-angle",(chance*3.6)+"deg");
  document.getElementById("upgradeBtn").disabled=upgrading||!stake||!target||target.value<=stake.value;
 }
+function updateSelectedCaseButton(){
+ const btn=document.getElementById("openSelectedCase");
+ if(!btn||!selectedCaseId)return;
+ const c=CASES.find(x=>x.id===selectedCaseId);if(!c)return;
+ const dailyDone=c.daily&&Date.now()-Number(state.lastDaily||0)<86400000;
+ const affordable=c.daily||state.coins>=c.price;
+ btn.disabled=opening||dailyDone||!affordable;
+ if(dailyDone)btn.textContent="ЩОДЕННИЙ КЕЙС УЖЕ ЗАБРАНО";
+ else if(!affordable)btn.textContent="НЕ ВИСТАЧАЄ МОНЕТ";
+ else btn.textContent=c.price===0?"ВІДКРИТИ БЕЗКОШТОВНО":`ВІДКРИТИ ЗА ${formatNum(c.price)} ◈`;
+}
+function openCasePreview(caseId){
+ const c=CASES.find(x=>x.id===caseId);if(!c)return;
+ selectedCaseId=caseId;
+ const panel=document.getElementById("caseDetailPanel");
+ document.getElementById("caseDetailTag").textContent=c.tag;
+ document.getElementById("caseDetailTitle").textContent=c.name;
+ document.getElementById("caseDetailDesc").textContent=c.desc+". Скіни прокручуються повільно. Натисни кнопку нижче, коли будеш готовий відкрити кейс.";
+ document.getElementById("caseDetailPrice").textContent=c.price===0?"БЕЗКОШТОВНО":formatNum(c.price)+" ◈";
+ const pool=poolFor(c);
+ const track=document.getElementById("caseMarqueeTrack");
+ const count=Math.min(32,pool.length);
+ const showcase=Array.from({length:count},(_,i)=>pool[Math.floor(i*pool.length/count)]);
+ const html=showcase.map(s=>`<div class="roulette-item">${art(s)}<b title="${escapeHTML(s.name)}">${escapeHTML(s.name)}</b></div>`).join("");
+ track.style.animation="none";track.innerHTML=html+html;track.offsetHeight;track.style.animation="";
+ document.getElementById("caseDetailMeta").textContent=`${formatNum(pool.length)} можливих скінів · звичайні та незвичайні скіни не випадають`;
+ panel.classList.add("show");
+ updateSelectedCaseButton();
+ panel.scrollIntoView({behavior:"smooth",block:"center"});
+}
+function closeCasePreview(){
+ document.getElementById("caseDetailPanel").classList.remove("show");
+ selectedCaseId=null;
+}
+
 function rollRoulette(c,won){
  const panel=document.getElementById("openingPanel");panel.classList.add("show");panel.scrollIntoView({behavior:"smooth",block:"center"});
  document.getElementById("openingTitle").textContent=c.name+" · рулетка";
@@ -251,18 +391,19 @@ function rollRoulette(c,won){
  const result=document.getElementById("openResult");result.classList.remove("show");result.innerHTML="";
  requestAnimationFrame(()=>requestAnimationFrame(()=>{
   const item=track.children[winnerIndex];const trackBox=track.getBoundingClientRect();const itemBox=item.getBoundingClientRect();const windowBox=track.parentElement.getBoundingClientRect();const currentCenter=(itemBox.left-trackBox.left)+itemBox.width/2;const targetCenter=windowBox.width/2;const offset=currentCenter-targetCenter;
-  track.style.transition="transform 4.6s cubic-bezier(.08,.78,.12,1)";track.style.transform=`translateX(-${offset}px)`;
+  track.style.transition="transform 7.6s cubic-bezier(.045,.78,.08,1)";track.style.transform=`translateX(-${offset}px)`;
  }));
  setTimeout(()=>{
   result.innerHTML=`<div><div class="muted" style="font-size:11px;text-transform:uppercase;letter-spacing:1px">Випав предмет</div><div class="result-name">${escapeHTML(won.name)}</div><span class="muted" style="font-size:12px">${rarityLabel(won)} · ${formatNum(won.value)} монет</span></div><button class="btn btn-primary" data-go="inventory">Перейти в інвентар →</button>`;
   result.classList.add("show");opening=false;renderAll();
- },4800);
+ },7900);
 }
 function openCase(caseId){
  if(opening)return;const c=CASES.find(x=>x.id===caseId);if(!c)return;
  if(c.daily&&Date.now()-Number(state.lastDaily||0)<86400000){notify("Щоденний кейс уже забрано. Він оновиться через 24 години.");return}
  if(!c.daily&&state.coins<c.price){notify("Не вистачає монет. Забери щоденний кейс або продай зайвий скін.");return}
  const pool=poolFor(c);if(!pool.length){notify("Поки немає скінів для цього кейса.");return}
+ closeCasePreview();document.getElementById("openingPanel").classList.remove("show");
  opening=true;if(!c.daily)state.coins-=c.price;else{state.lastDaily=Date.now();state.coins+=20}
  const won=weightedSkin(pool);state.inventory.push({uid:Date.now()+"_"+Math.random().toString(36).slice(2,7),skinId:won.id});state.casesOpened++;
  showPage("cases");save();buildCasePages();rollRoulette(c,won);notify(c.daily?"Щоденний кейс відкрито: +20 монет і новий скін!":"Кейс відкрито! Дивись, що випало.");
@@ -287,17 +428,42 @@ function upgrade(){
   out.classList.add("show");upgrading=false;save();renderUpgradeOptions(false);notify(didWin?"Апгрейд успішний!":"Апгрейд не пройшов.");
  },5300);
 }
+function updateBattleSummary(){const c=CASES.find(x=>x.id===document.getElementById("battleCase")?.value);if(!c)return;document.getElementById("battleSummary").textContent=`Вартість входу: ${formatNum(c.price)} ◈ з кожного · банк: ${formatNum(c.price*2)} ◈ · 3 раунди`;}
+function startBattle(){
+ const btn=document.getElementById("startBattle");if(btn.disabled)return;
+ const c=CASES.find(x=>x.id===document.getElementById("battleCase").value);if(!c)return;
+ if(state.coins<c.price){notify("Не вистачає монет на вхід у батл.");return}
+ const pool=poolFor(c);if(!pool.length){notify("Немає скінів для цього батлу.");return}
+ state.coins-=c.price;btn.disabled=true;btn.textContent="Батл триває…";document.getElementById("battleResult").className="battle-result";document.getElementById("battleResult").innerHTML="";
+ const rounds=Array.from({length:3},()=>({you:weightedSkin(pool),bot:weightedSkin(pool)}));
+ const youTotal=rounds.reduce((n,r)=>n+r.you.value,0),botTotal=rounds.reduce((n,r)=>n+r.bot.value,0);
+ document.getElementById("battleYouScore").textContent=formatNum(youTotal)+" ◈";document.getElementById("battleBotScore").textContent=formatNum(botTotal)+" ◈";
+ document.getElementById("battleRounds").innerHTML=rounds.map((r,i)=>`<div class="battle-round"><div class="battle-round-title">РАУНД ${i+1} · ОБИДВА ДРОПИ</div><div class="battle-drop ${r.you.value>=r.bot.value?'winner':''}">${art(r.you)}<div><b>${escapeHTML(r.you.name)}</b><small>${formatNum(r.you.value)} ◈ · Ти</small></div></div><div class="battle-drop ${r.bot.value>r.you.value?'winner':''}">${art(r.bot)}<div><b>${escapeHTML(r.bot.name)}</b><small>${formatNum(r.bot.value)} ◈ · Суперник</small></div></div></div>`).join("");
+ setTimeout(()=>{
+  const result=document.getElementById("battleResult");
+  if(youTotal>=botTotal){rounds.forEach(r=>{state.inventory.push({uid:Date.now()+"_"+Math.random().toString(36).slice(2,8),skinId:r.you.id});state.inventory.push({uid:Date.now()+"_"+Math.random().toString(36).slice(2,8),skinId:r.bot.id})});state.coins+=c.price*2;result.className="battle-result show";result.innerHTML=`<b style="color:var(--green);font-size:18px">🏆 ТИ ПЕРЕМІГ!</b><p>Забрав банк ${formatNum(c.price*2)} монет і всі 6 скінів з батлу. Твої скіни тепер в інвентарі.</p>`;notify("Перемога! Весь банк і скіни твої.");}
+  else{result.className="battle-result show lose";result.innerHTML=`<b style="color:var(--red);font-size:18px">Суперник переміг</b><p>Сума суперника більша на ${formatNum(botTotal-youTotal)} монет вартості. Наступного разу пощастить.</p>`;notify("Цього разу суперник забрав банк.");}
+  state.casesOpened+=3;save();btn.disabled=false;btn.textContent="⚔ Зіграти ще раз";
+ },900);
+}
 function sellSkin(index){const it=state.inventory[index];if(!it)return;const s=skinById(it.skinId);const payout=Math.max(1,Math.floor(s.value*.35));state.inventory.splice(index,1);state.coins+=payout;save();notify(`Продано ${s.name}: +${formatNum(payout)} монет.`)}
-function openWithdraw(index){const it=state.inventory[index];if(!it)return;pendingWithdraw=index;const s=skinById(it.skinId);document.getElementById("modalTitle").textContent="Заявка на виведення";document.getElementById("modalText").textContent="Предмет: "+s.name+". Це лише демо-заявка, предмет не передається у Fortnite.";document.getElementById("withdrawContact").value="";document.getElementById("modalBackdrop").classList.add("show")}
-function confirmWithdraw(){if(pendingWithdraw===null)return;const contact=document.getElementById("withdrawContact").value.trim();if(!contact){notify("Вкажи контакт для демо-заявки.");return}const it=state.inventory[pendingWithdraw];if(!it)return;const s=skinById(it.skinId);state.withdrawals.push({skin:s.name,skinId:s.id,contact,status:"Демо: очікує обробки",created:Date.now()});document.getElementById("modalBackdrop").classList.remove("show");pendingWithdraw=null;save();notify("Демо-заявку створено.")}
+function openWithdraw(index){if(!WITHDRAWALS_ENABLED){notify("Виведення тимчасово закриті.");return}const it=state.inventory[index];if(!it)return;pendingWithdraw=index;const s=skinById(it.skinId);document.getElementById("modalTitle").textContent="Заявка на виведення";document.getElementById("modalText").textContent="Предмет: "+s.name+". Виведення поки недоступне, функція з’явиться пізніше.";document.getElementById("withdrawContact").value="";document.getElementById("modalBackdrop").classList.add("show")}
+function confirmWithdraw(){if(!WITHDRAWALS_ENABLED){notify("Виведення тимчасово закриті.");return}if(pendingWithdraw===null)return;const contact=document.getElementById("withdrawContact").value.trim();if(!contact){notify("Виведення поки недоступне.");return}const it=state.inventory[pendingWithdraw];if(!it)return;const s=skinById(it.skinId);state.withdrawals.push({skin:s.name,skinId:s.id,contact,status:"Очікує обробки",created:Date.now()});document.getElementById("modalBackdrop").classList.remove("show");pendingWithdraw=null;save();notify("Заявку створено.")}
 
 document.addEventListener("click",e=>{
  const nav=e.target.closest("[data-page]");if(nav){showPage(nav.dataset.page);return}
  const go=e.target.closest("[data-go]");if(go){showPage(go.dataset.go);return}
- const action=e.target.closest("[data-action]");if(!action)return;
- if(action.dataset.action==="open")openCase(action.dataset.case);
- if(action.dataset.action==="sell")sellSkin(Number(action.dataset.index));
- if(action.dataset.action==="withdraw")openWithdraw(Number(action.dataset.index));
+ const action=e.target.closest("[data-action]");
+ if(action){
+  if(action.dataset.action==="preview"){openCasePreview(action.dataset.case);return}
+  if(action.dataset.action==="confirm-open"){if(selectedCaseId)openCase(selectedCaseId);return}
+  if(action.dataset.action==="close-detail"){closeCasePreview();return}
+  if(action.dataset.action==="open"){openCase(action.dataset.case);return}
+  if(action.dataset.action==="sell"){sellSkin(Number(action.dataset.index));return}
+  if(action.dataset.action==="withdraw"){if(!WITHDRAWALS_ENABLED)notify("Виведення тимчасово закриті.");else openWithdraw(Number(action.dataset.index));return}
+ }
+ const card=e.target.closest("[data-case-card]");
+ if(card){openCasePreview(card.dataset.caseCard)}
 });
 document.getElementById("dailyBtn")?.addEventListener("click",dailyCase);
 document.getElementById("heroDaily").addEventListener("click",dailyCase);
@@ -307,12 +473,15 @@ document.getElementById("stakeSelect").addEventListener("change",()=>renderUpgra
 document.getElementById("targetSelect").addEventListener("change",updateUpgradePreview);
 document.getElementById("targetSearch").addEventListener("input",()=>renderUpgradeOptions(false));
 document.getElementById("upgradeBtn").addEventListener("click",upgrade);
+document.getElementById("battleCase").addEventListener("change",updateBattleSummary);
+document.getElementById("startBattle").addEventListener("click",startBattle);
+updateBattleSummary();
 document.getElementById("confirmWithdraw").addEventListener("click",confirmWithdraw);
 document.getElementById("cancelModal").addEventListener("click",()=>{document.getElementById("modalBackdrop").classList.remove("show");pendingWithdraw=null});
 document.getElementById("modalBackdrop").addEventListener("click",e=>{if(e.target.id==="modalBackdrop"){e.currentTarget.classList.remove("show");pendingWithdraw=null}});
 document.getElementById("menuBtn").addEventListener("click",()=>document.getElementById("sidebar").classList.toggle("open"));
 document.getElementById("refreshProfile").addEventListener("click",()=>{setProfile();renderAll();notify("Профіль оновлено.")});
-if(window.Telegram&&window.Telegram.WebApp){window.Telegram.WebApp.ready();window.Telegram.WebApp.expand()}
+if(window.Telegram&&window.Telegram.WebApp){window.Telegram.WebApp.ready();window.Telegram.WebApp.expand();setProfile()}
 setProfile();renderAll();
 loadSkins();
 </script>
